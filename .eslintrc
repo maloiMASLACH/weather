@@ -1,11 +1,19 @@
 {
     "env": {
       "browser": true,
-      "es2021": true
+      "es6": true
     },
     "extends": [
       "airbnb/base"
     ],
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "babelOptions": {
+        "configFile": "./.babelrc",
+      },
+      "ecmaVersion": 2018, // needed to support spread in objects
+    },
+    "plugins": ["@babel"],
     "rules": {
       "no-plusplus": "off",
       "no-console": "warn",
@@ -19,5 +27,6 @@
         "props": false
       }]
     },
-    "ignorePatterns": ["*config.js"]
+    "ignorePatterns": ["*config.js"],
+
   }
