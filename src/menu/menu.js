@@ -13,8 +13,8 @@ export class Menu extends MenuTemplate {
   }
   renderButtons() {
     const buttons = document.createElement("div");
-
-    Object.keys(PagesIds).forEach((btn) => {
+    const buttonsArray= Object.keys(PagesIds).slice(0,Object.keys(PagesIds).length-1)
+    buttonsArray.forEach((btn) => {
       const btnHTML = document.createElement("a");
       btnHTML.href = `#${btn}`;
       btnHTML.text = `${btn}`;

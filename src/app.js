@@ -7,7 +7,7 @@ class App {
   static conteiner = document.body;
   static defaultPageId = "current-page";
   constructor() {
-    this.initialPage = new PagesIds['main-page']('main-page');
+    this.initialPage = new PagesIds["main-page"]("main-page");
     this.menu = new Menu("header", "menu");
   }
   static renderNewPAge(pageId) {
@@ -24,17 +24,12 @@ class App {
       page = new FavoritesPage(pageId);
     } else {console.log('re') ;page = new ErrorPage(pageId, "404");}
 */
-    try{
-        page = new PagesIds[pageId](pageId);
-    } catch(err){
-        console.log(err)
+    try {
+      page = new PagesIds[pageId](pageId);
+    } catch (err) {
+      page = new PagesIds["error"](pageId, "404");
     }
-   
-/*if (PagesIds.hasOwnProperty(pageId)){
-        page = new PagesIds[pageId](pageId);
-    }else {console.log()}
-    
-*/
+
     if (page) {
       const pageHTML = page.render();
       pageHTML.id = this.defaultPageId;
@@ -51,7 +46,11 @@ class App {
 
   run() {
     App.conteiner.append(this.menu.render());
-    App.renderNewPAge("main-page");
+
+    if (window.location.hash.length) {
+      const hash = window.location.hash.slice(1);
+      App.renderNewPAge(hash);
+    } else App.renderNewPAge("main-page");
 
     App.routChage();
   }
