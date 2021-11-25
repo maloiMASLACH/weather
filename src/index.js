@@ -1,7 +1,7 @@
-import App from './app';
+import App from "./app";
 
 const app = new App();
-app.run()
+app.run();
 /* import './style.css';
 
 class GetInfo {
