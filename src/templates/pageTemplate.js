@@ -1,16 +1,17 @@
 class PageTemplate {
-  static TextObg = {};
-
   constructor(id) {
-    this.conteiner = document.createElement("div");
+    this.conteiner = document.createElement('div');
     this.conteiner.id = id;
   }
+
   createPage(state) {
-    const menuState = document.createElement("div");
-    menuState.style.width = "100%";
-    menuState.style.height = "300px";
-    menuState.style.backgroundColor = state;
+    const menuState = document.createElement('div');
+
+    menuState.style.width = '100%';
+    menuState.style.height = '100%';
+    menuState.style.background = state.background;
     menuState.innerText = state;
+    this.conteiner.style.height = '90vh';
     return menuState;
   }
 

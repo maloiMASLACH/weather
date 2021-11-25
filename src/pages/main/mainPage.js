@@ -1,17 +1,17 @@
-import PageTemplate from "../../templates/pageTemplate";
+import PageTemplate from '../../templates/pageTemplate';
 
+const pageState = {
+  color: 'rgba(0,222,0,.5)',
+  background: 'linear-gradient(248.66deg, #A8C8ED 0%, #7673DC 100%)',
+};
 class MainPage extends PageTemplate {
-  static pageStateColors = {
-    color: "rgba(0,111,0,.5)",
-  };
-
   constructor(id) {
     super(id);
   }
 
   render() {
-    const menu = this.createPage(MainPage.pageStateColors.color);
-    this.conteiner.append(menu);
+    const page = this.createPage(pageState);
+    this.conteiner.append(page);
     return this.conteiner;
   }
 }

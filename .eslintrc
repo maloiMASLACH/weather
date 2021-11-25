@@ -6,16 +6,12 @@
     "extends": [
       "airbnb/base"
     ],
-    "parser": "@babel/eslint-parser",
-    "parserOptions": {
-      "babelOptions": {
-        "configFile": "./.babelrc",
-      },
-      "ecmaVersion": 2018, // needed to support spread in objects
-    },
-    "plugins": ["@babel"],
+    
     "rules": {
       "no-plusplus": "off",
+      "import/no-named-as-default": 0,
+      "import/no-named-as-default-member":0,
+      "no-useless-constructor":0,
       "no-console": "warn",
       "arrow-body-style": ["warn", "always"],
       "max-len": ["warn", { "code": 120 }],
