@@ -1,7 +1,7 @@
 import PageTemplate from "../../templates/pageTemplate";
 
 class FavoritesPage extends PageTemplate {
-  static menuStateColors = {
+  static pageStateColors = {
     color: "rgba(0,33,0,.5)",
   };
 
@@ -10,7 +10,7 @@ class FavoritesPage extends PageTemplate {
   }
 
   render() {
-    const menu = this.createPage(FavoritesPage.menuStateColors.color);
+    const menu = this.createPage(FavoritesPage.pageStateColors.color);
     this.conteiner.append(menu);
     return this.conteiner;
   }
