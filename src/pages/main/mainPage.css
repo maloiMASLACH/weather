@@ -256,6 +256,9 @@ label:active:after {
     background: linear-gradient(248.66deg, #FF9696 0%, #8C6BAE 100%);
     backdrop-filter: none;
   }
+  .indexes{
+    height: 25vh;
+  }
 }
 @media screen and (max-width: 768px) {
   .forecast .clockForecast {
@@ -298,6 +301,7 @@ label:active:after {
     margin: 10px 0;
   }
   .indexes {
+    height: 75vh;
     width: 100%;
     justify-content: center;
     display: grid;

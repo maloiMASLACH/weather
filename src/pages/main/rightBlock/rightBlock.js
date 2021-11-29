@@ -30,9 +30,9 @@ export default class RightBlock {
     console.log(canvas); */
     ctx.beginPath();
     ctx.strokeStyle = '#E0E0E0';
-    ctx.lineWidth = '6';
+    ctx.lineWidth = '8';
     ctx.moveTo(centerX, centerY);
-    ctx.lineTo(centerX + (Math.cos(((info.split(':')[0] * 30 - 90) * Math.PI) / 180)) * 60, centerY + (Math.sin(((info.split(':')[0] * 30 - 90) * Math.PI) / 180)) * 50);
+    ctx.lineTo(centerX + (Math.cos(((info.split(':')[0] * 30 - 90) * Math.PI) / 180)) * 50, centerY + (Math.sin(((info.split(':')[0] * 30 - 90) * Math.PI) / 180)) * 50);
     ctx.stroke();
 
     ctx.beginPath();
