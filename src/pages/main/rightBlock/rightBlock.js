@@ -1,6 +1,5 @@
-import icons from "../../../data/icons";
 export default class RightBlock {
-  inputBlock(info) {
+  inputBlock() {
     const conteiner = document.createElement("div");
     conteiner.className = "inputdiv";
     const input = document.createElement("input");
@@ -10,61 +9,136 @@ export default class RightBlock {
     conteiner.append(input, icon);
     return conteiner;
   }
+
   clocks(info) {
-      
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    const centerX = canvas.width / 2*0.4;
+    const centerX = (canvas.width / 2*0.8);
     const centerY = canvas.height / 2;
-    ctx.translate(centerX, centerY);
+   /* ctx.translate(centerX, centerY);
     ctx.rotate(((info.split(":")[0] * 30 - 90) * Math.PI) / 180);
     ctx.fillStyle = "#E0E0E0";
-    ctx.fillRect(0, 0, 40, 6);
+    ctx.fillRect(-2, -2, 40, 6);
     ctx.rotate(-((info.split(":")[0] * 30 - 90) * Math.PI) / 180);
     ctx.rotate(
-      (((info.split(":")[1].split(" ")[0] / 60) * 360 -90) * Math.PI) / 180
+      (((info.split(":")[1].split(" ")[0] / 60) * 360 - 90) * Math.PI) / 180
     );
     ctx.fillStyle = "#828282";
-    ctx.fillRect(-2, -2, 60, 6);
+    ctx.fillRect(-2, -2, 60, 4);
 
-    console.log(canvas);
+    console.log(canvas);*/
+    ctx.beginPath();
+ctx.strokeStyle = "#E0E0E0";
+ctx.lineWidth = "6";
+    ctx.moveTo(centerX,centerY);
+    ctx.lineTo(centerX+(Math.cos(((info.split(":")[0] * 30 - 90) * Math.PI) / 180))*60,centerY+(Math.sin(((info.split(":")[0] * 30 - 90) * Math.PI) / 180))*50)
+    ctx.stroke();
+
+    ctx.beginPath();
+ctx.strokeStyle = "#828282";
+ctx.lineWidth = "6";
+    ctx.moveTo(centerX,centerY);
+    ctx.lineTo(centerX+(Math.cos((((info.split(":")[1].split(" ")[0] / 60) * 360 - 90) * Math.PI) / 180))*60,centerY+(Math.sin((((info.split(":")[1].split(" ")[0] / 60) * 360 - 90) * Math.PI) / 180))*50)
+    ctx.stroke();
+
+   
     return canvas;
   }
+
   clocksBlock(info) {
     const events = ["Sunrise", "Last Update", "Sunset"];
     const eventTime = [
-      info.forecast.forecastday[0].astro.sunrise.split(' ')[0],
-      info.current.last_updated.split(' ')[1],
-      info.forecast.forecastday[0].astro.sunset.split(' ')[0],
+      info.forecast.forecastday[0].astro.sunrise.split(" ")[0],
+      info.current.last_updated.split(" ")[1],
+      info.forecast.forecastday[0].astro.sunset.split(" ")[0],
     ];
     const conteiner = document.createElement("div");
     conteiner.className = "allClocks";
-    
+
     for (let i = 0; i < 3; i++) {
-      let smallBlock = document.createElement("div");
+      const smallBlock = document.createElement("div");
       smallBlock.className = "clockBlock";
-      let text = document.createElement("p");
+      const text = document.createElement("p");
       text.className = "dayEvent";
       text.textContent = events[i];
-      
-      const clocks = this.clocks(eventTime[i]);
-      const canvasConteiner=document.createElement('div')
-    canvasConteiner.className='clock'
-        const time=document.createElement('p')
-        time.textContent=eventTime[i]
-     canvasConteiner.append(clocks,time)
-      smallBlock.append(text,canvasConteiner);
 
-      conteiner.append( smallBlock);
+      const clocks = this.clocks(eventTime[i]);
+      const canvasConteiner = document.createElement("div");
+      canvasConteiner.className = "clock";
+      const time = document.createElement("p");
+      time.textContent = eventTime[i];
+      canvasConteiner.append(clocks, time);
+      smallBlock.append(text, canvasConteiner);
+
+      conteiner.append(smallBlock);
     }
+    return conteiner;
+  }
+  renderIndexCanvas(info) {
+    const colors = [
+      "rgba(255, 255, 255, 0.24)",
+      "rgba(172, 142, 255, 0.78)",
+      "rgba(152, 116, 255, 0.83)",
+      "rgba(134, 92, 253, 0.85)",
+      " #713FFD",
+    ];
+console.log(info)
+     const canvas = document.createElement("canvas");
+     let ctx = canvas.getContext("2d");
+     canvas.style.width='100%'
+    colors.forEach((color)=>{
+    
+    ctx.beginPath();
+    ctx.lineWidth = 5;
+    let startK=1+(colors.indexOf(color)*0.2)
+    let endK=1+((colors.indexOf(color)+1)*0.2)
+    ctx.arc(150, 155, 125, Math.PI*startK, Math.PI * endK, false);
+    ctx.strokeStyle=color
+     ctx.stroke();
+     
+})
+
+let point=1+(info*0.2)
+ctx.lineWidth = 20;
+ctx.beginPath();
+ctx.arc(150, 155, 125, Math.PI*point-0.05, Math.PI * point+0.05, false);
+ctx.strokeStyle='white'
+     ctx.stroke();
+
+
+
+
+    return canvas;
+  }
+  indexesBlock(info) {
+    const conteiner = document.createElement("div");
+    conteiner.className = "indexes";
+    const indexes = ["Air Quality", "UV Index"];
+    const values = [info.current.air_quality['us-epa-index'],Math.round(info.current.uv/2)]
+    const condition =['Low','Moderate','Medium','Height',"Extream"]
+    console.log(values)
+    indexes.forEach((indexName) => {
+      const index = document.createElement("div");
+      index.className = "index";
+      const indexText = document.createElement("p");
+      indexText.textContent = indexName;
+      console.log(conteiner.style.width)
+      const img = this.renderIndexCanvas(values[indexes.indexOf(indexName)]);
+      const indexValue = document.createElement("p");
+      indexValue.textContent = `${values[indexes.indexOf(indexName)]}/5 ${condition[values[indexes.indexOf(indexName)]-1]}`;
+      index.append(indexText, img,indexValue);
+
+      conteiner.append(index);
+    });
     return conteiner;
   }
 
   render(rightBlock, info) {
     const input = this.inputBlock(info);
     const clocks = this.clocksBlock(info);
-    rightBlock.append(input, clocks);
+    const indexes = this.indexesBlock(info);
+    rightBlock.append(input, clocks, indexes);
     return rightBlock;
   }
 }

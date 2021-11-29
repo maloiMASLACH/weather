@@ -1,7 +1,7 @@
 class GetInfo {
   getWhatINeed() {
     return fetch(
-      'http://api.weatherapi.com/v1/forecast.json?key=01960bba4b6a444a831133935212311&q=Minsk&days=10&aqi=no&alerts=no',
+      'http://api.weatherapi.com/v1/forecast.json?key=01960bba4b6a444a831133935212311&q=Minsk&days=3&aqi=yes&alerts=yes',
     ).then((res) => {
       this.allInfo = res;
       return res.json();

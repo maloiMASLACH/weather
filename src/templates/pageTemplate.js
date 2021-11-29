@@ -11,7 +11,7 @@ class PageTemplate {
     pageState.style.height = '100%';
     // pageState.style.background = state.background;
     pageState.style.display = state.display;
-    this.conteiner.style.height = '90vh';
+    this.conteiner.style.height = '91vh';
     return pageState;
   }
 

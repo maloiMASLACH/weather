@@ -21,7 +21,7 @@ class MainPage extends PageTemplate {
     rightBlock.className = 'rightBlock';
     new LeftPartFirstBlock().leftBlock(leftBlock, this.conteiner.info);
     new Slider().render(leftBlock, this.conteiner.info);
-    new RightBlock().render(rightBlock,this.conteiner.info)
+    new RightBlock().render(rightBlock, this.conteiner.info);
     this.conteiner.firstChild.append(leftBlock, rightBlock);
   }
 

@@ -16,6 +16,7 @@
 .leftBlock .leftBlockFirstLay {
   display: flex;
   justify-content: space-between;
+  height: 40vh;
 }
 
 .leftBlock .currentTemp {
@@ -24,18 +25,17 @@
 }
 
 .leftBlock .currentTemp .tempNumber {
-  font-size: 84px;
+  font-size: 15vh;
 }
 .leftBlock .currentTemp .currentDegrees {
-  font-size: 32px;
+  font-size: 5vh;
   letter-spacing: -0.05em;
 }
 .leftBlock .icon {
-  height: 50px;
-  width: 71px;
+  height: 10vh;
 }
 .leftBlock .currentSity {
-  font-size: 42px;
+  font-size: 5vh;
 }
 .switcher {
   padding-right: 15%;
@@ -81,11 +81,13 @@ input:checked + label:after {
 label:active:after {
   width: 130px;
 }
-.shortInfoLine {
-  display: flex;
+.leftBlockSecondLay {
   width: 60%;
-  margin-top: 5vh;
+  margin-top: 7vh;
+}
+.shortInfoLine {
   justify-content: space-between;
+  display: flex;
 }
 .shortInfoLine img {
   padding-top: 2px;
@@ -93,6 +95,7 @@ label:active:after {
   width: 12px;
 }
 .slider {
+  margin-top: 5vh;
   display: flex;
   width: 90%;
   align-items: center;
@@ -113,21 +116,23 @@ label:active:after {
   display: inline;
   flex-shrink: 0;
   margin: 0 54px;
-  height: 100px;
-  width: 55px;
+  height: 150px;
+  width: 75px;
   border-radius: 11px;
   background: rgba(255, 255, 255, 0.2);
   filter: blur(0.5px);
   border-radius: 11px;
+  font-family:Inter ;
   font-size: 16px;
   text-align: center;
   color: #ffffff;
   padding-top: 10px;
 }
 .forecast .clockForecast img {
-  margin: 10px 0;
+  margin: 20px 0;
 }
 .rightBlock {
+  overflow: hidden;
   width: 40%;
   background: radial-gradient(
     100% 100% at 0% 0%,
@@ -137,8 +142,15 @@ label:active:after {
   box-shadow: inset -5px -5px 250px rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(42px);
 }
+.rightBlock p {
+  text-align: center;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100;
+  color: #ffffff;
+}
 .inputdiv {
-    margin-top: 36px;
+  margin-top: 36px;
   display: flex;
   position: relative;
   justify-content: center;
@@ -161,50 +173,60 @@ label:active:after {
     rgba(255, 255, 255, 0.65) -41.21%,
     rgba(255, 255, 255, 0) 57.53%
   );
-  font-family: Inter;
-    font-style: normal;
-    font-weight: 100;
-    color: #ffffff;
-    font-size: 30px;
 }
-.searchPanel:focus{
-    outline: none;
+.searchPanel:focus {
+  outline: none;
 }
 .inputdiv img {
   position: absolute;
   left: 80%;
   top: 24px;
   width: 25px;
-
 }
-.allClocks{
-    overflow: hidden;
-    display: flex;
-    width: 90%;
-    margin: 0 auto;
-    justify-content: space-around;
+.allClocks {
+  overflow: hidden;
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  justify-content: space-around;
+  padding-bottom: 8vh;
+  border-bottom: 0.6px solid #ffffff;
 }
-.clockBlock{
-    width: 20%;
-    
+.clockBlock {
+  overflow: hidden;
+  width: 20%;
 }
-.clockBlock p{
-    text-align: center;
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 100;
-    color: #ffffff;
+.dayEvent {
+  font-size: 28px;
 }
-.clock{
-    
-    height: 210px;
-background: rgba(255, 255, 255, 0.26);
-border-radius: 100px;
+.clock {
+  overflow: hidden;
+  height: 25vh;
+  background: rgba(255, 255, 255, 0.26);
+  border-radius: 100px;
 }
-.clock canvas{
-    width: 260%;
+.clock canvas {
+  width: 120%;
+  height: 55%;
 }
-.clock p{
-    margin-top: 60px;
-    font-weight: 900;
+.clock p {
+  font-weight: 900;
+}
+.indexes {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.index {
+  justify-content: center;
+  display: inline-block;
+}
+.index p:nth-child(3) {
+  width: 20%;
+  margin: 0 auto;
+  font-size: 22px;
+  margin-top: -90px;
+  flex-wrap: wrap;
 }

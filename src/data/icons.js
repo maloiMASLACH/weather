@@ -3,7 +3,7 @@ const icons = {
   'Light rain shower': 'snow',
   'Light sleet': 'snow',
   'Light snow': 'snow',
-  'Heavy snow':'snow',
+  'Heavy snow': 'snow',
   'Moderate or heavy sleet': 'snow',
   'Light drizzle': 'rain_light',
   'Moderate rain': 'rain_huge',
@@ -12,11 +12,12 @@ const icons = {
   Sunny: 'sunny',
   Overcast: 'cloud',
   Fog: 'cloud',
-  "Cloudy":"cloud",
-  "Mist":'cloud',
-  'Patchy rain possible':'rain_light',
-  'Moderate snow':'snow',
-  'Blowing snow':'snow',
-  'Blizzard':'snow'
+  Cloudy: 'cloud',
+  Mist: 'cloud',
+  'Patchy rain possible': 'rain_light',
+  'Moderate snow': 'snow',
+  'Blowing snow': 'snow',
+  Blizzard: 'snow',
+  "Light snow showers":'rain_light'
 };
 export default icons;
