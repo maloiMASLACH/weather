@@ -1,5 +1,6 @@
 import { Menu } from './menu/menu';
 import PagesIds from './pages/pageIDs';
+import GetInfo from './data/storage';
 
 const conteiner = document.body;
 const defaultPageId = 'current-page';
@@ -9,15 +10,16 @@ class App {
     this.menu = new Menu('header', 'menu');
   }
 
-  static renderNewPAge(pageId) {
+  static async renderNewPAge(pageId) {
     const currentPage = document.querySelector(`#${defaultPageId}`);
     if (currentPage) {
       currentPage.remove();
     }
     let page = null;
-
+    const info = await new GetInfo().showAll();
+    console.log(info);
     try {
-      page = new PagesIds[pageId](pageId);
+      page = new PagesIds[pageId](pageId, info);
     } catch (err) {
       page = new PagesIds.Error(pageId, '404');
     }
