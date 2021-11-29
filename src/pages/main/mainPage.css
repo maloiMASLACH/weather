@@ -1,0 +1,210 @@
+@font-face {
+  font-family: "Inter";
+  src: url("../../assets/fonts/Inter-ExtraLight.ttf");
+}
+.leftBlock p {
+  margin: 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100;
+  color: #ffffff;
+}
+.leftBlock {
+  width: 60%;
+  padding-left: 5%;
+}
+.leftBlock .leftBlockFirstLay {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftBlock .currentTemp {
+  display: flex;
+  margin: 0;
+}
+
+.leftBlock .currentTemp .tempNumber {
+  font-size: 84px;
+}
+.leftBlock .currentTemp .currentDegrees {
+  font-size: 32px;
+  letter-spacing: -0.05em;
+}
+.leftBlock .icon {
+  height: 50px;
+  width: 71px;
+}
+.leftBlock .currentSity {
+  font-size: 42px;
+}
+.switcher {
+  padding-right: 15%;
+}
+input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+label {
+  font-size: 24px;
+  letter-spacing: 15px;
+  line-height: 40px;
+  cursor: pointer;
+  text-indent: 10px;
+  width: 92px;
+  height: 40px;
+  display: block;
+  position: relative;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 100px;
+}
+
+label:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 52.8px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 100px;
+  transition: 0.3s;
+}
+
+input:checked + label:after {
+  content: "";
+  left: calc(100% - 0px);
+  transform: translateX(-100%);
+}
+
+label:active:after {
+  width: 130px;
+}
+.shortInfoLine {
+  display: flex;
+  width: 60%;
+  margin-top: 5vh;
+  justify-content: space-between;
+}
+.shortInfoLine img {
+  padding-top: 2px;
+  height: 14px;
+  width: 12px;
+}
+.slider {
+  display: flex;
+  width: 90%;
+  align-items: center;
+}
+.arrow {
+  padding-top: 50px;
+  height: 5vh;
+}
+.forecast {
+  display: flex;
+  margin-top: 5vh;
+  margin-right: 10%;
+  overflow: hidden;
+  transform: 0.5s;
+  user-select: none;
+}
+.forecast .clockForecast {
+  display: inline;
+  flex-shrink: 0;
+  margin: 0 54px;
+  height: 100px;
+  width: 55px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.2);
+  filter: blur(0.5px);
+  border-radius: 11px;
+  font-size: 16px;
+  text-align: center;
+  color: #ffffff;
+  padding-top: 10px;
+}
+.forecast .clockForecast img {
+  margin: 10px 0;
+}
+.rightBlock {
+  width: 40%;
+  background: radial-gradient(
+    100% 100% at 0% 0%,
+    rgba(255, 255, 255, 0.4) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  box-shadow: inset -5px -5px 250px rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(42px);
+}
+.inputdiv {
+    margin-top: 36px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+.searchPanel {
+  width: 80%;
+  height: 64px;
+  background: linear-gradient(
+    116.79deg,
+    rgba(255, 255, 255, 0.48) -41.94%,
+    rgba(255, 255, 255, 0.12) 57.51%
+  );
+  backdrop-filter: blur(100px);
+
+  border-radius: 20px;
+  border: 3px solid;
+
+  border-image-source: linear-gradient(
+    116.83deg,
+    rgba(255, 255, 255, 0.65) -41.21%,
+    rgba(255, 255, 255, 0) 57.53%
+  );
+  font-family: Inter;
+    font-style: normal;
+    font-weight: 100;
+    color: #ffffff;
+    font-size: 30px;
+}
+.searchPanel:focus{
+    outline: none;
+}
+.inputdiv img {
+  position: absolute;
+  left: 80%;
+  top: 24px;
+  width: 25px;
+
+}
+.allClocks{
+    overflow: hidden;
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+    justify-content: space-around;
+}
+.clockBlock{
+    width: 20%;
+    
+}
+.clockBlock p{
+    text-align: center;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 100;
+    color: #ffffff;
+}
+.clock{
+    
+    height: 210px;
+background: rgba(255, 255, 255, 0.26);
+border-radius: 100px;
+}
+.clock canvas{
+    width: 260%;
+}
+.clock p{
+    margin-top: 60px;
+    font-weight: 900;
+}
