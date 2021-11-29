@@ -1,18 +1,18 @@
 class PageTemplate {
-  constructor(id) {
+  constructor(id, info) {
     this.conteiner = document.createElement('div');
     this.conteiner.id = id;
+    this.conteiner.info = info;
   }
 
   createPage(state) {
-    const menuState = document.createElement('div');
-
-    menuState.style.width = '100%';
-    menuState.style.height = '100%';
-    menuState.style.background = state.background;
-    menuState.innerText = state;
+    const pageState = document.createElement('div');
+    pageState.style.width = '100%';
+    pageState.style.height = '100%';
+    // pageState.style.background = state.background;
+    pageState.style.display = state.display;
     this.conteiner.style.height = '90vh';
-    return menuState;
+    return pageState;
   }
 
   render() {
