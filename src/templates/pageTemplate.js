@@ -5,9 +5,9 @@ class PageTemplate {
     this.conteiner.info = info;
   }
 
-  createPage(state) {
+  createPage() {
     const pageState = document.createElement('div');
-    pageState.className='content'
+    pageState.className = 'content';
     pageState.style.width = '100%';
     pageState.style.height = '100%';
     // pageState.style.background = state.background;

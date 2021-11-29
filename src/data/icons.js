@@ -18,6 +18,6 @@ const icons = {
   'Moderate snow': 'snow',
   'Blowing snow': 'snow',
   Blizzard: 'snow',
-  "Light snow showers":'rain_light'
+  'Light snow showers': 'rain_light',
 };
 export default icons;

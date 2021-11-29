@@ -1,23 +1,24 @@
 import icons from '../../../data/icons';
 
 export default class Slider {
-  slide(slider){
+  slide(slider) {
     slider.addEventListener(
-      "mousewheel",
-      (event) => {
-        event = window.event || event;
-        var delta = Math.max(-1, Math.min(1, event.wheelDelta || -event.detail));
+      'mousewheel',
+      (e) => {
+        const ev = window.event || e;
+        const delta = Math.max(-1, Math.min(1, ev.wheelDelta || -ev.detail));
         slider.scrollLeft -= delta * 10;
-        setTimeout(()=>{slider.scrollLeft -= delta * 10},10)
-        setTimeout(()=>{slider.scrollLeft -= delta * 10},20)
-        setTimeout(()=>{slider.scrollLeft -= delta * 10},30)
-        setTimeout(()=>{slider.scrollLeft -= delta * 10},40)
+        setTimeout(() => { slider.scrollLeft -= delta * 10; }, 10);
+        setTimeout(() => { slider.scrollLeft -= delta * 10; }, 20);
+        setTimeout(() => { slider.scrollLeft -= delta * 10; }, 30);
+        setTimeout(() => { slider.scrollLeft -= delta * 10; }, 40);
 
-        event.preventDefault();
+        ev.preventDefault();
       },
-      false
+      false,
     );
   }
+
   clockBlocks(info) {
     const blocks = document.createElement('div');
     blocks.className = 'forecast';
@@ -55,7 +56,7 @@ export default class Slider {
         blocks.append(block);
       }
     }
-      this.slide(blocks);
+    this.slide(blocks);
     return blocks;
   }
 
