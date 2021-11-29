@@ -7,11 +7,12 @@ class PageTemplate {
 
   createPage(state) {
     const pageState = document.createElement('div');
+    pageState.className='content'
     pageState.style.width = '100%';
     pageState.style.height = '100%';
     // pageState.style.background = state.background;
-    pageState.style.display = state.display;
     this.conteiner.style.height = '91vh';
+
     return pageState;
   }
 

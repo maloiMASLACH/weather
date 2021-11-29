@@ -17,3 +17,31 @@ header div a {
   letter-spacing: 0em;
   color: rgba(255, 255, 255, 1);
 }
+@media screen  and (max-width: 425px){
+  header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    z-index: 100;
+    position: fixed;
+    top: 94vh;
+    left: 0px;
+    background: linear-gradient(248.66deg, #FF9696 0%, #8C6BAE 100%);
+
+  }
+  header div {
+    width: 100%;
+    justify-content: space-around;
+
+}
+}
+
+
+@media screen  and (max-width: 321px){
+  header div a {
+    font-size: 150%;
+}
+}
+
+
+

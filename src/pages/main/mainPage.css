@@ -2,6 +2,9 @@
   font-family: "Inter";
   src: url("../../assets/fonts/Inter-ExtraLight.ttf");
 }
+.content {
+  display: flex;
+}
 .leftBlock p {
   margin: 0;
   font-family: Inter;
@@ -107,7 +110,6 @@ label:active:after {
 .forecast {
   display: flex;
   margin-top: 5vh;
-  margin-right: 10%;
   overflow: hidden;
   transform: 0.5s;
   user-select: none;
@@ -122,7 +124,7 @@ label:active:after {
   background: rgba(255, 255, 255, 0.2);
   filter: blur(0.5px);
   border-radius: 11px;
-  font-family:Inter ;
+  font-family: Inter;
   font-size: 16px;
   text-align: center;
   color: #ffffff;
@@ -142,6 +144,7 @@ label:active:after {
   box-shadow: inset -5px -5px 250px rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(42px);
 }
+
 .rightBlock p {
   text-align: center;
   font-family: Inter;
@@ -193,7 +196,6 @@ label:active:after {
   border-bottom: 0.6px solid #ffffff;
 }
 .clockBlock {
-  overflow: hidden;
   width: 20%;
 }
 .dayEvent {
@@ -229,4 +231,87 @@ label:active:after {
   font-size: 22px;
   margin-top: -90px;
   flex-wrap: wrap;
+}
+@media screen and (max-width: 1024px) {
+  .content {
+    display: inline;
+  }
+  .leftBlock {
+    width: 90%;
+    margin-bottom: 135px;
+  }
+  .forecast .clockForecast {
+    margin: 0 34px;
+  }
+
+  .slider {
+    width: 100%;
+  }
+  .rightBlock {
+    width: 100%;
+    margin: 0;
+    margin-left: -5%;
+    padding-left: 5%;
+    padding-bottom: 100px;
+    background: linear-gradient(248.66deg, #FF9696 0%, #8C6BAE 100%);
+    backdrop-filter: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .forecast .clockForecast {
+    margin: 0 24px;
+  }
+  .switcher {
+    padding-right: 5%;
+  }
+}
+@media screen and (max-width: 425px) {
+  .leftBlock {
+    margin-bottom: 55px;
+  }
+  .slider {
+    margin-top: 1vh;
+  }
+  .leftBlockSecondLay {
+    width: 100%;
+    margin-top: 7vh;
+  }
+  .rightBlock {
+    width: 98vw;
+  }
+  .allClocks {
+    display: inline;
+  }
+  .clockBlock {
+    width: 40%;
+    margin-left: 30%;
+  }
+  .clock {
+    border-radius: 40px;
+  }
+  .forecast .clockForecast {
+    margin: 0 14px;
+    height: 100px;
+    width: 55px;
+  }
+  .forecast .clockForecast img {
+    margin: 10px 0;
+  }
+  .indexes {
+    width: 100%;
+    justify-content: center;
+    display: grid;
+  }
+  .index {
+    justify-content: center;
+    margin-top: 60px;
+    padding-top: 10px;
+    border-top: 0.6px solid #ffffff;
+  }
+  
+}
+@media screen and (max-width: 321px) {
+  .shortInfoLine {
+    display: inherit;
+  }
 }

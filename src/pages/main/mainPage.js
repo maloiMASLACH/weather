@@ -6,8 +6,7 @@ import RightBlock from './rightBlock/rightBlock';
 
 const pageState = {
   color: 'rgba(0,222,0,.5)',
-  background: 'linear-gradient(248.66deg, #A8C8ED 0%, #7673DC 100%)',
-  display: 'flex',
+  background: 'linear-gradient(248.66deg, #FF9696 0%, #8C6BAE 100%)'
 };
 class MainPage extends PageTemplate {
   constructor(id, info) {
