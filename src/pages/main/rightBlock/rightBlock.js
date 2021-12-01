@@ -1,12 +1,57 @@
+import App from '../../../app';
+import GetInfo from '../../../data/storage';
+
 export default class RightBlock {
+  async renderHelpBlocks(text, conteiner, input) {
+    const info = await new GetInfo().sityes(text);
+    console.log(info);
+    const help = document.createElement('div');
+
+    if (info.length) {
+      for (let i = 0; i < info.length; i++) {
+        if (i < 5) {
+          const option = document.createElement('p');
+          option.textContent = info[i].name;
+          option.addEventListener('click', () => {
+            input.value = option.textContent;
+          });
+          help.append(option);
+        }
+        conteiner.innerHTML = '';
+        conteiner.append(help);
+      }
+    } else {
+      conteiner.innerHTML = '';
+    }
+    document.addEventListener('click', () => {
+      conteiner.innerHTML = '';
+    });
+  }
+
   inputBlock() {
     const conteiner = document.createElement('div');
     conteiner.className = 'inputdiv';
     const input = document.createElement('input');
     input.className = 'searchPanel';
+    const help = document.createElement('div');
+    help.className = 'helpBloks';
+    input.addEventListener('keyup', (e) => {
+      if (e.code === 'Enter') {
+        localStorage.setItem('sity', input.value);
+        const app = new App();
+        app.renderNewPAge('Home');
+      }
+      this.renderHelpBlocks(input.value, help, input);
+    });
+
     const icon = document.createElement('img');
     icon.src = './light/search.png';
-    conteiner.append(input, icon);
+    icon.addEventListener('click', () => {
+      localStorage.setItem('sity', input.value);
+      const app = new App();
+      app.renderNewPAge('Home');
+    });
+    conteiner.append(input, icon, help);
     return conteiner;
   }
 
@@ -14,7 +59,7 @@ export default class RightBlock {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    const centerX = (canvas.width / (2 * 1.2));
+    const centerX = canvas.width / (2 * 1.2);
     const centerY = canvas.height / 2;
     /* ctx.translate(centerX, centerY);
     ctx.rotate(((info.split(":")[0] * 30 - 90) * Math.PI) / 180);
@@ -32,14 +77,28 @@ export default class RightBlock {
     ctx.strokeStyle = '#E0E0E0';
     ctx.lineWidth = '8';
     ctx.moveTo(centerX, centerY);
-    ctx.lineTo(centerX + (Math.cos(((info.split(':')[0] * 30 - 90) * Math.PI) / 180)) * 50, centerY + (Math.sin(((info.split(':')[0] * 30 - 90) * Math.PI) / 180)) * 50);
+    ctx.lineTo(
+      centerX + Math.cos(((info.split(':')[0] * 30 - 90) * Math.PI) / 180) * 50,
+      centerY + Math.sin(((info.split(':')[0] * 30 - 90) * Math.PI) / 180) * 50,
+    );
     ctx.stroke();
 
     ctx.beginPath();
     ctx.strokeStyle = '#828282';
     ctx.lineWidth = '6';
     ctx.moveTo(centerX, centerY);
-    ctx.lineTo(centerX + (Math.cos((((info.split(':')[1].split(' ')[0] / 60) * 360 - 90) * Math.PI) / 180)) * 60, centerY + (Math.sin((((info.split(':')[1].split(' ')[0] / 60) * 360 - 90) * Math.PI) / 180)) * 50);
+    ctx.lineTo(
+      centerX
+        + Math.cos(
+          (((info.split(':')[1].split(' ')[0] / 60) * 360 - 90) * Math.PI) / 180,
+        )
+          * 60,
+      centerY
+        + Math.sin(
+          (((info.split(':')[1].split(' ')[0] / 60) * 360 - 90) * Math.PI) / 180,
+        )
+          * 50,
+    );
     ctx.stroke();
 
     return canvas;
@@ -90,17 +149,24 @@ export default class RightBlock {
     colors.forEach((color) => {
       ctx.beginPath();
       ctx.lineWidth = 5;
-      const startK = 1 + (colors.indexOf(color) * 0.2);
-      const endK = 1 + ((colors.indexOf(color) + 1) * 0.2);
+      const startK = 1 + colors.indexOf(color) * 0.2;
+      const endK = 1 + (colors.indexOf(color) + 1) * 0.2;
       ctx.arc(150, 155, 125, Math.PI * startK, Math.PI * endK, false);
       ctx.strokeStyle = color;
       ctx.stroke();
     });
 
-    const point = 1 + (info * 0.2);
+    const point = 1 + info * 0.2;
     ctx.lineWidth = 20;
     ctx.beginPath();
-    ctx.arc(150, 155, 125, Math.PI * point - 0.05, Math.PI * point + 0.05, false);
+    ctx.arc(
+      150,
+      155,
+      125,
+      Math.PI * point - 0.05,
+      Math.PI * point + 0.05,
+      false,
+    );
     ctx.strokeStyle = 'white';
     ctx.stroke();
 
@@ -111,7 +177,10 @@ export default class RightBlock {
     const conteiner = document.createElement('div');
     conteiner.className = 'indexes';
     const indexes = ['Air Quality', 'UV Index'];
-    const values = [info.current.air_quality['us-epa-index'], Math.round(info.current.uv / 2)];
+    const values = [
+      info.current.air_quality['us-epa-index'],
+      Math.round(info.current.uv / 2),
+    ];
     const condition = ['Low', 'Moderate', 'Medium', 'Height', 'Extream'];
     console.log(values);
     indexes.forEach((indexName) => {
@@ -122,7 +191,9 @@ export default class RightBlock {
       console.log(conteiner.style.width);
       const img = this.renderIndexCanvas(values[indexes.indexOf(indexName)]);
       const indexValue = document.createElement('p');
-      indexValue.textContent = `${values[indexes.indexOf(indexName)]}/5 ${condition[values[indexes.indexOf(indexName)] - 1]}`;
+      indexValue.textContent = `${values[indexes.indexOf(indexName)]}/5 ${
+        condition[values[indexes.indexOf(indexName)] - 1]
+      }`;
       index.append(indexText, img, indexValue);
 
       conteiner.append(index);

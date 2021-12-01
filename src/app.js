@@ -10,13 +10,13 @@ class App {
     this.menu = new Menu('header', 'menu');
   }
 
-  static async renderNewPAge(pageId) {
+  async renderNewPAge(pageId) {
     const currentPage = document.querySelector(`#${defaultPageId}`);
     if (currentPage) {
       currentPage.remove();
     }
     let page = null;
-    const info = await new GetInfo().showAll();
+    const info = await new GetInfo().showAll(localStorage.getItem('sity') || 'Minsk');
     console.log(info);
     try {
       page = new PagesIds[pageId](pageId, info);
@@ -31,10 +31,10 @@ class App {
     }
   }
 
-  static routChage() {
+  routChage() {
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.slice(1);
-      App.renderNewPAge(hash);
+      this.renderNewPAge(hash);
     });
   }
 
@@ -43,10 +43,10 @@ class App {
 
     if (window.location.hash.length) {
       const hash = window.location.hash.slice(1);
-      App.renderNewPAge(hash);
-    } else App.renderNewPAge('Home');
+      this.renderNewPAge(hash);
+    } else this.renderNewPAge('Home');
 
-    App.routChage();
+    this.routChage();
   }
 }
 export default App;

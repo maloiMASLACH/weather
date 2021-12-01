@@ -14,6 +14,7 @@
       "no-useless-constructor":"warn",
       "class-methods-use-this":"warn",
       "no-console": "warn",
+      "import/no-cycle": "warn",
       "arrow-body-style": ["warn", "always"],
       "max-len": ["warn", { "code": 120 }],
       "indent": ["warn", 2, {

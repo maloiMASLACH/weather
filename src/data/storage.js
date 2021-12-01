@@ -1,28 +1,27 @@
 class GetInfo {
-  getWhatINeed() {
+  getWhatINeed(sity) {
     return fetch(
-      'https://api.weatherapi.com/v1/forecast.json?key=01960bba4b6a444a831133935212311&q=Minsk&days=3&aqi=yes&alerts=yes',
+      `https://api.weatherapi.com/v1/forecast.json?key=01960bba4b6a444a831133935212311&q=${sity}&days=3&aqi=yes&alerts=yes`,
     ).then((res) => {
       return res.json();
     });
   }
 
-  sityAPI() {
+  sityAPI(text) {
     return fetch(
-      'https://autocomplete.travelpayouts.com/places2?term=Mins&locale=en&types[]=city',
+      `https://autocomplete.travelpayouts.com/places2?term=${text}&locale=en&types[]=city`,
     ).then((res) => {
       return res.json();
     });
   }
 
-  async showAll() {
-    const list = await this.getWhatINeed();
+  async showAll(sity) {
+    const list = await this.getWhatINeed(sity);
     return list;
   }
 
-  async sityes() {
-    const list = await this.sityAPI();
-    console.log(list);
+  async sityes(text) {
+    const list = await this.sityAPI(text);
     return list;
   }
 }

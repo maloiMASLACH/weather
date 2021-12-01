@@ -40,7 +40,7 @@ export default class LeftPartFirstBlock {
     return condition;
   }
 
-  currentDate() {
+  currentDate(info) {
     const currentTimer = document.createElement('div');
     currentTimer.classList = 'currentTimer';
     const month = [
@@ -59,7 +59,8 @@ export default class LeftPartFirstBlock {
     ];
 
     const date = document.createElement('p');
-    date.textContent = `${new Date().getDay()}th ${
+    console.log(info);
+    date.textContent = `${new Date().getDate()}th ${
       month[new Date().getMonth()]
     } '${new Date().getUTCFullYear().toString().slice(-2)}`;
     date.classList = 'currentDay';
@@ -76,7 +77,7 @@ export default class LeftPartFirstBlock {
     const time = document.createElement('p');
     time.textContent = `${
       days[new Date().getDay()]
-    }   |   ${new Date().getHours()} : ${(
+    }   |   ${info.location.localtime.split(' ')[1].split(':')[0]} : ${(
       `0${new Date().getMinutes().toString()}`
     ).slice(-2)}
     `;
@@ -88,9 +89,12 @@ export default class LeftPartFirstBlock {
       if (
         time.textContent.split(':')[1].slice(1, 3) !== new Date().getUTCMinutes()
       ) {
+        date.textContent = `${new Date().getDate()}th ${
+          month[new Date().getMonth()]
+        } '${new Date().getUTCFullYear().toString().slice(-2)}`;
         time.textContent = `${
           days[new Date().getDay()]
-        }   |   ${new Date().getHours()} : ${(
+        }   |   ${info.location.localtime.split(' ')[1].split(':')[0]} : ${(
           `0${new Date().getMinutes().toString()}`
         ).slice(-2)}
         `;
