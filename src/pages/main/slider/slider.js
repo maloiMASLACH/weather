@@ -50,9 +50,9 @@ export default class Slider {
       let dayPart;
       if (
         time.textContent.split(':')[0]
-          > info.forecast.forecastday[0].astro.sunrise.split(':')[0]
+          <= info.forecast.forecastday[0].astro.sunrise.split(':')[0]
         || time.textContent.split(':')[0]
-          >= +info.forecast.forecastday[0].astro.sunset.split(':')[0] + 12
+          > +info.forecast.forecastday[0].astro.sunset.split(':')[0] + 12
       ) {
         dayPart = 'night';
       } else {
@@ -82,9 +82,9 @@ export default class Slider {
         let dayPart;
         if (
           time.textContent.split(':')[0]
-            < info.forecast.forecastday[i].astro.sunrise.split(':')[0]
+            <= info.forecast.forecastday[i].astro.sunrise.split(':')[0]
           || time.textContent.split(':')[0]
-            >= +info.forecast.forecastday[i].astro.sunset.split(':')[0] + 12
+            > +info.forecast.forecastday[i].astro.sunset.split(':')[0] + 12
         ) {
           dayPart = 'night';
         } else {
