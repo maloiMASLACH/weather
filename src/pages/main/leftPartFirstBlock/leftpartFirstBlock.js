@@ -43,9 +43,11 @@ export default class LeftPartFirstBlock {
   currentDate(info) {
     const currentTimer = document.createElement('div');
     currentTimer.classList = 'currentTimer';
-
+    const month = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+       
     const date = document.createElement('p');
-    date.textContent = `${info.location.localtime.split(' ')[0]}`;
+    date.textContent = `${new Date().getDay()}th ${month[new Date().getMonth()]} '${new Date().getUTCFullYear().toString().slice(-2)}`;
     date.classList = 'currentDay';
 
     const days = [
@@ -57,13 +59,22 @@ export default class LeftPartFirstBlock {
       'Friday',
       'Saturday',
     ];
-    const time = document.createElement('p');
+     const time = document.createElement('p');
     time.textContent = `${days[new Date().getDay()]}   |   ${
-      info.location.localtime.split(' ')[1]
-    }`;
+      new Date().getHours()} : ${('0'+(new Date().getMinutes().toString())).slice(-2)}
+    `;
     time.classList = 'currentDay';
 
-    currentTimer.append(date, time);
+    currentTimer.append(date, time)
+
+    let change =setInterval(()=>{
+      if(time.textContent.split(':')[1].slice(1,3)!=new Date().getUTCMinutes()){
+        time.textContent = `${days[new Date().getDay()]}   |   ${
+          new Date().getHours()} : ${('0'+(new Date().getMinutes().toString())).slice(-2)}
+        `;
+      }
+    },1000)
+    
     return currentTimer;
   }
 
@@ -87,6 +98,7 @@ export default class LeftPartFirstBlock {
     const currentTemp = this.currentTemp(info);
     //  const condition = this.currentCondition(info);
     const time = this.currentDate(info);
+    console.log(time)
     conteiner.append(icon, sity, currentTemp, time);
     return conteiner;
   }
