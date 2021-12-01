@@ -1,6 +1,7 @@
 import MenuTemplate from '../templates/menuTemplate';
 import PagesIds from '../pages/pageIDs';
 import './menu.css';
+import themes from '../data/themes';
 
 export class Menu extends MenuTemplate {
   constructor(tagName, className) {
@@ -17,10 +18,26 @@ export class Menu extends MenuTemplate {
       buttons.append(btnHTML);
     });
     this.conteiner.append(buttons);
+
+    // this.conteiner.style.background=themes[localStorage['dayPart']]
+  }
+
+  checkWidth() {
+    if (document.documentElement.clientWidth <= 425) {
+      this.conteiner.style.background = themes[localStorage.getItem('dayPart')];
+    }
+    window.addEventListener('resize', () => {
+      if (document.documentElement.clientWidth <= 425) {
+        this.conteiner.style.background = themes[localStorage.getItem('dayPart')];
+      } else {
+        this.conteiner.style.background = '';
+      }
+    });
   }
 
   render() {
     this.renderButtons();
+    this.checkWidth();
     return this.conteiner;
   }
 }

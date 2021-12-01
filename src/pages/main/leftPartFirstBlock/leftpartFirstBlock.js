@@ -1,4 +1,5 @@
 import icons from '../../../data/icons';
+import Slider from '../slider/slider';
 
 export default class LeftPartFirstBlock {
   currentLocation(info) {
@@ -16,7 +17,9 @@ export default class LeftPartFirstBlock {
   currenWetherIcon(info) {
     const icon = document.createElement('img');
     icon.className = 'icon';
-    icon.src = `./light/${icons[info.current.condition.text]}.png`;
+
+    icon.src = `./light/${localStorage.getItem('dayPart')}/${icons[info.current.condition.text]}.png`;
+
     return icon;
   }
 
@@ -25,10 +28,15 @@ export default class LeftPartFirstBlock {
     currentTemp.classList = 'currentTemp';
     const tempNumber = document.createElement('p');
     tempNumber.classList = 'tempNumber';
-    tempNumber.textContent = `${info.current.temp_c}`;
     const degrees = document.createElement('p');
     degrees.classList = 'currentDegrees';
-    degrees.textContent = '°C';
+    if (localStorage.getItem('degrees') === 'F') {
+      tempNumber.textContent = `${info.current.temp_f}`;
+      degrees.textContent = '°F';
+    } else {
+      tempNumber.textContent = `${info.current.temp_c}`;
+      degrees.textContent = '°C';
+    }
     currentTemp.append(tempNumber, degrees);
     return currentTemp;
   }
@@ -59,7 +67,6 @@ export default class LeftPartFirstBlock {
     ];
 
     const date = document.createElement('p');
-    console.log(info);
     date.textContent = `${new Date().getDate()}th ${
       month[new Date().getMonth()]
     } '${new Date().getUTCFullYear().toString().slice(-2)}`;
@@ -110,6 +117,18 @@ export default class LeftPartFirstBlock {
     const switcher = document.createElement('input');
     switcher.type = 'checkbox';
     switcher.id = 'switch';
+    if (localStorage.getItem('degrees') === 'F') {
+      switcher.checked = true;
+    }
+    switcher.onclick = () => {
+      if (switcher.checked) {
+        localStorage.setItem('degrees', 'F');
+      }
+      if (!switcher.checked) {
+        localStorage.setItem('degrees', 'C');
+      }
+    };
+
     const label = document.createElement('label');
     label.setAttribute('for', switcher.id);
     label.textContent = 'C F';
@@ -124,7 +143,6 @@ export default class LeftPartFirstBlock {
     const currentTemp = this.currentTemp(info);
     //  const condition = this.currentCondition(info);
     const time = this.currentDate(info);
-    console.log(time);
     conteiner.append(icon, sity, currentTemp, time);
     return conteiner;
   }
@@ -148,6 +166,15 @@ export default class LeftPartFirstBlock {
     return line;
   }
 
+  reRenderBlock(leftBlock, info) {
+    leftBlock.children[0].children[0].innerHTML = '';
+    leftBlock.children[2].children[1].innerHTML = '';
+    const commonInfoLeft = this.firstBlock(info);
+    const slider = new Slider().clockBlocks(info);
+    leftBlock.children[2].children[1].append(slider);
+    leftBlock.children[0].children[0].append(commonInfoLeft);
+  }
+
   leftBlock(leftBlock, info) {
     const leftBlockFirstLay = document.createElement('div');
     leftBlockFirstLay.className = 'leftBlockFirstLay';
@@ -159,6 +186,11 @@ export default class LeftPartFirstBlock {
     leftBlockSecondLay.className = 'leftBlockSecondLay';
     const shortLine = this.shortInfoLine(info);
     leftBlockSecondLay.append(shortLine);
+
     leftBlock.append(leftBlockFirstLay, leftBlockSecondLay);
+
+    switcher.onchange = () => {
+      this.reRenderBlock(leftBlock, info);
+    };
   }
 }

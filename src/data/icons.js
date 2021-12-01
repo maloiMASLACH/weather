@@ -5,6 +5,7 @@ const icons = {
   'Light snow': 'snow',
   'Heavy snow': 'snow',
   'Moderate or heavy sleet': 'snow',
+  'Moderate or heavy rain shower': 'rain_huge',
   'Light drizzle': 'rain_light',
   'Moderate rain': 'rain_huge',
   'Partly cloudy': 'sun_cloud',
@@ -19,5 +20,10 @@ const icons = {
   'Blowing snow': 'snow',
   Blizzard: 'snow',
   'Light snow showers': 'rain_light',
+  'Patchy snow possible': 'snow',
+  'Patchy heavy snow': 'snow',
+  'Patchy light rain': 'rain_light',
+  'Moderate rain at times': 'rain_light',
+  'Patchy light drizzle': 'rain_light',
 };
 export default icons;

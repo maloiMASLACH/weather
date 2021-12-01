@@ -1,3 +1,5 @@
+import themes from '../data/themes';
+
 class PageTemplate {
   constructor(id, info) {
     this.conteiner = document.createElement('div');
@@ -10,7 +12,8 @@ class PageTemplate {
     pageState.className = 'content';
     pageState.style.width = '100%';
     pageState.style.height = '100%';
-    // pageState.style.background = state.background;
+    console.log(themes[localStorage.getItem('dayPart')]);
+    document.body.style.background = themes[localStorage.getItem('dayPart')];
     this.conteiner.style.height = '91vh';
 
     return pageState;

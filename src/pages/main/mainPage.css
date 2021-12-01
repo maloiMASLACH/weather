@@ -47,6 +47,7 @@ input[type="checkbox"] {
   height: 0;
   width: 0;
   visibility: hidden;
+  user-select: none; 
 }
 
 label {
@@ -72,7 +73,7 @@ label:after {
   height: 40px;
   background: rgba(255, 255, 255, 0.18);
   border-radius: 100px;
-  transition: 0.3s;
+  transition: 0.8s;
 }
 
 input:checked + label:after {
@@ -82,7 +83,7 @@ input:checked + label:after {
 }
 
 label:active:after {
-  width: 130px;
+  width: 50px;
 }
 .leftBlockSecondLay {
   width: 60%;
@@ -98,18 +99,16 @@ label:active:after {
   width: 12px;
 }
 .slider {
-  margin-top: 5vh;
+  margin-top: 10vh;
   display: flex;
   width: 90%;
   align-items: center;
 }
 .arrow {
-  padding-top: 50px;
   height: 5vh;
 }
 .forecast {
   display: flex;
-  margin-top: 5vh;
   overflow: hidden;
   transform: 0.5s;
   user-select: none;
@@ -128,19 +127,20 @@ label:active:after {
   font-size: 16px;
   text-align: center;
   color: #ffffff;
-  padding-top: 10px;
+  padding-top: 30px;
 }
 .forecast .clockForecast img {
-  margin: 20px 0;
+  position: absolute;
+  left: 15%;
+  top:35%;
+}
+.forecast .clockForecast p {
+  margin-top: 100%;
 }
 .rightBlock {
   overflow: hidden;
   width: 40%;
-  background: radial-gradient(
-    100% 100% at 0% 0%,
-    rgba(255, 255, 255, 0.4) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+
   box-shadow: inset -5px -5px 250px rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(42px);
 }
@@ -159,6 +159,10 @@ label:active:after {
   justify-content: center;
 }
 .searchPanel {
+  font-family: Inter;
+  font-size: 26px;
+  text-align: center;
+  color: #ffffff;
   width: 80%;
   height: 64px;
   background: linear-gradient(
@@ -185,6 +189,23 @@ label:active:after {
   left: 80%;
   top: 24px;
   width: 25px;
+}
+.helpBloks{
+
+  position: absolute;
+  top:69px;
+  width: 80%;
+}
+.helpBloks div{
+  padding: 5px 0;
+  border-radius: 15px;
+
+}
+.helpBloks div p{
+  width: 100%;
+}
+.helpBloks div p:hover{
+  opacity: 0.8;
 }
 .allClocks {
   overflow: hidden;
@@ -250,10 +271,9 @@ label:active:after {
   .rightBlock {
     width: 100%;
     margin: 0;
-    margin-left: -5%;
-    padding-left: 5%;
+
     padding-bottom: 100px;
-    background: linear-gradient(248.66deg, #FF9696 0%, #8C6BAE 100%);
+    
     backdrop-filter: none;
   }
   .indexes{
@@ -261,6 +281,11 @@ label:active:after {
   }
 }
 @media screen and (max-width: 768px) {
+  .leftBlock {
+    margin-bottom: 110px;
+}
+
+
   .forecast .clockForecast {
     margin: 0 24px;
   }
@@ -270,17 +295,23 @@ label:active:after {
 }
 @media screen and (max-width: 425px) {
   .leftBlock {
-    margin-bottom: 55px;
+    margin-bottom: 115px;
+  }
+  .switcher{
+    position: absolute;
+    right: 5vw;
+    top: 3vh;
   }
   .slider {
-    margin-top: 1vh;
+    margin-top: 5vh;
   }
   .leftBlockSecondLay {
     width: 100%;
     margin-top: 7vh;
   }
   .rightBlock {
-    width: 98vw;
+    margin-left: -2vw;
+    width: 100vw;
   }
   .allClocks {
     display: inline;
@@ -314,8 +345,14 @@ label:active:after {
   }
   
 }
-@media screen and (max-width: 321px) {
+@media screen and (max-width: 375px) {
   .shortInfoLine {
     display: inherit;
   }
+  .leftBlock .currentTemp .tempNumber {
+    font-size: 10vh;
+}
+.leftBlockSecondLay {
+  margin: 2vh 0;
+}
 }

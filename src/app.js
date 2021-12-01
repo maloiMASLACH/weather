@@ -17,7 +17,13 @@ class App {
     }
     let page = null;
     const info = await new GetInfo().showAll(localStorage.getItem('sity') || 'Minsk');
+
     console.log(info);
+    if (info.location.localtime.split(' ')[1].split(':')[0] < info.forecast.forecastday[0].astro.sunrise.split(':')[0] || info.location.localtime.split(' ')[1].split(':')[0] >= +info.forecast.forecastday[0].astro.sunset.split(':')[0] + 12) {
+      localStorage.setItem('dayPart', 'night');
+    } else {
+      localStorage.setItem('dayPart', 'day');
+    }
     try {
       page = new PagesIds[pageId](pageId, info);
     } catch (err) {

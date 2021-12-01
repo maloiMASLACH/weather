@@ -1,12 +1,13 @@
 import App from '../../../app';
 import GetInfo from '../../../data/storage';
+import themes from '../../../data/themes';
 
 export default class RightBlock {
   async renderHelpBlocks(text, conteiner, input) {
     const info = await new GetInfo().sityes(text);
     console.log(info);
     const help = document.createElement('div');
-
+    help.style.background = themes[localStorage.getItem('dayPart')];
     if (info.length) {
       for (let i = 0; i < info.length; i++) {
         if (i < 5) {
@@ -84,7 +85,7 @@ export default class RightBlock {
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.strokeStyle = '#828282';
+    ctx.strokeStyle = 'black';
     ctx.lineWidth = '6';
     ctx.moveTo(centerX, centerY);
     ctx.lineTo(
@@ -142,7 +143,6 @@ export default class RightBlock {
       'rgba(134, 92, 253, 0.85)',
       ' #713FFD',
     ];
-    console.log(info);
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.style.width = '100%';
@@ -182,13 +182,11 @@ export default class RightBlock {
       Math.round(info.current.uv / 2),
     ];
     const condition = ['Low', 'Moderate', 'Medium', 'Height', 'Extream'];
-    console.log(values);
     indexes.forEach((indexName) => {
       const index = document.createElement('div');
       index.className = 'index';
       const indexText = document.createElement('p');
       indexText.textContent = indexName;
-      console.log(conteiner.style.width);
       const img = this.renderIndexCanvas(values[indexes.indexOf(indexName)]);
       const indexValue = document.createElement('p');
       indexValue.textContent = `${values[indexes.indexOf(indexName)]}/5 ${
