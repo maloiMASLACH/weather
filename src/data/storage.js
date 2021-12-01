@@ -7,26 +7,23 @@ class GetInfo {
     });
   }
 
-
   sityAPI() {
-  return fetch(
-    `https://autocomplete.travelpayouts.com/places2?term=Mins&locale=en&types[]=city`
-  ).then((res)=>{
-    return res.json()
-  })
-  
-    
+    return fetch(
+      'https://autocomplete.travelpayouts.com/places2?term=Mins&locale=en&types[]=city',
+    ).then((res) => {
+      return res.json();
+    });
   }
 
   async showAll() {
     const list = await this.getWhatINeed();
     return list;
   }
+
   async sityes() {
     const list = await this.sityAPI();
-    console.log(list)
+    console.log(list);
     return list;
   }
-
 }
 export default GetInfo;
