@@ -1,0 +1,407 @@
+@font-face {
+  font-family: "Inter";
+  src: url(fonts/e22ca38c4e5fd2eb1bcf.ttf);
+}
+.content {
+  display: flex;
+}
+.leftBlock p {
+  margin: 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100;
+  color: #ffffff;
+}
+.leftBlock {
+  width: 60%;
+  padding-left: 5%;
+}
+.leftBlock .leftBlockFirstLay {
+  display: flex;
+  justify-content: space-between;
+  height: 40vh;
+}
+
+.leftBlock .currentTemp {
+  display: flex;
+  margin: 0;
+}
+
+.leftBlock .currentTemp .tempNumber {
+  font-size: 15vh;
+}
+.leftBlock .currentTemp .currentDegrees {
+  font-size: 5vh;
+  letter-spacing: -0.05em;
+}
+.leftBlock .icon {
+  height: 10vh;
+}
+.leftBlock .currentSity {
+  font-size: 5vh;
+}
+.switcher {
+  padding-right: 15%;
+}
+input[type="checkbox"] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  user-select: none; 
+}
+
+label {
+  font-size: 24px;
+  letter-spacing: 15px;
+  line-height: 40px;
+  cursor: pointer;
+  text-indent: 10px;
+  width: 92px;
+  height: 40px;
+  display: block;
+  position: relative;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 100px;
+}
+
+label:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 52.8px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 100px;
+  transition: 0.8s;
+}
+
+input:checked + label:after {
+  content: "";
+  left: calc(100% - 0px);
+  transform: translateX(-100%);
+}
+
+label:active:after {
+  width: 50px;
+}
+.leftBlockSecondLay {
+  width: 60%;
+  margin-top: 7vh;
+}
+.shortInfoLine {
+  justify-content: space-between;
+  display: flex;
+}
+.shortInfoLine img {
+  padding-top: 2px;
+  height: 14px;
+  width: 12px;
+}
+.slider {
+  margin-top: 10vh;
+  display: flex;
+  width: 90%;
+  align-items: center;
+}
+.arrow {
+  height: 5vh;
+}
+.forecast {
+  display: flex;
+  overflow: hidden;
+  transform: 0.5s;
+  user-select: none;
+}
+.forecast .clockForecast {
+  display: inline;
+  flex-shrink: 0;
+  margin: 0 54px;
+  height: 150px;
+  width: 75px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.2);
+  filter: blur(0.5px);
+  border-radius: 11px;
+  font-family: Inter;
+  font-size: 16px;
+  text-align: center;
+  color: #ffffff;
+  padding-top: 30px;
+}
+.forecast .clockForecast img {
+  position: absolute;
+  left: 15%;
+  top:35%;
+}
+.forecast .clockForecast p {
+  margin-top: 100%;
+}
+.rightBlock {
+  overflow: hidden;
+  width: 40%;
+
+  box-shadow: inset -5px -5px 250px rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(42px);
+}
+
+.rightBlock p {
+  text-align: center;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 100;
+  color: #ffffff;
+}
+.inputdiv {
+  margin-top: 36px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+.searchPanel {
+  font-family: Inter;
+  font-size: 26px;
+  text-align: center;
+  color: #ffffff;
+  width: 80%;
+  height: 64px;
+  background: linear-gradient(
+    116.79deg,
+    rgba(255, 255, 255, 0.48) -41.94%,
+    rgba(255, 255, 255, 0.12) 57.51%
+  );
+  backdrop-filter: blur(100px);
+
+  border-radius: 20px;
+  border: 3px solid;
+
+  border-image-source: linear-gradient(
+    116.83deg,
+    rgba(255, 255, 255, 0.65) -41.21%,
+    rgba(255, 255, 255, 0) 57.53%
+  );
+}
+.searchPanel:focus {
+  outline: none;
+}
+.inputdiv img {
+  position: absolute;
+  left: 80%;
+  top: 24px;
+  width: 25px;
+}
+.helpBloks{
+
+  position: absolute;
+  top:69px;
+  width: 80%;
+}
+.helpBloks div{
+  padding: 5px 0;
+  border-radius: 15px;
+
+}
+.helpBloks div p{
+  width: 100%;
+}
+.helpBloks div p:hover{
+  opacity: 0.8;
+}
+.allClocks {
+  overflow: hidden;
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  justify-content: space-around;
+  padding-bottom: 8vh;
+  border-bottom: 0.6px solid #ffffff;
+}
+.clockBlock {
+  width: 20%;
+}
+.dayEvent {
+  font-size: 28px;
+}
+.clock {
+  overflow: hidden;
+  height: 25vh;
+  background: rgba(255, 255, 255, 0.26);
+  border-radius: 100px;
+}
+.clock canvas {
+  width: 120%;
+  height: 55%;
+}
+.clock p {
+  font-weight: 900;
+}
+.indexes {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.index {
+  justify-content: center;
+  display: inline-block;
+}
+.index p:nth-child(3) {
+  width: 20%;
+  margin: 0 auto;
+  font-size: 22px;
+  margin-top: -90px;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 1024px) {
+  .content {
+    display: inline;
+  }
+  .leftBlock {
+    width: 90%;
+    margin-bottom: 135px;
+  }
+  .forecast .clockForecast {
+    margin: 0 34px;
+  }
+
+  .slider {
+    width: 100%;
+  }
+  .rightBlock {
+    width: 100%;
+    margin: 0;
+
+    padding-bottom: 100px;
+    
+    backdrop-filter: none;
+  }
+  .indexes{
+    height: 25vh;
+  }
+}
+@media screen and (max-width: 768px) {
+  .leftBlock {
+    margin-bottom: 110px;
+}
+
+
+  .forecast .clockForecast {
+    margin: 0 24px;
+  }
+  .switcher {
+    padding-right: 5%;
+  }
+}
+@media screen and (max-width: 425px) {
+  .leftBlock {
+    margin-bottom: 115px;
+  }
+  .switcher{
+    position: absolute;
+    right: 5vw;
+    top: 3vh;
+  }
+  .slider {
+    margin-top: 5vh;
+  }
+  .leftBlockSecondLay {
+    width: 100%;
+    margin-top: 7vh;
+  }
+  .rightBlock {
+    margin-left: -2vw;
+    width: 100vw;
+  }
+  .allClocks {
+    display: inline;
+  }
+  .clockBlock {
+    width: 40%;
+    margin-left: 30%;
+  }
+  .clock {
+    border-radius: 40px;
+  }
+  .forecast .clockForecast {
+    margin: 0 14px;
+    height: 100px;
+    width: 55px;
+  }
+  .forecast .clockForecast img {
+    margin: 10px 0;
+  }
+  .indexes {
+    height: 75vh;
+    width: 100%;
+    justify-content: center;
+    display: grid;
+  }
+  .index {
+    justify-content: center;
+    margin-top: 60px;
+    padding-top: 10px;
+    border-top: 0.6px solid #ffffff;
+  }
+  
+}
+@media screen and (max-width: 375px) {
+  .shortInfoLine {
+    display: inherit;
+  }
+  .leftBlock .currentTemp .tempNumber {
+    font-size: 10vh;
+}
+.leftBlockSecondLay {
+  margin: 2vh 0;
+}
+}
+
+header{
+}
+header div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+ 
+  height: 7vh;
+}
+header div a {
+  font-size: 200%;
+  text-decoration: none;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 43px;
+  letter-spacing: 0em;
+  color: rgba(255, 255, 255, 1);
+}
+@media screen  and (max-width: 425px){
+  header {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    z-index: 100;
+    position: fixed;
+    top: 94vh;
+    left: 0px;
+
+  }
+  header div {
+    width: 100%;
+    justify-content: space-around;
+
+}
+}
+
+
+@media screen  and (max-width: 321px){
+  header div a {
+    font-size: 150%;
+}
+}
+
+
+
+
+
