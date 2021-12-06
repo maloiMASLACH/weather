@@ -1,0 +1,118 @@
+.settingsContent{
+    margin: 0 auto;
+    margin-top: 30px;
+    justify-content: center;
+    display: table;
+}
+.settingsLocation p{
+    font-family: Inter;
+  font-style: normal;
+  font-weight: 100;
+  color: #ffffff;
+    margin: 0 auto;
+    text-align: center;
+}
+.settingsLocation p.currentSitySett{
+    margin: 20px auto;
+    font-size: xx-large;
+}
+.dayPartSett{
+    margin: 0 auto;
+    display: inline;
+    justify-content: center;
+}
+.dayPartSett img{
+    margin: 0 auto;
+}
+.dayPart{
+    font-family: Inter;
+  font-style: normal;
+  font-weight: 900;
+  color: #ffffff;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding-top: 10px;
+    text-transform: capitalize;
+    text-align: center;
+    font-size: 30px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.26);
+    border-radius: 100px;
+}
+.settingsoptions{
+    width: 50%;
+}
+.commonOptions{
+margin-top: 10vh;
+}
+.tempDegSett{
+    width: 60%;
+    justify-content:space-between;
+    display: flex;
+}
+.tempDegSett p {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 900;
+    color: #ffffff;
+}
+.tempDegSett select{
+    font-size: 30px;
+    appearance: none;
+    width: 20%;
+    background: none;
+    border: none;
+    border-radius: 10px;
+    margin-left: 10px;
+    transition: 0.3s;
+    color: #ffffff;
+}
+
+
+.tempDegSett select:hover{
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.tempDegSett select option{
+    background: black;
+    border-radius: 50%;
+
+}
+.demo{
+    width: 50px;
+    height: 50px;
+    border: 1px solid;
+    margin-right: 10px;
+}
+.colorConteiner{
+    right: 10%;
+
+    width: 220px;
+    display: none;
+    flex-wrap: wrap;
+}
+.colorTempl{
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+}
+@media screen and (max-width:1024px) {
+    .settingsoptions {
+        margin: 0 auto;
+    }
+    .tempDegSett {
+        width: 100%;
+    }
+}
+@media screen and (max-width:425px) {
+    .settingsoptions {
+        width: 80%;
+        padding-bottom: 200px;
+    }
+    .tempDegSett select {
+        width: 40%;
+       
+    }
+    
+}

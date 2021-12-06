@@ -12,8 +12,10 @@ class PageTemplate {
     pageState.className = 'content';
     pageState.style.width = '100%';
     pageState.style.height = '100%';
-    console.log(themes[localStorage.getItem('dayPart')]);
-    document.body.style.background = themes[localStorage.getItem('dayPart')];
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'classic');
+    }
+    document.body.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
     this.conteiner.style.height = '91vh';
 
     return pageState;

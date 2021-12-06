@@ -55,8 +55,14 @@ class FavoritesPage extends PageTemplate {
   shortInfoLine(info) {
     const line = document.createElement('div');
     line.className = 'blockLine';
+    let wind;
+    if (localStorage.getItem('wind') === 'mp/h') {
+      wind = info.current.wind_mph;
+    } else {
+      wind = info.current.wind_kph;
+    }
     const lineInfo = [
-      `Wind ${info.current.wind_kph} km/h`,
+      `Wind ${wind} ${localStorage.getItem('wind') || 'km/h'}`,
       `Hum ${info.current.humidity} %`,
     ];
     for (let i = 0; i < 2; i++) {

@@ -150,8 +150,14 @@ export default class LeftPartFirstBlock {
   shortInfoLine(info) {
     const line = document.createElement('div');
     line.className = 'shortInfoLine';
+    let wind;
+    if (localStorage.getItem('wind') === 'mp/h') {
+      wind = info.current.wind_mph;
+    } else {
+      wind = info.current.wind_kph;
+    }
     const lineInfo = [
-      `Wind ${info.current.wind_kph} km/h`,
+      `Wind ${wind} ${localStorage.getItem('wind') || 'km/h'}`,
       `Hum ${info.current.humidity} %`,
       `Rain ${info.forecast.forecastday[0].day.daily_chance_of_rain} %`,
     ];

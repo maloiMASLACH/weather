@@ -7,7 +7,7 @@ export default class RightBlock {
     const info = await new GetInfo().sityes(text);
     console.log(info);
     const help = document.createElement('div');
-    help.style.background = themes[localStorage.getItem('dayPart')];
+    help.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
     if (info.length) {
       for (let i = 0; i < info.length; i++) {
         if (i < 5) {
@@ -205,6 +205,8 @@ export default class RightBlock {
     const clocks = this.clocksBlock(info);
     const indexes = this.indexesBlock(info);
     rightBlock.append(input, clocks, indexes);
+    console.log(localStorage.getItem('dayPart'));
+    rightBlock.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
     return rightBlock;
   }
 }
