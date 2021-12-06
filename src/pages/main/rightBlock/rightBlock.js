@@ -49,6 +49,7 @@ export default class RightBlock {
     icon.src = './light/search.png';
     icon.addEventListener('click', () => {
       localStorage.setItem('sity', input.value);
+      localStorage.setItem('favorites', [localStorage.getItem('favorites'), input.value]);
       const app = new App();
       app.renderNewPAge('Home');
     });
