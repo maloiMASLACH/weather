@@ -80,12 +80,22 @@ class FavoritesPage extends PageTemplate {
     const infoLine = this.shortInfoLine(info);
     const pic = document.createElement('img');
     pic.src = `./light/${localStorage.getItem('dayPart')}/${icons[info.current.condition.text]}.png`;
-    firstBlock.append(commonBlock, pic);
+    const close = document.createElement('img');
+    close.className = 'close';
+    close.src = './light/close.png';
+
+    firstBlock.append(commonBlock, pic, close);
     block.append(firstBlock, infoLine);
     console.log(block);
-    block.addEventListener('click', () => {
-      localStorage.setItem('sity', block.children[0].children[0].children[1].children[0].textContent);
-      window.location.hash = '#Home';
+    block.addEventListener('click', (e) => {
+      if (e.target === close) {
+        block.remove();
+        localStorage.setItem('favorites', localStorage.getItem('favorites').replace(`,${sity}`, ''));
+        console.log(localStorage.getItem('favorites').replace(sity, ''));
+      } else {
+        localStorage.setItem('sity', block.children[0].children[0].children[1].children[0].textContent);
+        window.location.hash = '#Home';
+      }
     });
     return block;
   }
