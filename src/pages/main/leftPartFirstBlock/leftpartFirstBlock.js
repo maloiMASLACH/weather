@@ -173,11 +173,12 @@ export default class LeftPartFirstBlock {
   }
 
   reRenderBlock(leftBlock, info) {
+    console.log(leftBlock.children[2]);
     leftBlock.children[0].children[0].innerHTML = '';
-    leftBlock.children[2].children[1].innerHTML = '';
+    leftBlock.children[2].remove();
     const commonInfoLeft = this.firstBlock(info);
-    const slider = new Slider().clockBlocks(info);
-    leftBlock.children[2].children[1].append(slider);
+    const slider = new Slider().slider(info);
+    leftBlock.append(slider);
     leftBlock.children[0].children[0].append(commonInfoLeft);
   }
 

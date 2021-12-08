@@ -26,7 +26,34 @@ export default class Slider {
     );
   }
 
-  clockBlocks(info) {
+  touchSlider(slider) {
+    let start = 0;
+    let scrollLeft = 0;
+    slider.addEventListener('touchstart', (e) => {
+      start = e.touches[0].clientX;
+    });
+    slider.addEventListener('touchmove', (e) => {
+      slider.scrollLeft = -(+scrollLeft + e.touches[0].clientX - start);
+    });
+    slider.addEventListener('touchend', () => {
+      scrollLeft = -slider.scrollLeft;
+    });
+  }
+
+  arrows(slider, left, right) {
+    left.addEventListener('click', () => {
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => { slider.scrollLeft -= slider.offsetWidth / 50; }, i * 5);
+      }
+    });
+    right.addEventListener('click', () => {
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => { slider.scrollLeft += slider.offsetWidth / 50; }, i * 5);
+      }
+    });
+  }
+
+  clockBlocks(info, left, right) {
     const blocks = document.createElement('div');
     blocks.className = 'forecast';
     for (
@@ -36,7 +63,6 @@ export default class Slider {
     ) {
       const block = document.createElement('div');
       block.className = 'clockForecast';
-      block.style.transform = 'translateX(0px)';
       if (localStorage.getItem('degrees') === 'F') {
         block.textContent = `${info.forecast.forecastday[0].hour[i].temp_f}°F`;
       } else {
@@ -102,6 +128,8 @@ export default class Slider {
     }
     // new SlideAction(blocks).slide();
     this.slide(blocks);
+    this.touchSlider(blocks);
+    this.arrows(blocks, left, right);
     return blocks;
   }
 

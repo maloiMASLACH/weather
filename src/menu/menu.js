@@ -10,7 +10,11 @@ export class Menu extends MenuTemplate {
 
   checkWidth(btns, array) {
     if (document.documentElement.clientWidth <= 425) {
-      this.conteiner.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+      if (localStorage.getItem('theme')) {
+        this.conteiner.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+      } else {
+        this.conteiner.style.background = 'linear-gradient(116.79deg, rgba(255, 255, 255, 0.48) -41.94%, rgba(255, 255, 255, 0.22) 57.51%)';
+      }
     }
     window.addEventListener('resize', () => {
       if (document.documentElement.clientWidth <= 425) {

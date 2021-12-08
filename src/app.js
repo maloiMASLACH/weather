@@ -17,13 +17,15 @@ class App {
     }
     let page = null;
     const info = await new GetInfo().showAll(localStorage.getItem('sity') || 'Minsk');
-
-    console.log(info);
     if (info.location.localtime.split(' ')[1].split(':')[0] < info.forecast.forecastday[0].astro.sunrise.split(':')[0] || info.location.localtime.split(' ')[1].split(':')[0] >= +info.forecast.forecastday[0].astro.sunset.split(':')[0] + 12) {
       localStorage.setItem('dayPart', 'night');
     } else {
       localStorage.setItem('dayPart', 'day');
     }
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'classic');
+    }
+
     try {
       page = new PagesIds[pageId](pageId, info);
     } catch (err) {
@@ -46,7 +48,6 @@ class App {
 
   async run() {
     conteiner.append(this.menu.render());
-
     if (window.location.hash.length) {
       const hash = window.location.hash.slice(1);
       this.renderNewPAge(hash);
