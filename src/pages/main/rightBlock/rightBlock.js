@@ -3,7 +3,7 @@ import GetInfo from '../../../data/storage';
 import themes from '../../../data/themes';
 
 export default class RightBlock {
-  async renderHelpBlocks(text, conteiner, input) {
+  async renderHelpBlocks(text, conteiner) {
     const info = await new GetInfo().sityes(text);
     console.log(info);
     const help = document.createElement('div');
@@ -14,7 +14,11 @@ export default class RightBlock {
           const option = document.createElement('p');
           option.textContent = info[i].name;
           option.addEventListener('click', () => {
-            input.value = option.textContent;
+            localStorage.setItem('inputValue', option.textContent);
+            localStorage.setItem('sity', option.textContent);
+            localStorage.setItem('favorites', [localStorage.getItem('favorites'), option.textContent]);
+            const app = new App();
+            app.renderNewPAge('Home');
           });
           help.append(option);
         }
@@ -34,11 +38,16 @@ export default class RightBlock {
     conteiner.className = 'inputdiv';
     const input = document.createElement('input');
     input.className = 'searchPanel';
+    input.value = localStorage.getItem('inputValue') || '';
     const help = document.createElement('div');
     help.className = 'helpBloks';
+    input.addEventListener('change', () => {
+      localStorage.setItem('inputValue', input.value);
+    });
     input.addEventListener('keyup', (e) => {
       if (e.code === 'Enter') {
         localStorage.setItem('sity', input.value);
+        localStorage.setItem('favorites', [localStorage.getItem('favorites'), input.value]);
         const app = new App();
         app.renderNewPAge('Home');
       }
