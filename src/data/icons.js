@@ -29,5 +29,6 @@ const icons = {
   'Patchy light snow': 'snow',
   'Freezing drizzle': 'snow',
   'Moderate or heavy snow showers': 'snow',
+  'Light freezing rain': 'rain_light',
 };
 export default icons;

@@ -5,8 +5,8 @@ import ErrorPage from './erorr/erorrPage';
 
 const PagesIds = {
   Home: MainPage,
-  Settings: SettingsPage,
   Favorite: FavoritesPage,
+  Settings: SettingsPage,
   Error: ErrorPage,
 };
 export default PagesIds;

@@ -107,16 +107,17 @@ class FavoritesPage extends PageTemplate {
   }
 
   favoritesBlock() {
-    const conteiner = document.createElement('div');
-    conteiner.className = 'favoritesBlocks';
-    const sityes = localStorage.getItem('favorites').split(',');
-    sityes.shift();
-    sityes.forEach(async (sity) => {
-      const favorite = await this.singleBlock(sity);
-      conteiner.append(favorite);
-    });
-
-    return conteiner;
+    if (localStorage.getItem('favorites')) {
+      const conteiner = document.createElement('div');
+      conteiner.className = 'favoritesBlocks';
+      const sityes = localStorage.getItem('favorites').split(',');
+      sityes.shift();
+      sityes.forEach(async (sity) => {
+        const favorite = await this.singleBlock(sity);
+        conteiner.append(favorite);
+      });
+      return conteiner;
+    } return '';
   }
 
   render() {

@@ -112,6 +112,9 @@ class SettingsPage extends PageTemplate {
       for (let i = 0; i < conteiner.children.length; i++) {
         conteiner.children[i].onclick = () => {
           localStorage.setItem('theme', Object.keys(themes)[i]);
+          if (document.documentElement.clientWidth <= 425) {
+            document.body.children[0].style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
+          }
           document.body.style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
           demo.style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
           conteiner.style.display = 'none';

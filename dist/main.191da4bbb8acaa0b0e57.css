@@ -598,6 +598,10 @@ header div a {
     justify-content: space-around;
 
 }
+header div a img{
+  margin-top: 5px;
+  width: 30px;
+}
 }
 
 
