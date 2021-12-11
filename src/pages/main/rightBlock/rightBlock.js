@@ -3,6 +3,18 @@ import GetInfo from '../../../data/storage';
 import themes from '../../../data/themes';
 
 export default class RightBlock {
+  useChanges(value) {
+    try {
+      localStorage.setItem('sityInput', localStorage.getItem('sity') || 'Minsk');
+      localStorage.setItem('sity', value);
+      if (!localStorage.getItem('favorites') || localStorage.getItem('favorites').split(',').indexOf(value) === -1) localStorage.setItem('favorites', [localStorage.getItem('favorites'), value]);
+      const app = new App();
+      app.renderNewPAge('Home');
+    } catch (err) {
+      alert('1');
+    }
+  }
+
   async renderHelpBlocks(text, conteiner) {
     const info = await new GetInfo().sityes(text);
     console.log(info);
@@ -15,10 +27,7 @@ export default class RightBlock {
           option.textContent = info[i].name;
           option.addEventListener('click', () => {
             localStorage.setItem('inputValue', option.textContent);
-            localStorage.setItem('sity', option.textContent);
-            localStorage.setItem('favorites', [localStorage.getItem('favorites'), option.textContent]);
-            const app = new App();
-            app.renderNewPAge('Home');
+            this.useChanges(option.textContent);
           });
           help.append(option);
         }
@@ -41,26 +50,18 @@ export default class RightBlock {
     input.value = localStorage.getItem('inputValue') || '';
     const help = document.createElement('div');
     help.className = 'helpBloks';
-    input.addEventListener('change', () => {
-      localStorage.setItem('inputValue', input.value);
-    });
     input.addEventListener('keyup', (e) => {
       if (e.code === 'Enter') {
-        localStorage.setItem('sity', input.value);
-        localStorage.setItem('favorites', [localStorage.getItem('favorites'), input.value]);
-        const app = new App();
-        app.renderNewPAge('Home');
+        this.useChanges(input.value);
       }
+      localStorage.setItem('inputValue', input.value);
       this.renderHelpBlocks(input.value, help, input);
     });
 
     const icon = document.createElement('img');
     icon.src = './light/search.png';
     icon.addEventListener('click', () => {
-      localStorage.setItem('sity', input.value);
-      localStorage.setItem('favorites', [localStorage.getItem('favorites'), input.value]);
-      const app = new App();
-      app.renderNewPAge('Home');
+      this.useChanges(input.value);
     });
     conteiner.append(input, icon, help);
     return conteiner;
@@ -72,18 +73,6 @@ export default class RightBlock {
 
     const centerX = canvas.width / (2 * 1.2);
     const centerY = canvas.height / 2;
-    /* ctx.translate(centerX, centerY);
-    ctx.rotate(((info.split(":")[0] * 30 - 90) * Math.PI) / 180);
-    ctx.fillStyle = "#E0E0E0";
-    ctx.fillRect(-2, -2, 40, 6);
-    ctx.rotate(-((info.split(":")[0] * 30 - 90) * Math.PI) / 180);
-    ctx.rotate(
-      (((info.split(":")[1].split(" ")[0] / 60) * 360 - 90) * Math.PI) / 180
-    );
-    ctx.fillStyle = "#828282";
-    ctx.fillRect(-2, -2, 60, 4);
-
-    console.log(canvas); */
     ctx.beginPath();
     ctx.strokeStyle = '#E0E0E0';
     ctx.lineWidth = '8';

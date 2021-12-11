@@ -1,4 +1,5 @@
 import icons from '../../../data/icons';
+import ErrorHandler from '../../../errorsHandler/errorHandeler';
 
 export default class Slider {
   slide(slider) {
@@ -85,6 +86,9 @@ export default class Slider {
         dayPart = 'day';
       }
       const img = document.createElement('img');
+      if (icons[info.forecast.forecastday[0].hour[i].condition.text] === undefined) {
+        new ErrorHandler().imgError();
+      }
       img.src = `./light/${dayPart}/${
         icons[info.forecast.forecastday[0].hour[i].condition.text]
       }.png`;
@@ -117,6 +121,9 @@ export default class Slider {
           dayPart = 'day';
         }
         const img = document.createElement('img');
+        if (icons[info.forecast.forecastday[i].hour[j].condition.text] === undefined) {
+          new ErrorHandler().imgError();
+        }
         img.src = `./light/${dayPart}/${
           icons[info.forecast.forecastday[i].hour[j].condition.text]
         }.png`;

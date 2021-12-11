@@ -1,3 +1,43 @@
+.alertBlock{
+    position: fixed;
+    top:40vh;
+    left: 40vw;
+    width: 20%;
+    background: rgba(255, 255, 255, 0.2);
+    border: solid 1px black;
+    opacity: 1;
+    transition: 1s;
+    
+}
+.alertBlock p{
+    text-align: center;
+}
+.alertBlockImg{
+    position: fixed;
+    top:50vh;
+    left: 40vw;
+    width: 20%;
+    background: rgba(255, 255, 255, 0.2);
+    border: solid 1px black;
+    opacity: 1;
+    transition: 1s; 
+}
+.alertBlockImg p{
+    text-align: center;
+}
+.alertBlocksSearch{
+    position: fixed;
+    top:30vh;
+    left: 40vw;
+    width: 20%;
+    background: rgba(255, 255, 255, 0.2);
+    border: solid 1px black;
+    opacity: 1;
+    transition: 1s; 
+}
+.alertBlocksSearch p{
+    text-align: center;
+}
 @font-face {
   font-family: "Inter";
   src: url(fonts/e22ca38c4e5fd2eb1bcf.ttf);
@@ -310,6 +350,9 @@ label:active:after {
     width: 100%;
     margin-top: 7vh;
   }
+  .leftBlock .currentTemp .tempNumber {
+    font-size: 10vh;
+}
   .rightBlock {
     margin-left: -2vw;
     width: 100vw;
@@ -350,9 +393,7 @@ label:active:after {
   .shortInfoLine {
     display: inherit;
   }
-  .leftBlock .currentTemp .tempNumber {
-    font-size: 10vh;
-}
+ 
 .leftBlockSecondLay {
   margin: 2vh 0;
 }

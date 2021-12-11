@@ -1,0 +1,40 @@
+.alertBlock{
+    position: fixed;
+    top:40vh;
+    left: 40vw;
+    width: 20%;
+    background: rgba(255, 255, 255, 0.2);
+    border: solid 1px black;
+    opacity: 1;
+    transition: 1s;
+    
+}
+.alertBlock p{
+    text-align: center;
+}
+.alertBlockImg{
+    position: fixed;
+    top:50vh;
+    left: 40vw;
+    width: 20%;
+    background: rgba(255, 255, 255, 0.2);
+    border: solid 1px black;
+    opacity: 1;
+    transition: 1s; 
+}
+.alertBlockImg p{
+    text-align: center;
+}
+.alertBlocksSearch{
+    position: fixed;
+    top:30vh;
+    left: 40vw;
+    width: 20%;
+    background: rgba(255, 255, 255, 0.2);
+    border: solid 1px black;
+    opacity: 1;
+    transition: 1s; 
+}
+.alertBlocksSearch p{
+    text-align: center;
+}

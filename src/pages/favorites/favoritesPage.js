@@ -2,6 +2,7 @@ import GetInfo from '../../data/storage';
 import PageTemplate from '../../templates/pageTemplate';
 import './favoritesPage.css';
 import icons from '../../data/icons';
+import ErrorHandler from '../../errorsHandler/errorHandeler';
 
 const pageState = {
   color: 'rgba(0,222,0,.5)',
@@ -85,6 +86,9 @@ class FavoritesPage extends PageTemplate {
     const commonBlock = this.commonBlock(info);
     const infoLine = this.shortInfoLine(info);
     const pic = document.createElement('img');
+    if (icons[info.current.condition.text] === undefined) {
+      new ErrorHandler().imgError();
+    }
     pic.src = `./light/${localStorage.getItem('dayPart')}/${icons[info.current.condition.text]}.png`;
     const close = document.createElement('img');
     close.className = 'close';

@@ -310,6 +310,9 @@ label:active:after {
     width: 100%;
     margin-top: 7vh;
   }
+  .leftBlock .currentTemp .tempNumber {
+    font-size: 10vh;
+}
   .rightBlock {
     margin-left: -2vw;
     width: 100vw;
@@ -350,9 +353,7 @@ label:active:after {
   .shortInfoLine {
     display: inherit;
   }
-  .leftBlock .currentTemp .tempNumber {
-    font-size: 10vh;
-}
+ 
 .leftBlockSecondLay {
   margin: 2vh 0;
 }
