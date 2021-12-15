@@ -1,5 +1,5 @@
 import ErrorHandler from '../errorsHandler/errorHandeler';
-
+import fetch  from 'node-fetch';
 class GetInfo {
   getWhatINeed(sity) {
     return fetch(
@@ -12,6 +12,13 @@ class GetInfo {
         return 0;
       })
       .catch((err) => { return alert(err); });
+  }
+ async getWhatINeed222(sity) {
+      const result=await fetch( `https://api.weatherapi.com/v1/forecast.json?key=01960bba4b6a444a831133935212311&q=${sity}&days=3&aqi=yes&alerts=yes`)
+      const data = await result.json()
+      console.log(data)
+      return data
+    
   }
 
   sityAPI(text) {

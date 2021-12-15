@@ -1,4 +1,4 @@
-import { Menu } from './menu/menu';
+import Menu from './menu/menu';
 import PagesIds from './pages/pageIDs';
 import GetInfo from './data/storage';
 

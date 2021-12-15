@@ -6,7 +6,19 @@
   "scripts": {
     "build": "webpack",
     "dev": "webpack serve --env develop",
-    "lint": "eslint --fix --ext .js,.jsx ."
+    "lint": "eslint --fix --ext .js,.jsx .",
+    "test": "jest"
+  },
+  
+  "jest": {
+    "transform": {
+      "^.+\\.js?$": "babel-jest",
+      "automock": false,
+  "resetMocks": false,
+  "setupFiles": [
+    "./setupJest.js"
+  ]
+    }
   },
   "repository": {
     "type": "git",
@@ -19,11 +31,17 @@
   },
   "homepage": "https://github.com/maloiMASLACH/weather#readme",
   "devDependencies": {
-    "@babel/core": "^7.16.0",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
     "@babel/eslint-parser": "^7.16.3",
     "@babel/eslint-plugin": "^7.14.5",
-    "@babel/preset-env": "^7.16.4",
+    "@babel/node": "^7.16.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.16.5",
+    "@babel/plugin-transform-runtime": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
     "babel-loader": "^8.2.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.0.0",
     "css-loader": "^6.5.1",
@@ -37,6 +55,8 @@
     "eslint-webpack-plugin": "^3.1.1",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.4.4",
+    "jest-fetch-mock": "^3.0.3",
     "mini-css-extract-plugin": "^2.4.5",
     "prettier": "^2.5.0",
     "sass": "^1.43.5",
@@ -46,5 +66,12 @@
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.5.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/runtime": "^7.16.5",
+    "babel-jest": "^27.4.5",
+    "babel-preset-env": "^1.7.0",
+    "core-js": "^3.19.3",
+    "node-fetch": "^3.1.0",
+    "regenerator-runtime": "^0.13.9"
+  }
 }

@@ -3,7 +3,7 @@ import PagesIds from '../pages/pageIDs';
 import './menu.css';
 import themes from '../data/themes';
 
-export class Menu extends MenuTemplate {
+export default class Menu extends MenuTemplate {
   constructor(tagName, className) {
     super(tagName, className);
   }
@@ -28,9 +28,10 @@ export class Menu extends MenuTemplate {
         for (let i = 0; i < btns.children.length; i++) {
           btns.children[i].text = `${array[i]}`;
         }
-        this.conteiner.style.background = '';
+        this.conteiner.style.background = 'none';
       }
     });
+    return this.conteiner.style.background
   }
 
   renderButtons() {
@@ -50,11 +51,12 @@ export class Menu extends MenuTemplate {
       buttons.append(btnHTML);
     });
     this.checkWidth(buttons, buttonsArray);
-    this.conteiner.append(buttons);
+    return buttons
   }
 
   render() {
-    this.renderButtons();
+    const buttons = this.renderButtons();
+    this.conteiner.append(buttons);
     return this.conteiner;
   }
 }

@@ -11,10 +11,10 @@
       "no-plusplus": "off",
       "import/no-named-as-default": 0,
       "import/no-named-as-default-member":0,
-      "no-useless-constructor":"warn",
-      "class-methods-use-this":"warn",
+      "no-useless-constructor":0,
+      "class-methods-use-this":0,
       "no-console": "warn",
-      "import/no-cycle": "warn",
+      "import/no-cycle": 0,
       "arrow-body-style": ["warn", "always"],
       "max-len": ["warn", { "code": 120 }],
       "indent": ["warn", 2, {
