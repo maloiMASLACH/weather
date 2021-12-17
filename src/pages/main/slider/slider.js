@@ -158,8 +158,8 @@ export default class Slider {
     return slider;
   }
 
-  render(leftBlock, info) {
+  render(info) {
     const blocks = this.slider(info);
-    leftBlock.append(blocks);
+    return blocks;
   }
 }

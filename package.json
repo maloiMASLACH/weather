@@ -9,15 +9,14 @@
     "lint": "eslint --fix --ext .js,.jsx .",
     "test": "jest"
   },
-  
   "jest": {
     "transform": {
       "^.+\\.js?$": "babel-jest",
       "automock": false,
-  "resetMocks": false,
-  "setupFiles": [
-    "./setupJest.js"
-  ]
+      "resetMocks": false,
+      "setupFiles": [
+        "./setupJest.js"
+      ]
     }
   },
   "repository": {
@@ -56,7 +55,6 @@
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.4",
-    "jest-fetch-mock": "^3.0.3",
     "mini-css-extract-plugin": "^2.4.5",
     "prettier": "^2.5.0",
     "sass": "^1.43.5",
@@ -70,7 +68,9 @@
     "@babel/runtime": "^7.16.5",
     "babel-jest": "^27.4.5",
     "babel-preset-env": "^1.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "core-js": "^3.19.3",
+    "jest-mock": "^27.4.2",
     "node-fetch": "^3.1.0",
     "regenerator-runtime": "^0.13.9"
   }

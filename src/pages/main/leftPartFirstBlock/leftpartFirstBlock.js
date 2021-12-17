@@ -173,7 +173,6 @@ export default class LeftPartFirstBlock {
   }
 
   reRenderBlock(leftBlock, info) {
-    console.log(leftBlock.children[2]);
     leftBlock.children[0].children[0].innerHTML = '';
     leftBlock.children[2].remove();
     const commonInfoLeft = this.firstBlock(info);
@@ -182,7 +181,9 @@ export default class LeftPartFirstBlock {
     leftBlock.children[0].children[0].append(commonInfoLeft);
   }
 
-  leftBlock(leftBlock, info) {
+  leftBlock(info) {
+    const leftBlock = document.createElement('div');
+    leftBlock.className = 'leftBlock';
     const leftBlockFirstLay = document.createElement('div');
     leftBlockFirstLay.className = 'leftBlockFirstLay';
     const commonInfoLeft = this.firstBlock(info);
@@ -199,5 +200,6 @@ export default class LeftPartFirstBlock {
     switcher.onchange = () => {
       this.reRenderBlock(leftBlock, info);
     };
+    return (leftBlock);
   }
 }

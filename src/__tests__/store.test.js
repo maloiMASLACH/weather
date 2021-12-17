@@ -1,8 +1,35 @@
-import GetInfo from "../data/storage";
-jest.mock
-describe("Storage", () => {
-  test("Correct info list", async () => {
-    const expected = await new GetInfo().getWhatINeed("Minsk");
-    expect(expected).toBe(1);
+import GetInfo from '../data/storage';
+
+beforeAll(() => {
+
+});
+
+describe('Storage', () => {
+  test('Correct info list', async () => {
+    global.fetch = () => {
+      return Promise.resolve({
+        json: () => {
+          return Promise.resolve({ location: {}, forecast: {}, current: {} });
+        },
+      });
+    };
+    const expected = await new GetInfo().getWhatINeed('Minsk');
+    const expectedList = await new GetInfo().showAll('Minsk');
+    expect(expected).toEqual({ location: {}, forecast: {}, current: {} });
+    expect(expectedList).toEqual({ location: {}, forecast: {}, current: {} });
+  });
+
+  test('Correct sityes list', async () => {
+    global.fetch = () => {
+      return Promise.resolve({
+        json: () => {
+          return Promise.resolve([{}]);
+        },
+      });
+    };
+    const expected = await new GetInfo().sityAPI('Minsk');
+    const expectedList = await new GetInfo().sityes('Minsk');
+    expect(expected).toEqual([{}]);
+    expect(expectedList).toEqual([{}]);
   });
 });

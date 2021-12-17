@@ -14,13 +14,10 @@ class MainPage extends PageTemplate {
   }
 
   TwoMainBlocks() {
-    const leftBlock = document.createElement('div');
-    leftBlock.className = 'leftBlock';
-    const rightBlock = document.createElement('div');
-    rightBlock.className = 'rightBlock';
-    new LeftPartFirstBlock().leftBlock(leftBlock, this.conteiner.info);
-    new Slider().render(leftBlock, this.conteiner.info);
-    new RightBlock().render(rightBlock, this.conteiner.info);
+    const leftBlock = new LeftPartFirstBlock().leftBlock(this.conteiner.info);
+    const slider = new Slider().render(this.conteiner.info);
+    leftBlock.append(slider);
+    const rightBlock = new RightBlock().render(this.conteiner.info);
     this.conteiner.firstChild.append(leftBlock, rightBlock);
   }
 

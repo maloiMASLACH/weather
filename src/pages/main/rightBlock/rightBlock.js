@@ -11,13 +11,12 @@ export default class RightBlock {
       const app = new App();
       app.renderNewPAge('Home');
     } catch (err) {
-      alert('1');
+      window.location.hash = '#Err';
     }
   }
 
   async renderHelpBlocks(text, conteiner) {
     const info = await new GetInfo().sityes(text);
-    console.log(info);
     const help = document.createElement('div');
     help.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
     if (info.length) {
@@ -198,12 +197,13 @@ export default class RightBlock {
     return conteiner;
   }
 
-  render(rightBlock, info) {
+  render(info) {
+    const rightBlock = document.createElement('div');
+    rightBlock.className = 'rightBlock';
     const input = this.inputBlock(info);
     const clocks = this.clocksBlock(info);
     const indexes = this.indexesBlock(info);
     rightBlock.append(input, clocks, indexes);
-    console.log(localStorage.getItem('dayPart'));
     rightBlock.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
     return rightBlock;
   }

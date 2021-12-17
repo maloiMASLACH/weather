@@ -31,7 +31,7 @@ export default class Menu extends MenuTemplate {
         this.conteiner.style.background = 'none';
       }
     });
-    return this.conteiner.style.background
+    return this.conteiner.style.background;
   }
 
   renderButtons() {
@@ -51,7 +51,7 @@ export default class Menu extends MenuTemplate {
       buttons.append(btnHTML);
     });
     this.checkWidth(buttons, buttonsArray);
-    return buttons
+    return buttons;
   }
 
   render() {

@@ -10,6 +10,7 @@ export default class ErrorHandler {
     alertBlock.append(text);
     document.body.append(alertBlock);
     setTimeout(() => { alertBlock.remove(); }, 3000);
+    return true;
   }
 
   pageError(sity) {
@@ -30,6 +31,7 @@ export default class ErrorHandler {
     alertBlock.append(text);
     document.body.append(alertBlock);
     setTimeout(() => { alertBlock.remove(); }, 3000);
+    return true;
   }
 
   searchError() {
@@ -40,5 +42,6 @@ export default class ErrorHandler {
     alertBlock.append(text);
     document.body.append(alertBlock);
     setTimeout(() => { alertBlock.remove(); }, 1000);
+    return true;
   }
 }

@@ -97,8 +97,7 @@ class SettingsPage extends PageTemplate {
     text.textContent = 'Choose theme';
     const demo = document.createElement('div');
     demo.className = 'demo';
-    if(localStorage.getItem('theme')&&localStorage.getItem('dayPart'))
-    demo.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+    if (localStorage.getItem('theme') && localStorage.getItem('dayPart')) { demo.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')]; }
     const conteiner = document.createElement('div');
     conteiner.className = 'colorConteiner';
     Object.keys(themes).forEach((theme) => {

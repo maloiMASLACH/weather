@@ -96,12 +96,10 @@ class FavoritesPage extends PageTemplate {
 
     firstBlock.append(commonBlock, pic, close);
     block.append(firstBlock, infoLine);
-    console.log(block);
     block.addEventListener('click', (e) => {
       if (e.target === close) {
         block.remove();
         localStorage.setItem('favorites', localStorage.getItem('favorites').replace(`,${sity}`, ''));
-        console.log(localStorage.getItem('favorites').replace(sity, ''));
       } else {
         localStorage.setItem('sity', block.children[0].children[0].children[1].children[0].textContent);
         window.location.hash = '#Home';
