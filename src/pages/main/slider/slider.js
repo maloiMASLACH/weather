@@ -2,7 +2,7 @@ import icons from '../../../data/icons';
 import ErrorHandler from '../../../errorsHandler/errorHandeler';
 
 export default class Slider {
-  slide(slider) {
+  slideByScroll(slider) {
     slider.addEventListener(
       'mousewheel',
       (e) => {
@@ -27,7 +27,7 @@ export default class Slider {
     );
   }
 
-  touchSlider(slider) {
+  slideByTouch(slider) {
     let start = 0;
     let scrollLeft = 0;
     slider.addEventListener('touchstart', (e) => {
@@ -41,7 +41,7 @@ export default class Slider {
     });
   }
 
-  arrows(slider, left, right) {
+  slideByArrows(slider, left, right) {
     left.addEventListener('click', () => {
       for (let i = 0; i < 50; i++) {
         setTimeout(() => { slider.scrollLeft -= slider.offsetWidth / 50; }, i * 5);
@@ -54,7 +54,7 @@ export default class Slider {
     });
   }
 
-  clockBlocks(info, left, right) {
+  renderClockBlocks(info, left, right) {
     const blocks = document.createElement('div');
     blocks.className = 'forecast';
     for (
@@ -133,14 +133,13 @@ export default class Slider {
         blocks.append(block);
       }
     }
-    // new SlideAction(blocks).slide();
-    this.slide(blocks);
-    this.touchSlider(blocks);
-    this.arrows(blocks, left, right);
+    this.slideByScroll(blocks);
+    this.slideByTouch(blocks);
+    this.slideByArrows(blocks, left, right);
     return blocks;
   }
 
-  slider(info) {
+  renderSlider(info) {
     const slider = document.createElement('div');
     slider.className = 'slider';
 
@@ -153,13 +152,13 @@ export default class Slider {
     rightArrow.src = './light/arrow.png';
     rightArrow.className = 'arrow';
 
-    const blocks = this.clockBlocks(info, leftArrow, rightArrow);
+    const blocks = this.renderClockBlocks(info, leftArrow, rightArrow);
     slider.append(leftArrow, blocks, rightArrow);
     return slider;
   }
 
   render(info) {
-    const blocks = this.slider(info);
+    const blocks = this.renderSlider(info);
     return blocks;
   }
 }

@@ -13,6 +13,6 @@ describe('Menu', () => {
   });
 
   it('Background', () => {
-    expect(new Menu().checkWidth()).toBeDefined();
+    expect(new Menu().checkStyleByWidth()).toBeDefined();
   });
 });

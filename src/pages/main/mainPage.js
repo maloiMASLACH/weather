@@ -4,28 +4,24 @@ import './mainPage.css';
 import Slider from './slider/slider';
 import RightBlock from './rightBlock/rightBlock';
 
-const pageState = {
-  color: 'rgba(0,222,0,.5)',
-  background: 'linear-gradient(248.66deg, #FF9696 0%, #8C6BAE 100%)',
-};
 class MainPage extends PageTemplate {
   constructor(id, info) {
     super(id, info);
   }
 
-  TwoMainBlocks() {
-    const leftBlock = new LeftPartFirstBlock().leftBlock(this.conteiner.info);
-    const slider = new Slider().render(this.conteiner.info);
+  renderTwoMainBlocks() {
+    const leftBlock = new LeftPartFirstBlock().renderLeftBlock(this.container.info);
+    const slider = new Slider().render(this.container.info);
     leftBlock.append(slider);
-    const rightBlock = new RightBlock().render(this.conteiner.info);
-    this.conteiner.firstChild.append(leftBlock, rightBlock);
+    const rightBlock = new RightBlock().render(this.container.info);
+    this.container.firstChild.append(leftBlock, rightBlock);
   }
 
   render() {
-    const page = this.createPage(pageState);
-    this.conteiner.append(page);
-    this.TwoMainBlocks();
-    return this.conteiner;
+    const page = this.createPage();
+    this.container.append(page);
+    this.renderTwoMainBlocks();
+    return this.container;
   }
 }
 

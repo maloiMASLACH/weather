@@ -2,12 +2,28 @@ import Menu from './menu/menu';
 import PagesIds from './pages/pageIDs';
 import GetInfo from './data/storage';
 
-const conteiner = document.body;
+const container = document.body;
 const defaultPageId = 'current-page';
 class App {
   constructor() {
     this.initialPage = new PagesIds.Home('Home');
     this.menu = new Menu('header', 'menu');
+  }
+
+  checkTheme(info) {
+    if (
+      info.location.localtime.split(' ')[1].split(':')[0]
+        < info.forecast.forecastday[0].astro.sunrise.split(':')[0]
+      || info.location.localtime.split(' ')[1].split(':')[0]
+        >= +info.forecast.forecastday[0].astro.sunset.split(':')[0] + 12
+    ) {
+      localStorage.setItem('dayPart', 'night');
+    } else {
+      localStorage.setItem('dayPart', 'day');
+    }
+    if (!localStorage.getItem('theme')) {
+      localStorage.setItem('theme', 'classic');
+    }
   }
 
   async renderNewPAge(pageId) {
@@ -16,26 +32,21 @@ class App {
       currentPage.remove();
     }
     let page = null;
-    const info = await new GetInfo().showAll(localStorage.getItem('sity') || 'Minsk');
-    if (info.location.localtime.split(' ')[1].split(':')[0] < info.forecast.forecastday[0].astro.sunrise.split(':')[0] || info.location.localtime.split(' ')[1].split(':')[0] >= +info.forecast.forecastday[0].astro.sunset.split(':')[0] + 12) {
-      localStorage.setItem('dayPart', 'night');
-    } else {
-      localStorage.setItem('dayPart', 'day');
-    }
-    if (!localStorage.getItem('theme')) {
-      localStorage.setItem('theme', 'classic');
-    }
+    const info = await new GetInfo().showAll(
+      localStorage.getItem('sity') || 'Minsk',
+    );
+    this.checkTheme(info);
 
     try {
-      page = new PagesIds[pageId](pageId, info);
+      page = new PagesIds[pageId](info);
     } catch (err) {
-      page = new PagesIds.Error(pageId, '404');
+      page = new PagesIds.Error('404');
     }
 
     if (page) {
       const pageHTML = page.render();
       pageHTML.id = defaultPageId;
-      conteiner.append(pageHTML);
+      container.append(pageHTML);
     }
   }
 
@@ -47,7 +58,7 @@ class App {
   }
 
   async run() {
-    conteiner.append(this.menu.render());
+    container.append(this.menu.render());
     if (window.location.hash.length) {
       const hash = window.location.hash.slice(1);
       this.renderNewPAge(hash);

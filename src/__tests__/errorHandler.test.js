@@ -10,7 +10,7 @@ describe('ErrorHandler', () => {
     expect(expected).toBe(true);
   });
   it('Render error block by search error', () => {
-    const expected = new ErrorHandler().searchError();
+    const expected = new ErrorHandler().searchPanelError();
     expect(expected).toBe(true);
   });
 });

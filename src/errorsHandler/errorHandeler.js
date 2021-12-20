@@ -13,10 +13,10 @@ export default class ErrorHandler {
     return true;
   }
 
-  pageError(sity) {
+  pageError(town) {
     localStorage.setItem('sity', localStorage.getItem('sityInput'));
     const favorites = localStorage.getItem('favorites').split(',');
-    favorites.splice(favorites.indexOf(sity), 1);
+    favorites.splice(favorites.indexOf(town), 1);
     favorites.join(',');
     localStorage.setItem('favorites', favorites);
     new App().renderNewPAge('Home');
@@ -34,7 +34,7 @@ export default class ErrorHandler {
     return true;
   }
 
-  searchError() {
+  searchPanelError() {
     const alertBlock = document.createElement('div');
     alertBlock.className = 'alertBlocksSearch';
     const text = document.createElement('p');

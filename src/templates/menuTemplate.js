@@ -1,11 +1,11 @@
 class MenuTemplate {
   constructor(tagName, className) {
-    this.conteiner = document.createElement(tagName);
-    this.conteiner.className = className;
+    this.container = document.createElement(tagName);
+    this.container.className = className;
   }
 
   render() {
-    return this.conteiner;
+    return this.container;
   }
 }
 export default MenuTemplate;

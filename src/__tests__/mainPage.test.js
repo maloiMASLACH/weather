@@ -15,7 +15,7 @@ describe('Main page', () => {
     },
   };
   it('Render left first block', () => {
-    const expected = new LeftPartFirstBlock().leftBlock(info);
+    const expected = new LeftPartFirstBlock().renderLeftBlock(info);
     expect(expected.getAttribute('class')).toBe('leftBlock');
     expect(expected.children[0].getAttribute('class')).toBe('leftBlockFirstLay');
     expect(expected.children[0].children[0].children[1].children[0].textContent).toBe('Minsk');
@@ -36,7 +36,7 @@ describe('Main page', () => {
     expect(expected.children[1].children[0].children[0].className).toBe('');
   });
   it('Render input panel', () => {
-    const expected = new RightBlock().inputBlock();
+    const expected = new RightBlock().renderInputBlock();
     expect(expected.className).toBe('inputdiv');
     expect(expected.children[0].className).toBe('searchPanel');
   });

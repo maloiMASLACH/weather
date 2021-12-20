@@ -2,29 +2,24 @@ import PageTemplate from '../../templates/pageTemplate';
 import './settingsPage.css';
 import themes from '../../data/themes';
 
-const pageState = {
-  color: 'rgba(0,222,0,.5)',
-  background:
-    ' linear-gradient(248.66deg, #91BEF3 0%,rgb(98 113 169) 50%, #91BEF3 100%)',
-};
 class SettingsPage extends PageTemplate {
   constructor(id, info) {
     super(id, info);
   }
 
-  time() {
-    const conteiner = document.createElement('div');
-    conteiner.className = 'dayPartSett';
+  renderDayPart() {
+    const container = document.createElement('div');
+    container.className = 'dayPartSett';
     const pic = document.createElement('img');
     pic.src = `./light/${localStorage.getItem('dayPart')}/sunny.png`;
     const dayPart = document.createElement('p');
     dayPart.className = 'dayPart';
     dayPart.textContent = localStorage.getItem('dayPart');
-    conteiner.append(pic, dayPart);
-    return conteiner;
+    container.append(pic, dayPart);
+    return container;
   }
 
-  location() {
+  renderCurrentLocation() {
     const content = document.createElement('div');
     content.classList = 'settingsLocation';
     const title = document.createElement('p');
@@ -32,13 +27,13 @@ class SettingsPage extends PageTemplate {
     title.className = 'title';
     location.className = 'currentSitySett';
     title.textContent = 'Your current location';
-    location.textContent = 'Minsk, Belarus';
+    location.textContent = localStorage.getItem('sity') || 'Minsk';
     // navigator.geolocation.getCurrentPosition((res)=>{console.log(res)})
     content.append(title, location);
     return content;
   }
 
-  degrees() {
+  degreesSetting() {
     const tempDeg = document.createElement('div');
     tempDeg.className = 'tempDegSett';
     const text = document.createElement('p');
@@ -64,7 +59,7 @@ class SettingsPage extends PageTemplate {
     return tempDeg;
   }
 
-  wind() {
+  windSetting() {
     const windCon = document.createElement('div');
     windCon.className = 'tempDegSett';
     const text = document.createElement('p');
@@ -90,66 +85,68 @@ class SettingsPage extends PageTemplate {
     return windCon;
   }
 
-  color() {
+  colorSetting() {
     const colorCon = document.createElement('div');
     colorCon.className = 'tempDegSett';
     const text = document.createElement('p');
     text.textContent = 'Choose theme';
     const demo = document.createElement('div');
     demo.className = 'demo';
-    if (localStorage.getItem('theme') && localStorage.getItem('dayPart')) { demo.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')]; }
-    const conteiner = document.createElement('div');
-    conteiner.className = 'colorConteiner';
+    if (localStorage.getItem('theme') && localStorage.getItem('dayPart')) {
+      demo.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+    }
+    const container = document.createElement('div');
+    container.className = 'colorConteiner';
     Object.keys(themes).forEach((theme) => {
       const colorTempl = document.createElement('div');
       colorTempl.className = 'colorTempl';
       colorTempl.style.background = themes[theme][localStorage.getItem('dayPart')];
-      conteiner.append(colorTempl);
+      container.append(colorTempl);
     });
     demo.onclick = () => {
-      conteiner.style.display = 'flex';
+      container.style.display = 'flex';
       demo.style.display = 'none';
-      for (let i = 0; i < conteiner.children.length; i++) {
-        conteiner.children[i].onclick = () => {
+      for (let i = 0; i < container.children.length; i++) {
+        container.children[i].onclick = () => {
           localStorage.setItem('theme', Object.keys(themes)[i]);
           if (document.documentElement.clientWidth <= 425) {
             document.body.children[0].style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
           }
           document.body.style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
           demo.style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
-          conteiner.style.display = 'none';
+          container.style.display = 'none';
           demo.style.display = 'block';
         };
       }
     };
-    colorCon.append(text, demo, conteiner);
+    colorCon.append(text, demo, container);
     return colorCon;
   }
 
-  options() {
-    const conteiner = document.createElement('div');
-    conteiner.className = 'commonOptions';
-    const tempDeg = this.degrees();
-    const wind = this.wind();
-    const color = this.color();
-    conteiner.append(tempDeg, wind, color);
-    return conteiner;
+  renderOptionsBlock() {
+    const container = document.createElement('div');
+    container.className = 'commonOptions';
+    const tempDeg = this.degreesSetting();
+    const wind = this.windSetting();
+    const color = this.colorSetting();
+    container.append(tempDeg, wind, color);
+    return container;
   }
 
   render() {
-    const page = this.createPage(pageState);
+    const page = this.createPage();
     const content = document.createElement('div');
     content.className = 'settingsContent';
-    const location = this.location();
-    const icon = this.time();
+    const location = this.renderCurrentLocation();
+    const icon = this.renderDayPart();
     const settings = document.createElement('div');
     settings.className = 'settingsoptions';
-    const options = this.options();
+    const options = this.renderOptionsBlock();
     content.append(location, icon);
     settings.append(options);
     page.append(content, settings);
-    this.conteiner.append(page);
-    return this.conteiner;
+    this.container.append(page);
+    return this.container;
   }
 }
 

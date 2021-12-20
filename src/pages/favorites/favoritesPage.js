@@ -4,18 +4,14 @@ import './favoritesPage.css';
 import icons from '../../data/icons';
 import ErrorHandler from '../../errorsHandler/errorHandeler';
 
-const pageState = {
-  color: 'rgba(0,222,0,.5)',
-  background: 'linear-gradient(90.66deg, #AAC0FF 0%, #8C6BAE 100%)',
-};
 class FavoritesPage extends PageTemplate {
   constructor(id) {
     super(id);
   }
 
-  currentTemp(info) {
-    const conteiner = document.createElement('div');
-    conteiner.className = 'temp';
+  currentTownTemp(info) {
+    const container = document.createElement('div');
+    container.className = 'temp';
     const tempNumber = document.createElement('p');
     tempNumber.classList = 'tempNumber';
     const degrees = document.createElement('p');
@@ -27,33 +23,33 @@ class FavoritesPage extends PageTemplate {
       tempNumber.textContent = `${info.current.temp_c}`;
       degrees.textContent = '°C';
     }
-    conteiner.append(tempNumber, degrees);
-    return conteiner;
+    container.append(tempNumber, degrees);
+    return container;
   }
 
-  location(info) {
-    const conteiner = document.createElement('div');
-    conteiner.className = 'favoriteLocation';
-    const sity = document.createElement('p');
+  townLocation(info) {
+    const container = document.createElement('div');
+    container.className = 'favoriteLocation';
+    const town = document.createElement('p');
     const country = document.createElement('p');
-    sity.className = 'locationSity';
+    town.className = 'locationSity';
     country.className = 'locationCountry';
-    sity.textContent = info.location.name;
+    town.textContent = info.location.name;
     country.textContent = info.location.country;
-    conteiner.append(sity, country);
-    return conteiner;
+    container.append(town, country);
+    return container;
   }
 
-  commonBlock(info) {
-    const conteiner = document.createElement('div');
-    conteiner.className = 'singleFavoriteInfo';
-    const temp = this.currentTemp(info);
-    const sity = this.location(info);
-    conteiner.append(temp, sity);
-    return conteiner;
+  renderCommonInfoBlock(info) {
+    const container = document.createElement('div');
+    container.className = 'singleFavoriteInfo';
+    const temp = this.currentTownTemp(info);
+    const town = this.townLocation(info);
+    container.append(temp, town);
+    return container;
   }
 
-  shortInfoLine(info) {
+  renderShortInfoLine(info) {
     const line = document.createElement('div');
     line.className = 'blockLine';
     let wind;
@@ -77,14 +73,14 @@ class FavoritesPage extends PageTemplate {
     return line;
   }
 
-  async singleBlock(sity) {
+  async singleBlock(town) {
     const block = document.createElement('div');
     const firstBlock = document.createElement('div');
     block.className = 'singleFavorite';
     firstBlock.className = 'firstblock';
-    const info = await new GetInfo().showAll(sity);
-    const commonBlock = this.commonBlock(info);
-    const infoLine = this.shortInfoLine(info);
+    const info = await new GetInfo().showAll(town);
+    const commonBlock = this.renderCommonInfoBlock(info);
+    const infoLine = this.renderShortInfoLine(info);
     const pic = document.createElement('img');
     if (icons[info.current.condition.text] === undefined) {
       new ErrorHandler().imgError();
@@ -108,26 +104,26 @@ class FavoritesPage extends PageTemplate {
     return block;
   }
 
-  favoritesBlock() {
+  renderFavoritesBlock() {
     if (localStorage.getItem('favorites')) {
-      const conteiner = document.createElement('div');
-      conteiner.className = 'favoritesBlocks';
-      const sityes = localStorage.getItem('favorites').split(',');
-      sityes.shift();
-      sityes.forEach(async (sity) => {
-        const favorite = await this.singleBlock(sity);
-        conteiner.append(favorite);
+      const container = document.createElement('div');
+      container.className = 'favoritesBlocks';
+      const towns = localStorage.getItem('favorites').split(',');
+      towns.shift();
+      towns.forEach(async (town) => {
+        const favorite = await this.singleBlock(town);
+        container.append(favorite);
       });
-      return conteiner;
+      return container;
     } return '';
   }
 
   render() {
-    const page = this.createPage(pageState);
-    const content = this.favoritesBlock();
+    const page = this.createPage();
+    const content = this.renderFavoritesBlock();
     page.append(content);
-    this.conteiner.append(page);
-    return this.conteiner;
+    this.container.append(page);
+    return this.container;
   }
 }
 

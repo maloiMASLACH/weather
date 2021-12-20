@@ -2,19 +2,19 @@ import icons from '../../../data/icons';
 import Slider from '../slider/slider';
 
 export default class LeftPartFirstBlock {
-  currentLocation(info) {
-    const conteiner = document.createElement('div');
-    const sity = document.createElement('p');
-    sity.classList = 'currentSity';
-    sity.textContent = info.location.name;
+  renderCurrentLocation(info) {
+    const container = document.createElement('div');
+    const town = document.createElement('p');
+    town.classList = 'currentSity';
+    town.textContent = info.location.name;
     const country = document.createElement('p');
     country.classList = 'currentCountry';
     country.textContent = info.location.country;
-    conteiner.append(sity, country);
-    return conteiner;
+    container.append(town, country);
+    return container;
   }
 
-  currenWetherIcon(info) {
+  renderCurrentWetherIcon(info) {
     const icon = document.createElement('img');
     icon.className = 'icon';
 
@@ -23,7 +23,7 @@ export default class LeftPartFirstBlock {
     return icon;
   }
 
-  currentTemp(info) {
+  renderCurrentTemp(info) {
     const currentTemp = document.createElement('div');
     currentTemp.classList = 'currentTemp';
     const tempNumber = document.createElement('p');
@@ -41,14 +41,7 @@ export default class LeftPartFirstBlock {
     return currentTemp;
   }
 
-  currentCondition(info) {
-    const condition = document.createElement('p');
-    condition.textContent = info.current.condition.text;
-    condition.classList = 'condition';
-    return condition;
-  }
-
-  currentDate(info) {
+  renderCurrentDate(info) {
     const currentTimer = document.createElement('div');
     currentTimer.classList = 'currentTimer';
     const month = [
@@ -111,9 +104,9 @@ export default class LeftPartFirstBlock {
     return currentTimer;
   }
 
-  switcher() {
-    const swithcBlock = document.createElement('div');
-    swithcBlock.className = 'switcher';
+  renderSwitcher() {
+    const switchBlock = document.createElement('div');
+    switchBlock.className = 'switcher';
     const switcher = document.createElement('input');
     switcher.type = 'checkbox';
     switcher.id = 'switch';
@@ -132,22 +125,21 @@ export default class LeftPartFirstBlock {
     const label = document.createElement('label');
     label.setAttribute('for', switcher.id);
     label.textContent = 'C F';
-    swithcBlock.append(switcher, label);
-    return swithcBlock;
+    switchBlock.append(switcher, label);
+    return switchBlock;
   }
 
-  firstBlock(info) {
-    const conteiner = document.createElement('div');
-    const icon = this.currenWetherIcon(info);
-    const sity = this.currentLocation(info);
-    const currentTemp = this.currentTemp(info);
-    //  const condition = this.currentCondition(info);
-    const time = this.currentDate(info);
-    conteiner.append(icon, sity, currentTemp, time);
-    return conteiner;
+  renderFirstBlock(info) {
+    const container = document.createElement('div');
+    const icon = this.renderCurrentWetherIcon(info);
+    const town = this.renderCurrentLocation(info);
+    const currentTemp = this.renderCurrentTemp(info);
+    const time = this.renderCurrentDate(info);
+    container.append(icon, town, currentTemp, time);
+    return container;
   }
 
-  shortInfoLine(info) {
+  renderShortInfoLine(info) {
     const line = document.createElement('div');
     line.className = 'shortInfoLine';
     let wind;
@@ -175,24 +167,24 @@ export default class LeftPartFirstBlock {
   reRenderBlock(leftBlock, info) {
     leftBlock.children[0].children[0].innerHTML = '';
     leftBlock.children[2].remove();
-    const commonInfoLeft = this.firstBlock(info);
-    const slider = new Slider().slider(info);
+    const commonInfoLeft = this.renderFirstBlock(info);
+    const slider = new Slider().renderSlider(info);
     leftBlock.append(slider);
     leftBlock.children[0].children[0].append(commonInfoLeft);
   }
 
-  leftBlock(info) {
+  renderLeftBlock(info) {
     const leftBlock = document.createElement('div');
     leftBlock.className = 'leftBlock';
     const leftBlockFirstLay = document.createElement('div');
     leftBlockFirstLay.className = 'leftBlockFirstLay';
-    const commonInfoLeft = this.firstBlock(info);
-    const switcher = this.switcher();
+    const commonInfoLeft = this.renderFirstBlock(info);
+    const switcher = this.renderSwitcher();
     leftBlockFirstLay.append(commonInfoLeft, switcher);
 
     const leftBlockSecondLay = document.createElement('div');
     leftBlockSecondLay.className = 'leftBlockSecondLay';
-    const shortLine = this.shortInfoLine(info);
+    const shortLine = this.renderShortInfoLine(info);
     leftBlockSecondLay.append(shortLine);
 
     leftBlock.append(leftBlockFirstLay, leftBlockSecondLay);

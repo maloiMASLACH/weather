@@ -8,17 +8,17 @@ export default class Menu extends MenuTemplate {
     super(tagName, className);
   }
 
-  checkWidth(btns, array) {
+  checkStyleByWidth(btns, array) {
     if (document.documentElement.clientWidth <= 425) {
       if (localStorage.getItem('theme')) {
-        this.conteiner.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+        this.container.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
       } else {
-        this.conteiner.style.background = 'linear-gradient(116.79deg, rgba(255, 255, 255, 0.48) -41.94%, rgba(255, 255, 255, 0.22) 57.51%)';
+        this.container.style.background = themes.classic.day;
       }
     }
     window.addEventListener('resize', () => {
       if (document.documentElement.clientWidth <= 425) {
-        this.conteiner.style.background = themes[localStorage.getItem('theme')][
+        this.container.style.background = themes[localStorage.getItem('theme')][
           localStorage.getItem('dayPart')
         ];
         for (let i = 0; i < btns.children.length; i++) {
@@ -28,10 +28,10 @@ export default class Menu extends MenuTemplate {
         for (let i = 0; i < btns.children.length; i++) {
           btns.children[i].text = `${array[i]}`;
         }
-        this.conteiner.style.background = 'none';
+        this.container.style.background = 'none';
       }
     });
-    return this.conteiner.style.background;
+    return this.container.style.background;
   }
 
   renderButtons() {
@@ -50,13 +50,13 @@ export default class Menu extends MenuTemplate {
       }
       buttons.append(btnHTML);
     });
-    this.checkWidth(buttons, buttonsArray);
+    this.checkStyleByWidth(buttons, buttonsArray);
     return buttons;
   }
 
   render() {
     const buttons = this.renderButtons();
-    this.conteiner.append(buttons);
-    return this.conteiner;
+    this.container.append(buttons);
+    return this.container;
   }
 }

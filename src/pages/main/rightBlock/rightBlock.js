@@ -7,7 +7,8 @@ export default class RightBlock {
     try {
       localStorage.setItem('sityInput', localStorage.getItem('sity') || 'Minsk');
       localStorage.setItem('sity', value);
-      if (!localStorage.getItem('favorites') || localStorage.getItem('favorites').split(',').indexOf(value) === -1) localStorage.setItem('favorites', [localStorage.getItem('favorites'), value]);
+      if (!localStorage.getItem('favorites')
+      || localStorage.getItem('favorites').split(',').indexOf(value) === -1) localStorage.setItem('favorites', [localStorage.getItem('favorites'), value]);
       const app = new App();
       app.renderNewPAge('Home');
     } catch (err) {
@@ -15,8 +16,8 @@ export default class RightBlock {
     }
   }
 
-  async renderHelpBlocks(text, conteiner) {
-    const info = await new GetInfo().sityes(text);
+  async renderHelpBlocks(text, container) {
+    const info = await new GetInfo().townList(text);
     const help = document.createElement('div');
     help.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
     if (info.length) {
@@ -30,20 +31,20 @@ export default class RightBlock {
           });
           help.append(option);
         }
-        conteiner.innerHTML = '';
-        conteiner.append(help);
+        container.innerHTML = '';
+        container.append(help);
       }
     } else {
-      conteiner.innerHTML = '';
+      container.innerHTML = '';
     }
     document.addEventListener('click', () => {
-      conteiner.innerHTML = '';
+      container.innerHTML = '';
     });
   }
 
-  inputBlock() {
-    const conteiner = document.createElement('div');
-    conteiner.className = 'inputdiv';
+  renderInputBlock() {
+    const container = document.createElement('div');
+    container.className = 'inputdiv';
     const input = document.createElement('input');
     input.className = 'searchPanel';
     input.value = localStorage.getItem('inputValue') || '';
@@ -62,11 +63,11 @@ export default class RightBlock {
     icon.addEventListener('click', () => {
       this.useChanges(input.value);
     });
-    conteiner.append(input, icon, help);
-    return conteiner;
+    container.append(input, icon, help);
+    return container;
   }
 
-  clocks(info) {
+  clocksCanvas(info) {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
@@ -103,15 +104,15 @@ export default class RightBlock {
     return canvas;
   }
 
-  clocksBlock(info) {
+  renderClocksBlock(info) {
     const events = ['Sunrise', 'Last Update', 'Sunset'];
     const eventTime = [
       info.forecast.forecastday[0].astro.sunrise.split(' ')[0],
       info.current.last_updated.split(' ')[1],
       info.forecast.forecastday[0].astro.sunset.split(' ')[0],
     ];
-    const conteiner = document.createElement('div');
-    conteiner.className = 'allClocks';
+    const container = document.createElement('div');
+    container.className = 'allClocks';
 
     for (let i = 0; i < 3; i++) {
       const smallBlock = document.createElement('div');
@@ -120,17 +121,17 @@ export default class RightBlock {
       text.className = 'dayEvent';
       text.textContent = events[i];
 
-      const clocks = this.clocks(eventTime[i]);
-      const canvasConteiner = document.createElement('div');
-      canvasConteiner.className = 'clock';
+      const clocks = this.clocksCanvas(eventTime[i]);
+      const canvasContainer = document.createElement('div');
+      canvasContainer.className = 'clock';
       const time = document.createElement('p');
       time.textContent = eventTime[i];
-      canvasConteiner.append(clocks, time);
-      smallBlock.append(text, canvasConteiner);
+      canvasContainer.append(clocks, time);
+      smallBlock.append(text, canvasContainer);
 
-      conteiner.append(smallBlock);
+      container.append(smallBlock);
     }
-    return conteiner;
+    return container;
   }
 
   renderIndexCanvas(info) {
@@ -172,8 +173,8 @@ export default class RightBlock {
   }
 
   indexesBlock(info) {
-    const conteiner = document.createElement('div');
-    conteiner.className = 'indexes';
+    const container = document.createElement('div');
+    container.className = 'indexes';
     const indexes = ['Air Quality', 'UV Index'];
     const values = [
       info.current.air_quality['us-epa-index'],
@@ -192,16 +193,16 @@ export default class RightBlock {
       }`;
       index.append(indexText, img, indexValue);
 
-      conteiner.append(index);
+      container.append(index);
     });
-    return conteiner;
+    return container;
   }
 
   render(info) {
     const rightBlock = document.createElement('div');
     rightBlock.className = 'rightBlock';
-    const input = this.inputBlock(info);
-    const clocks = this.clocksBlock(info);
+    const input = this.renderInputBlock(info);
+    const clocks = this.renderClocksBlock(info);
     const indexes = this.indexesBlock(info);
     rightBlock.append(input, clocks, indexes);
     rightBlock.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];

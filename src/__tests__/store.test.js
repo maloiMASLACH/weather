@@ -27,8 +27,8 @@ describe('Storage', () => {
         },
       });
     };
-    const expected = await new GetInfo().sityAPI('Minsk');
-    const expectedList = await new GetInfo().sityes('Minsk');
+    const expected = await new GetInfo().townsAPI('Minsk');
+    const expectedList = await new GetInfo().townList('Minsk');
     expect(expected).toEqual([{}]);
     expect(expectedList).toEqual([{}]);
   });

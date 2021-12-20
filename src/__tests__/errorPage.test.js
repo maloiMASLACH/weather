@@ -1,4 +1,4 @@
-import ErrorPage from '../pages/erorr/erorrPage';
+import ErrorPage from '../pages/errorPage/errorPage';
 
 describe('Error page', () => {
   it('Render error page', () => {

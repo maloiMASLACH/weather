@@ -1,7 +1,7 @@
 import MainPage from './main/mainPage';
 import SettingsPage from './settings/settingsPage';
 import FavoritesPage from './favorites/favoritesPage';
-import ErrorPage from './erorr/erorrPage';
+import ErrorPage from './errorPage/errorPage';
 
 const PagesIds = {
   Home: MainPage,
