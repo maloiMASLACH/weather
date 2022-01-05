@@ -1,25 +1,26 @@
 import PageTemplate from '../../templates/pageTemplate';
 import './settingsPage.css';
 import themes from '../../data/themes';
+import LocalStorage, { storageConstants } from '../../data/localStorage';
 
 class SettingsPage extends PageTemplate {
   constructor(id, info) {
     super(id, info);
   }
 
-  renderDayPart() {
+  async renderDayPart() {
     const container = document.createElement('div');
     container.className = 'dayPartSett';
     const pic = document.createElement('img');
-    pic.src = `./light/${localStorage.getItem('dayPart')}/sunny.png`;
+    pic.src = `./light/${await new LocalStorage().get(storageConstants.dayPart)}/sunny.png`;
     const dayPart = document.createElement('p');
     dayPart.className = 'dayPart';
-    dayPart.textContent = localStorage.getItem('dayPart');
+    dayPart.textContent = await new LocalStorage().get(storageConstants.dayPart);
     container.append(pic, dayPart);
     return container;
   }
 
-  renderCurrentLocation() {
+  async renderCurrentLocation() {
     const content = document.createElement('div');
     content.classList = 'settingsLocation';
     const title = document.createElement('p');
@@ -27,13 +28,12 @@ class SettingsPage extends PageTemplate {
     title.className = 'title';
     location.className = 'currentSitySett';
     title.textContent = 'Your current location';
-    location.textContent = localStorage.getItem('sity') || 'Minsk';
-    // navigator.geolocation.getCurrentPosition((res)=>{console.log(res)})
+    location.textContent = await new LocalStorage().get(storageConstants.sity) || 'Minsk';
     content.append(title, location);
     return content;
   }
 
-  degreesSetting() {
+  async degreesSetting() {
     const tempDeg = document.createElement('div');
     tempDeg.className = 'tempDegSett';
     const text = document.createElement('p');
@@ -47,19 +47,19 @@ class SettingsPage extends PageTemplate {
       });
       tempSel.append(opt);
     });
-    if (localStorage.getItem('degrees') === 'F') {
+    if (await new LocalStorage().get(storageConstants.degrees) === 'F') {
       tempSel.children[1].setAttribute('selected', 'selected');
     } else {
       tempSel.children[0].setAttribute('selected', 'selected');
     }
-    tempSel.onchange = () => {
-      localStorage.setItem('degrees', tempSel.value[1]);
+    tempSel.onchange = async () => {
+      await new LocalStorage().store(storageConstants.degrees, tempSel.value[1]);
     };
     tempDeg.append(text, tempSel);
     return tempDeg;
   }
 
-  windSetting() {
+  async windSetting() {
     const windCon = document.createElement('div');
     windCon.className = 'tempDegSett';
     const text = document.createElement('p');
@@ -73,47 +73,47 @@ class SettingsPage extends PageTemplate {
       });
       windSel.append(opt);
     });
-    if (localStorage.getItem('wind') === 'mp/h') {
+    if (await new LocalStorage().get(storageConstants.wind) === 'mp/h') {
       windSel.children[1].setAttribute('selected', 'selected');
     } else {
       windSel.children[0].setAttribute('selected', 'selected');
     }
-    windSel.onchange = () => {
-      localStorage.setItem('wind', windSel.value);
+    windSel.onchange = async () => {
+      await new LocalStorage().get(storageConstants.wind, windSel.value);
     };
     windCon.append(text, windSel);
     return windCon;
   }
 
-  colorSetting() {
+  async colorSetting() {
     const colorCon = document.createElement('div');
     colorCon.className = 'tempDegSett';
     const text = document.createElement('p');
     text.textContent = 'Choose theme';
     const demo = document.createElement('div');
     demo.className = 'demo';
-    if (localStorage.getItem('theme') && localStorage.getItem('dayPart')) {
-      demo.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+    if (await new LocalStorage().get(storageConstants.theme) && await new LocalStorage().get(storageConstants.dayPart)) {
+      demo.style.background = themes[await new LocalStorage().get(storageConstants.theme)][await new LocalStorage().get(storageConstants.dayPart)];
     }
     const container = document.createElement('div');
     container.className = 'colorConteiner';
-    Object.keys(themes).forEach((theme) => {
+    Object.keys(themes).forEach(async (theme) => {
       const colorTempl = document.createElement('div');
       colorTempl.className = 'colorTempl';
-      colorTempl.style.background = themes[theme][localStorage.getItem('dayPart')];
+      colorTempl.style.background = themes[theme][await new LocalStorage().get(storageConstants.dayPart)];
       container.append(colorTempl);
     });
     demo.onclick = () => {
       container.style.display = 'flex';
       demo.style.display = 'none';
       for (let i = 0; i < container.children.length; i++) {
-        container.children[i].onclick = () => {
-          localStorage.setItem('theme', Object.keys(themes)[i]);
+        container.children[i].onclick = async () => {
+          await new LocalStorage().get(storageConstants.theme, Object.keys(themes)[i]);
           if (document.documentElement.clientWidth <= 425) {
-            document.body.children[0].style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
+            document.body.children[0].style.background = themes[Object.keys(themes)[i]][await new LocalStorage().get(storageConstants.dayPart)];
           }
-          document.body.style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
-          demo.style.background = themes[Object.keys(themes)[i]][localStorage.getItem('dayPart')];
+          document.body.style.background = themes[Object.keys(themes)[i]][await new LocalStorage().get(storageConstants.dayPart)];
+          demo.style.background = themes[Object.keys(themes)[i]][await new LocalStorage().get(storageConstants.dayPart)];
           container.style.display = 'none';
           demo.style.display = 'block';
         };
@@ -123,29 +123,28 @@ class SettingsPage extends PageTemplate {
     return colorCon;
   }
 
-  renderOptionsBlock() {
+  async renderOptionsBlock() {
     const container = document.createElement('div');
     container.className = 'commonOptions';
-    const tempDeg = this.degreesSetting();
-    const wind = this.windSetting();
-    const color = this.colorSetting();
+    const tempDeg = await this.degreesSetting();
+    const wind = await this.windSetting();
+    const color = await this.colorSetting();
     container.append(tempDeg, wind, color);
     return container;
   }
 
-  render() {
-    const page = this.createPage();
+  async render() {
+    super.render();
     const content = document.createElement('div');
     content.className = 'settingsContent';
-    const location = this.renderCurrentLocation();
-    const icon = this.renderDayPart();
+    const location = await this.renderCurrentLocation();
+    const icon = await this.renderDayPart();
     const settings = document.createElement('div');
     settings.className = 'settingsoptions';
-    const options = this.renderOptionsBlock();
+    const options = await this.renderOptionsBlock();
     content.append(location, icon);
     settings.append(options);
-    page.append(content, settings);
-    this.container.append(page);
+    this.container.append(content, settings);
     return this.container;
   }
 }

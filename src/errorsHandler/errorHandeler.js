@@ -1,47 +1,27 @@
 import App from '../app';
 import './errorHandler.css';
+import LocalStorage, { storageConstants } from '../data/localStorage';
 
 export default class ErrorHandler {
-  renderAlertBlock() {
-    const alertBlock = document.createElement('div');
-    alertBlock.className = 'alertBlock';
-    const text = document.createElement('p');
-    text.textContent = 'Bad request';
-    alertBlock.append(text);
-    document.body.append(alertBlock);
-    setTimeout(() => { alertBlock.remove(); }, 3000);
-    return true;
-  }
-
-  pageError(town) {
-    localStorage.setItem('sity', localStorage.getItem('sityInput'));
-    const favorites = localStorage.getItem('favorites').split(',');
+  async pageError(town) {
+    await new LocalStorage().store(storageConstants.sity, await new LocalStorage().get(storageConstants.sityInput));
+    const list = await new LocalStorage().get(storageConstants.favorites);
+    const favorites = list.split(',');
     favorites.splice(favorites.indexOf(town), 1);
     favorites.join(',');
-    localStorage.setItem('favorites', favorites);
+    await new LocalStorage().store(storageConstants.favorites, favorites);
     new App().renderNewPAge('Home');
-    this.renderAlertBlock();
+    this.contentError('Bad request');
   }
 
-  imgError() {
+  contentError(span) {
     const alertBlock = document.createElement('div');
     alertBlock.className = 'alertBlockImg';
     const text = document.createElement('p');
-    text.textContent = 'Some images are lost';
+    text.textContent = span;
     alertBlock.append(text);
     document.body.append(alertBlock);
     setTimeout(() => { alertBlock.remove(); }, 3000);
-    return true;
-  }
-
-  searchPanelError() {
-    const alertBlock = document.createElement('div');
-    alertBlock.className = 'alertBlocksSearch';
-    const text = document.createElement('p');
-    text.textContent = 'Incorrect search';
-    alertBlock.append(text);
-    document.body.append(alertBlock);
-    setTimeout(() => { alertBlock.remove(); }, 1000);
     return true;
   }
 }

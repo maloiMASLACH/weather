@@ -1,14 +1,16 @@
 import App from '../../../app';
-import GetInfo from '../../../data/storage';
+import GetInfo from '../../../data/getInfo';
 import themes from '../../../data/themes';
+import LocalStorage, { storageConstants } from '../../../data/localStorage';
 
 export default class RightBlock {
-  useChanges(value) {
+  async useChanges(value) {
     try {
-      localStorage.setItem('sityInput', localStorage.getItem('sity') || 'Minsk');
-      localStorage.setItem('sity', value);
-      if (!localStorage.getItem('favorites')
-      || localStorage.getItem('favorites').split(',').indexOf(value) === -1) localStorage.setItem('favorites', [localStorage.getItem('favorites'), value]);
+      await new LocalStorage().store(storageConstants.sityInput, await new LocalStorage().get(storageConstants.sity) || 'Minsk');
+      await new LocalStorage().store(storageConstants.sity, value);
+      const favorites = await new LocalStorage().get(storageConstants.favorites);
+      if (!favorites
+      || favorites.split(',').indexOf(value) === -1) await new LocalStorage().store(storageConstants.favorites, [await new LocalStorage().get(storageConstants.favorites), value]);
       const app = new App();
       app.renderNewPAge('Home');
     } catch (err) {
@@ -19,15 +21,15 @@ export default class RightBlock {
   async renderHelpBlocks(text, container) {
     const info = await new GetInfo().townList(text);
     const help = document.createElement('div');
-    help.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+    help.style.background = themes[await new LocalStorage().get(storageConstants.theme)][await new LocalStorage().get(storageConstants.dayPart)];
     if (info.length) {
       for (let i = 0; i < info.length; i++) {
         if (i < 5) {
           const option = document.createElement('p');
           option.textContent = info[i].name;
-          option.addEventListener('click', () => {
-            localStorage.setItem('inputValue', option.textContent);
-            this.useChanges(option.textContent);
+          option.addEventListener('click', async () => {
+            await new LocalStorage().store(storageConstants.inputValue, option.textContent);
+            await this.useChanges(option.textContent);
           });
           help.append(option);
         }
@@ -42,26 +44,26 @@ export default class RightBlock {
     });
   }
 
-  renderInputBlock() {
+  async renderInputBlock() {
     const container = document.createElement('div');
     container.className = 'inputdiv';
     const input = document.createElement('input');
     input.className = 'searchPanel';
-    input.value = localStorage.getItem('inputValue') || '';
+    input.value = await new LocalStorage().get(storageConstants.inputValue) || '';
     const help = document.createElement('div');
     help.className = 'helpBloks';
-    input.addEventListener('keyup', (e) => {
+    input.addEventListener('keyup', async (e) => {
       if (e.code === 'Enter') {
-        this.useChanges(input.value);
+        await this.useChanges(input.value);
       }
-      localStorage.setItem('inputValue', input.value);
+      await new LocalStorage().store(storageConstants.inputValue, input.value);
       this.renderHelpBlocks(input.value, help, input);
     });
 
     const icon = document.createElement('img');
     icon.src = './light/search.png';
-    icon.addEventListener('click', () => {
-      this.useChanges(input.value);
+    icon.addEventListener('click', async () => {
+      await this.useChanges(input.value);
     });
     container.append(input, icon, help);
     return container;
@@ -180,7 +182,7 @@ export default class RightBlock {
       info.current.air_quality['us-epa-index'],
       Math.round(info.current.uv / 2),
     ];
-    const condition = ['Low', 'Moderate', 'Medium', 'Height', 'Extream'];
+    const condition = ['Low', 'Moderate', 'Medium', 'Height', 'Extreme'];
     indexes.forEach((indexName) => {
       const index = document.createElement('div');
       index.className = 'index';
@@ -198,14 +200,14 @@ export default class RightBlock {
     return container;
   }
 
-  render(info) {
+  async render(info) {
     const rightBlock = document.createElement('div');
     rightBlock.className = 'rightBlock';
-    const input = this.renderInputBlock(info);
+    const input = await this.renderInputBlock(info);
     const clocks = this.renderClocksBlock(info);
     const indexes = this.indexesBlock(info);
     rightBlock.append(input, clocks, indexes);
-    rightBlock.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+    rightBlock.style.background = themes[await new LocalStorage().get(storageConstants.theme)][await new LocalStorage().get(storageConstants.dayPart)];
     return rightBlock;
   }
 }

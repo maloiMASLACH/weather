@@ -1,6 +1,7 @@
 import Menu from './menu/menu';
 import PagesIds from './pages/pageIDs';
-import GetInfo from './data/storage';
+import GetInfo from './data/getInfo';
+import LocalStorage, { storageConstants } from './data/localStorage';
 
 const container = document.body;
 const defaultPageId = 'current-page';
@@ -10,19 +11,19 @@ class App {
     this.menu = new Menu('header', 'menu');
   }
 
-  checkTheme(info) {
+  async checkTheme(info) {
     if (
       info.location.localtime.split(' ')[1].split(':')[0]
         < info.forecast.forecastday[0].astro.sunrise.split(':')[0]
       || info.location.localtime.split(' ')[1].split(':')[0]
         >= +info.forecast.forecastday[0].astro.sunset.split(':')[0] + 12
     ) {
-      localStorage.setItem('dayPart', 'night');
+      await new LocalStorage().store(storageConstants.dayPart, 'night');
     } else {
-      localStorage.setItem('dayPart', 'day');
+      await new LocalStorage().store(storageConstants.dayPart, 'day');
     }
-    if (!localStorage.getItem('theme')) {
-      localStorage.setItem('theme', 'classic');
+    if (!await new LocalStorage().get(storageConstants.theme)) {
+      await new LocalStorage().store(storageConstants.theme, 'classic');
     }
   }
 
@@ -33,9 +34,9 @@ class App {
     }
     let page = null;
     const info = await new GetInfo().showAll(
-      localStorage.getItem('sity') || 'Minsk',
+      await new LocalStorage().get(storageConstants.sity) || 'Minsk',
     );
-    this.checkTheme(info);
+    await this.checkTheme(info);
 
     try {
       page = new PagesIds[pageId](info);
@@ -44,7 +45,7 @@ class App {
     }
 
     if (page) {
-      const pageHTML = page.render();
+      const pageHTML = await page.render();
       pageHTML.id = defaultPageId;
       container.append(pageHTML);
     }
@@ -58,7 +59,7 @@ class App {
   }
 
   async run() {
-    container.append(this.menu.render());
+    container.append(await this.menu.render());
     if (window.location.hash.length) {
       const hash = window.location.hash.slice(1);
       this.renderNewPAge(hash);

@@ -7,20 +7,20 @@ import RightBlock from './rightBlock/rightBlock';
 class MainPage extends PageTemplate {
   constructor(id, info) {
     super(id, info);
+    this.info = this.container.info;
   }
 
-  renderTwoMainBlocks() {
-    const leftBlock = new LeftPartFirstBlock().renderLeftBlock(this.container.info);
-    const slider = new Slider().render(this.container.info);
+  async renderTwoMainBlocks() {
+    const leftBlock = await new LeftPartFirstBlock().renderLeftBlock(this.info);
+    const slider = await new Slider().render(this.info);
     leftBlock.append(slider);
-    const rightBlock = new RightBlock().render(this.container.info);
-    this.container.firstChild.append(leftBlock, rightBlock);
+    const rightBlock = await new RightBlock().render(this.info);
+    this.container.append(leftBlock, rightBlock);
   }
 
-  render() {
-    const page = this.createPage();
-    this.container.append(page);
-    this.renderTwoMainBlocks();
+  async render() {
+    super.render();
+    await this.renderTwoMainBlocks();
     return this.container;
   }
 }

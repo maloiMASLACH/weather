@@ -5,9 +5,9 @@ class GetInfo {
     return fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=01960bba4b6a444a831133935212311&q=${town}&days=3&aqi=yes&alerts=yes`,
     )
-      .then((res) => {
+      .then(async (res) => {
         if (res.status === 400) {
-          new ErrorHandler().pageError(sity);
+          await new ErrorHandler().pageError(town);
         } else return res.json();
         return 0;
       })
@@ -21,7 +21,7 @@ class GetInfo {
       `https://autocomplete.travelpayouts.com/places2?term=${text}&locale=en&types[]=city`,
     ).then((res) => {
       if (res.status === 400) {
-        new ErrorHandler().searchPanelError();
+        new ErrorHandler().contentError('Incorrect search');
       } else return res.json();
       return 0;
     });

@@ -2,9 +2,7 @@
   font-family: "Inter";
   src: url("../../assets/fonts/Inter-ExtraLight.ttf");
 }
-.content {
-  display: flex;
-}
+
 .leftBlock p {
   margin: 0;
   font-family: Inter;

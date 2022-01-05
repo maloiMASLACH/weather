@@ -1,22 +1,23 @@
-import GetInfo from '../../data/storage';
+import GetInfo from '../../data/getInfo';
 import PageTemplate from '../../templates/pageTemplate';
 import './favoritesPage.css';
 import icons from '../../data/icons';
 import ErrorHandler from '../../errorsHandler/errorHandeler';
+import LocalStorage, { storageConstants } from '../../data/localStorage';
 
 class FavoritesPage extends PageTemplate {
   constructor(id) {
     super(id);
   }
 
-  currentTownTemp(info) {
+  async currentTownTemp(info) {
     const container = document.createElement('div');
     container.className = 'temp';
     const tempNumber = document.createElement('p');
     tempNumber.classList = 'tempNumber';
     const degrees = document.createElement('p');
     degrees.classList = 'currentDegrees';
-    if (localStorage.getItem('degrees') === 'F') {
+    if (await new LocalStorage().get(storageConstants.degrees) === 'F') {
       tempNumber.textContent = `${info.current.temp_f}`;
       degrees.textContent = '°F';
     } else {
@@ -40,26 +41,26 @@ class FavoritesPage extends PageTemplate {
     return container;
   }
 
-  renderCommonInfoBlock(info) {
+  async renderCommonInfoBlock(info) {
     const container = document.createElement('div');
     container.className = 'singleFavoriteInfo';
-    const temp = this.currentTownTemp(info);
+    const temp = await this.currentTownTemp(info);
     const town = this.townLocation(info);
     container.append(temp, town);
     return container;
   }
 
-  renderShortInfoLine(info) {
+  async renderShortInfoLine(info) {
     const line = document.createElement('div');
     line.className = 'blockLine';
     let wind;
-    if (localStorage.getItem('wind') === 'mp/h') {
+    if (await new LocalStorage().get(storageConstants.wind) === 'mp/h') {
       wind = info.current.wind_mph;
     } else {
       wind = info.current.wind_kph;
     }
     const lineInfo = [
-      `Wind ${wind} ${localStorage.getItem('wind') || 'km/h'}`,
+      `Wind ${wind} ${await new LocalStorage().get(storageConstants.wind) || 'km/h'}`,
       `Hum ${info.current.humidity} %`,
     ];
     for (let i = 0; i < 2; i++) {
@@ -79,36 +80,37 @@ class FavoritesPage extends PageTemplate {
     block.className = 'singleFavorite';
     firstBlock.className = 'firstblock';
     const info = await new GetInfo().showAll(town);
-    const commonBlock = this.renderCommonInfoBlock(info);
-    const infoLine = this.renderShortInfoLine(info);
+    const commonBlock = await this.renderCommonInfoBlock(info);
+    const infoLine = await this.renderShortInfoLine(info);
     const pic = document.createElement('img');
     if (icons[info.current.condition.text] === undefined) {
       new ErrorHandler().imgError();
     }
-    pic.src = `./light/${localStorage.getItem('dayPart')}/${icons[info.current.condition.text]}.png`;
+    pic.src = `./light/${await new LocalStorage().get(storageConstants.dayPart)}/${icons[info.current.condition.text]}.png`;
     const close = document.createElement('img');
     close.className = 'close';
     close.src = './light/close.png';
 
     firstBlock.append(commonBlock, pic, close);
     block.append(firstBlock, infoLine);
-    block.addEventListener('click', (e) => {
+    block.addEventListener('click', async (e) => {
       if (e.target === close) {
         block.remove();
-        localStorage.setItem('favorites', localStorage.getItem('favorites').replace(`,${sity}`, ''));
+        await new LocalStorage().store(storageConstants.favorites, await new LocalStorage().get(storageConstants.favorites).replace(`,${sity}`, ''));
       } else {
-        localStorage.setItem('sity', block.children[0].children[0].children[1].children[0].textContent);
+        await new LocalStorage().store(storageConstants.sity, block.children[0].children[0].children[1].children[0].textContent);
         window.location.hash = '#Home';
       }
     });
     return block;
   }
 
-  renderFavoritesBlock() {
-    if (localStorage.getItem('favorites')) {
+  async renderFavoritesBlock() {
+    if (await new LocalStorage().get(storageConstants.favorites)) {
       const container = document.createElement('div');
       container.className = 'favoritesBlocks';
-      const towns = localStorage.getItem('favorites').split(',');
+      const favorites = await new LocalStorage().get(storageConstants.favorites);
+      const towns = favorites.split(',');
       towns.shift();
       towns.forEach(async (town) => {
         const favorite = await this.singleBlock(town);
@@ -118,11 +120,10 @@ class FavoritesPage extends PageTemplate {
     } return '';
   }
 
-  render() {
-    const page = this.createPage();
-    const content = this.renderFavoritesBlock();
-    page.append(content);
-    this.container.append(page);
+  async render() {
+    super.render();
+    const content = await this.renderFavoritesBlock();
+    this.container.append(content);
     return this.container;
   }
 }

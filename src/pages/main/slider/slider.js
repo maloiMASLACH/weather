@@ -1,5 +1,6 @@
 import icons from '../../../data/icons';
 import ErrorHandler from '../../../errorsHandler/errorHandeler';
+import LocalStorage, { storageConstants } from '../../../data/localStorage';
 
 export default class Slider {
   slideByScroll(slider) {
@@ -31,6 +32,7 @@ export default class Slider {
     let start = 0;
     let scrollLeft = 0;
     slider.addEventListener('touchstart', (e) => {
+      scrollLeft = -slider.scrollLeft;
       start = e.touches[0].clientX;
     });
     slider.addEventListener('touchmove', (e) => {
@@ -43,19 +45,22 @@ export default class Slider {
 
   slideByArrows(slider, left, right) {
     left.addEventListener('click', () => {
+      console.log(slider.scrollLeft);
       for (let i = 0; i < 50; i++) {
         setTimeout(() => { slider.scrollLeft -= slider.offsetWidth / 50; }, i * 5);
       }
     });
     right.addEventListener('click', () => {
+      console.log(slider.scrollLeft);
       for (let i = 0; i < 50; i++) {
         setTimeout(() => { slider.scrollLeft += slider.offsetWidth / 50; }, i * 5);
       }
     });
   }
 
-  renderClockBlocks(info, left, right) {
+  async renderClockBlocks(info, left, right) {
     const blocks = document.createElement('div');
+    const degrees = await new LocalStorage().get(storageConstants.degrees);
     blocks.className = 'forecast';
     for (
       let i = info.location.localtime.split(' ')[1].split(':')[0];
@@ -64,7 +69,7 @@ export default class Slider {
     ) {
       const block = document.createElement('div');
       block.className = 'clockForecast';
-      if (localStorage.getItem('degrees') === 'F') {
+      if (degrees === 'F') {
         block.textContent = `${info.forecast.forecastday[0].hour[i].temp_f}°F`;
       } else {
         block.textContent = `${info.forecast.forecastday[0].hour[i].temp_c}°C`;
@@ -87,7 +92,7 @@ export default class Slider {
       }
       const img = document.createElement('img');
       if (icons[info.forecast.forecastday[0].hour[i].condition.text] === undefined) {
-        new ErrorHandler().imgError();
+        new ErrorHandler().contentError('Some images are lost');
       }
       img.src = `./light/${dayPart}/${
         icons[info.forecast.forecastday[0].hour[i].condition.text]
@@ -100,7 +105,7 @@ export default class Slider {
       for (let j = 0; j < 24; j++) {
         const block = document.createElement('div');
         block.className = 'clockForecast';
-        if (localStorage.getItem('degrees') === 'F') {
+        if (degrees === 'F') {
           block.textContent = `${info.forecast.forecastday[i].hour[j].temp_f}°F`;
         } else {
           block.textContent = `${info.forecast.forecastday[i].hour[j].temp_c}°C`;
@@ -122,7 +127,7 @@ export default class Slider {
         }
         const img = document.createElement('img');
         if (icons[info.forecast.forecastday[i].hour[j].condition.text] === undefined) {
-          new ErrorHandler().imgError();
+          new ErrorHandler().contentError('Some images are lost');
         }
         img.src = `./light/${dayPart}/${
           icons[info.forecast.forecastday[i].hour[j].condition.text]
@@ -133,13 +138,13 @@ export default class Slider {
         blocks.append(block);
       }
     }
-    this.slideByScroll(blocks);
-    this.slideByTouch(blocks);
-    this.slideByArrows(blocks, left, right);
+    await this.slideByScroll(blocks);
+    await this.slideByTouch(blocks);
+    await this.slideByArrows(blocks, left, right);
     return blocks;
   }
 
-  renderSlider(info) {
+  async renderSlider(info) {
     const slider = document.createElement('div');
     slider.className = 'slider';
 
@@ -152,13 +157,13 @@ export default class Slider {
     rightArrow.src = './light/arrow.png';
     rightArrow.className = 'arrow';
 
-    const blocks = this.renderClockBlocks(info, leftArrow, rightArrow);
+    const blocks = await this.renderClockBlocks(info, leftArrow, rightArrow);
     slider.append(leftArrow, blocks, rightArrow);
     return slider;
   }
 
-  render(info) {
-    const blocks = this.renderSlider(info);
+  async render(info) {
+    const blocks = await this.renderSlider(info);
     return blocks;
   }
 }

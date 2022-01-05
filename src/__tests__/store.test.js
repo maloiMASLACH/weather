@@ -1,4 +1,4 @@
-import GetInfo from '../data/storage';
+import GetInfo from '../data/getInfo';
 
 beforeAll(() => {
 

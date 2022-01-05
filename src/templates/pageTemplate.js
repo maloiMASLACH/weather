@@ -1,4 +1,5 @@
 import themes from '../data/themes';
+import LocalStorage, { storageConstants } from '../data/localStorage';
 
 class PageTemplate {
   constructor(info) {
@@ -6,14 +7,14 @@ class PageTemplate {
     this.container.info = info;
   }
 
-  createPage() {
+  async createPage() {
     const pageState = document.createElement('div');
     pageState.className = 'content';
     pageState.style.width = '100%';
-    pageState.style.height = '100%';
-    if (localStorage.getItem('theme')
-    && localStorage.getItem('dayPart')) {
-      document.body.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+    pageState.style.height = '91vh';
+    if (await new LocalStorage().get(storageConstants.theme)
+    && await new LocalStorage().get(storageConstants.dayPart)) {
+      document.body.style.background = themes[await new LocalStorage().get(storageConstants.theme)][await new LocalStorage().get(storageConstants.dayPart)];
     }
     this.container.style.height = '91vh';
 
@@ -21,7 +22,7 @@ class PageTemplate {
   }
 
   render() {
-    return this.container;
+    return this.createPage();
   }
 }
 

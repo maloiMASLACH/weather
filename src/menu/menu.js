@@ -2,24 +2,26 @@ import MenuTemplate from '../templates/menuTemplate';
 import PagesIds from '../pages/pageIDs';
 import './menu.css';
 import themes from '../data/themes';
+import LocalStorage, { storageConstants } from '../data/localStorage';
 
 export default class Menu extends MenuTemplate {
   constructor(tagName, className) {
     super(tagName, className);
   }
 
-  checkStyleByWidth(btns, array) {
+  async checkStyleByWidth(btns, array) {
     if (document.documentElement.clientWidth <= 425) {
-      if (localStorage.getItem('theme')) {
-        this.container.style.background = themes[localStorage.getItem('theme')][localStorage.getItem('dayPart')];
+      if (await new LocalStorage().get(storageConstants.theme)) {
+        this.container.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
+          await new LocalStorage().get(storageConstants.dayPart)];
       } else {
         this.container.style.background = themes.classic.day;
       }
     }
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', async () => {
       if (document.documentElement.clientWidth <= 425) {
-        this.container.style.background = themes[localStorage.getItem('theme')][
-          localStorage.getItem('dayPart')
+        this.container.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
+          await new LocalStorage().get(storageConstants.dayPart)
         ];
         for (let i = 0; i < btns.children.length; i++) {
           btns.children[i].innerHTML = `<img src='./light/${array[i]}.png'>`;
@@ -34,7 +36,7 @@ export default class Menu extends MenuTemplate {
     return this.container.style.background;
   }
 
-  renderButtons() {
+  async renderButtons() {
     const buttons = document.createElement('div');
     const buttonsArray = Object.keys(PagesIds).slice(
       0,
@@ -50,12 +52,12 @@ export default class Menu extends MenuTemplate {
       }
       buttons.append(btnHTML);
     });
-    this.checkStyleByWidth(buttons, buttonsArray);
+    await this.checkStyleByWidth(buttons, buttonsArray);
     return buttons;
   }
 
-  render() {
-    const buttons = this.renderButtons();
+  async render() {
+    const buttons = await this.renderButtons();
     this.container.append(buttons);
     return this.container;
   }

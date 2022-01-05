@@ -1,3 +1,15 @@
-html{
-    scroll-behavior:inherit;
+html {
+  scroll-behavior: inherit;
+}
+#current-page {
+  display: flex;
+}
+body{
+    height: 100vh;
+    margin: 0;
+}
+@media screen and (max-width: 1024px) {
+  #current-page {
+    display: inline;
+  }
 }

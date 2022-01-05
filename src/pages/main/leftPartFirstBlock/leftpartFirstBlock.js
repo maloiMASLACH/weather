@@ -1,5 +1,6 @@
 import icons from '../../../data/icons';
 import Slider from '../slider/slider';
+import LocalStorage, { storageConstants } from '../../../data/localStorage';
 
 export default class LeftPartFirstBlock {
   renderCurrentLocation(info) {
@@ -14,11 +15,11 @@ export default class LeftPartFirstBlock {
     return container;
   }
 
-  renderCurrentWetherIcon(info) {
+  async renderCurrentWetherIcon(info) {
     const icon = document.createElement('img');
     icon.className = 'icon';
 
-    icon.src = `./light/${localStorage.getItem('dayPart')}/${icons[info.current.condition.text]}.png`;
+    icon.src = `./light/${await new LocalStorage().get(storageConstants.dayPart)}/${icons[info.current.condition.text]}.png`;
 
     return icon;
   }
@@ -104,21 +105,21 @@ export default class LeftPartFirstBlock {
     return currentTimer;
   }
 
-  renderSwitcher() {
+  async renderSwitcher() {
     const switchBlock = document.createElement('div');
     switchBlock.className = 'switcher';
     const switcher = document.createElement('input');
     switcher.type = 'checkbox';
     switcher.id = 'switch';
-    if (localStorage.getItem('degrees') === 'F') {
+    if (await new LocalStorage().get(storageConstants.degrees) === 'F') {
       switcher.checked = true;
     }
-    switcher.onclick = () => {
+    switcher.onclick = async () => {
       if (switcher.checked) {
-        localStorage.setItem('degrees', 'F');
+        await new LocalStorage().store(storageConstants.degrees, 'F');
       }
       if (!switcher.checked) {
-        localStorage.setItem('degrees', 'C');
+        await new LocalStorage().store(storageConstants.degrees, 'C');
       }
     };
 
@@ -129,9 +130,9 @@ export default class LeftPartFirstBlock {
     return switchBlock;
   }
 
-  renderFirstBlock(info) {
+  async renderFirstBlock(info) {
     const container = document.createElement('div');
-    const icon = this.renderCurrentWetherIcon(info);
+    const icon = await this.renderCurrentWetherIcon(info);
     const town = this.renderCurrentLocation(info);
     const currentTemp = this.renderCurrentTemp(info);
     const time = this.renderCurrentDate(info);
@@ -139,17 +140,17 @@ export default class LeftPartFirstBlock {
     return container;
   }
 
-  renderShortInfoLine(info) {
+  async renderShortInfoLine(info) {
     const line = document.createElement('div');
     line.className = 'shortInfoLine';
     let wind;
-    if (localStorage.getItem('wind') === 'mp/h') {
+    if (await new LocalStorage().get(storageConstants.wind) === 'mp/h') {
       wind = info.current.wind_mph;
     } else {
       wind = info.current.wind_kph;
     }
     const lineInfo = [
-      `Wind ${wind} ${localStorage.getItem('wind') || 'km/h'}`,
+      `Wind ${wind} ${await new LocalStorage().get(storageConstants.wind) || 'km/h'}`,
       `Hum ${info.current.humidity} %`,
       `Rain ${info.forecast.forecastday[0].day.daily_chance_of_rain} %`,
     ];
@@ -164,33 +165,33 @@ export default class LeftPartFirstBlock {
     return line;
   }
 
-  reRenderBlock(leftBlock, info) {
+  async reRenderBlock(leftBlock, info) {
     leftBlock.children[0].children[0].innerHTML = '';
     leftBlock.children[2].remove();
-    const commonInfoLeft = this.renderFirstBlock(info);
-    const slider = new Slider().renderSlider(info);
+    const commonInfoLeft = await this.renderFirstBlock(info);
+    const slider = await new Slider().renderSlider(info);
     leftBlock.append(slider);
     leftBlock.children[0].children[0].append(commonInfoLeft);
   }
 
-  renderLeftBlock(info) {
+  async renderLeftBlock(info) {
     const leftBlock = document.createElement('div');
     leftBlock.className = 'leftBlock';
     const leftBlockFirstLay = document.createElement('div');
     leftBlockFirstLay.className = 'leftBlockFirstLay';
-    const commonInfoLeft = this.renderFirstBlock(info);
-    const switcher = this.renderSwitcher();
+    const commonInfoLeft = await this.renderFirstBlock(info);
+    const switcher = await this.renderSwitcher();
     leftBlockFirstLay.append(commonInfoLeft, switcher);
 
     const leftBlockSecondLay = document.createElement('div');
     leftBlockSecondLay.className = 'leftBlockSecondLay';
-    const shortLine = this.renderShortInfoLine(info);
+    const shortLine = await this.renderShortInfoLine(info);
     leftBlockSecondLay.append(shortLine);
 
     leftBlock.append(leftBlockFirstLay, leftBlockSecondLay);
 
-    switcher.onchange = () => {
-      this.reRenderBlock(leftBlock, info);
+    switcher.onchange = async () => {
+      await this.reRenderBlock(leftBlock, info);
     };
     return (leftBlock);
   }
