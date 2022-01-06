@@ -67,10 +67,11 @@ export default class Slider {
     ) {
       const block = document.createElement('div');
       block.className = 'clockForecast';
+      const temp = document.createElement('p');
       if (degrees === 'F') {
-        block.textContent = `${info.forecast.forecastday[0].hour[i].temp_f}°F`;
+        temp.textContent = `${info.forecast.forecastday[0].hour[i].temp_f}°F`;
       } else {
-        block.textContent = `${info.forecast.forecastday[0].hour[i].temp_c}°C`;
+        temp.textContent = `${info.forecast.forecastday[0].hour[i].temp_c}°C`;
       }
       const time = document.createElement('p');
       time.textContent = `${
@@ -96,17 +97,18 @@ export default class Slider {
         icons[info.forecast.forecastday[0].hour[i].condition.text]
       }.png`;
       img.style.width = '70%';
-      block.append(img, time);
+      block.append(temp, img, time);
       blocks.append(block);
     }
     for (let i = 1; i < info.forecast.forecastday.length; i++) {
       for (let j = 0; j < 24; j++) {
         const block = document.createElement('div');
         block.className = 'clockForecast';
+        const temp = document.createElement('p');
         if (degrees === 'F') {
-          block.textContent = `${info.forecast.forecastday[i].hour[j].temp_f}°F`;
+          temp.textContent = `${info.forecast.forecastday[i].hour[j].temp_f}°F`;
         } else {
-          block.textContent = `${info.forecast.forecastday[i].hour[j].temp_c}°C`;
+          temp.textContent = `${info.forecast.forecastday[i].hour[j].temp_c}°C`;
         }
         const time = document.createElement('p');
         time.textContent = `${
@@ -132,7 +134,7 @@ export default class Slider {
         }.png`;
         img.style.width = '70%';
 
-        block.append(img, time);
+        block.append(temp, img, time);
         blocks.append(block);
       }
     }
@@ -140,6 +142,30 @@ export default class Slider {
     await this.slideByTouch(blocks);
     await this.slideByArrows(blocks, left, right);
     return blocks;
+  }
+
+  async changeDegrees(info, slider) {
+    const degrees = await new LocalStorage().get(storageConstants.degrees);
+    const arr = [];
+    for (let i = info.location.localtime.split(' ')[1].split(':')[0]; i < 24; i++) {
+      if (degrees === 'F') {
+        arr.push(info.forecast.forecastday[0].hour[i].temp_f);
+      } else {
+        arr.push(info.forecast.forecastday[0].hour[i].temp_c);
+      }
+    }
+    for (let i = 1; i < info.forecast.forecastday.length; i++) {
+      for (let j = 0; j < 24; j++) {
+        if (degrees === 'F') {
+          arr.push(info.forecast.forecastday[i].hour[j].temp_f);
+        } else {
+          arr.push(info.forecast.forecastday[i].hour[j].temp_c);
+        }
+      }
+    }
+    for (let i = 0; i < slider.length; i++) {
+      slider[i].children[0].textContent = `${arr[i]}°${degrees}`;
+    }
   }
 
   async renderSlider(info) {

@@ -133,7 +133,7 @@ label:active:after {
   left: 15%;
   top:35%;
 }
-.forecast .clockForecast p {
+.forecast .clockForecast p:last-child{
   margin-top: 100%;
 }
 .rightBlock {

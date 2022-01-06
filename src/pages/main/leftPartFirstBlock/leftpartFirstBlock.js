@@ -168,12 +168,11 @@ export default class LeftPartFirstBlock {
   }
 
   async reRenderBlock(leftBlock, info) {
-    leftBlock.children[0].children[0].innerHTML = '';
-    leftBlock.children[2].remove();
-    const commonInfoLeft = await this.renderFirstBlock(info);
-    const slider = await new Slider().renderSlider(info);
-    leftBlock.append(slider);
-    leftBlock.children[0].children[0].append(commonInfoLeft);
+    leftBlock.children[0].children[0].children[2].innerHTML = '';
+    const commonInfoLeft = await this.renderCurrentTemp(info);
+    leftBlock.children[0].children[0].children[2].append(commonInfoLeft);
+
+    await new Slider().changeDegrees(info, leftBlock.children[2].children[1].children);
   }
 
   async renderLeftBlock(info) {
