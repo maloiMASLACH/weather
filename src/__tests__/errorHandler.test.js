@@ -1,4 +1,4 @@
-import ErrorHandler from '../errorsHandler/errorHandeler';
+import ErrorHandler from '../errorsHandler/errorHandler';
 
 describe('ErrorHandler', () => {
   it('Render error block by invalid name', async () => {

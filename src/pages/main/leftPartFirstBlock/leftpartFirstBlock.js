@@ -6,7 +6,7 @@ export default class LeftPartFirstBlock {
   renderCurrentLocation(info) {
     const container = document.createElement('div');
     const town = document.createElement('p');
-    town.classList = 'currentSity';
+    town.classList = 'currentTown';
     town.textContent = info.location.name;
     const country = document.createElement('p');
     country.classList = 'currentCountry';

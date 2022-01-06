@@ -12,7 +12,7 @@
     margin: 0 auto;
     text-align: center;
 }
-.settingsLocation p.currentSitySett{
+.settingsLocation p.currentTownSett{
     margin: 20px auto;
     font-size: xx-large;
 }
@@ -85,14 +85,14 @@ margin-top: 10vh;
     border: 1px solid;
     margin-right: 10px;
 }
-.colorConteiner{
+.colorContainer{
     right: 10%;
 
     width: 220px;
     display: none;
     flex-wrap: wrap;
 }
-.colorTempl{
+.colorTemp{
     margin: 5px;
     width: 50px;
     height: 50px;

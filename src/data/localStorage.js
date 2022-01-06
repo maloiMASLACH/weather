@@ -1,11 +1,11 @@
 export const storageConstants = {
   dayPart: 'dayPart',
   theme: 'theme',
-  sity: 'sity',
+  town: 'town',
   degrees: 'degrees',
   wind: 'wind',
   favorites: 'favorites',
-  sityInput: 'sityInput',
+  townInput: 'townInput',
   inputValue: 'inputValue',
 };
 class LocalStorage {

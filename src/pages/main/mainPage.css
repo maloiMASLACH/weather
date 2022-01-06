@@ -35,7 +35,7 @@
 .leftBlock .icon {
   height: 10vh;
 }
-.leftBlock .currentSity {
+.leftBlock .currentTown {
   font-size: 5vh;
 }
 .switcher {
@@ -151,7 +151,7 @@ label:active:after {
   font-weight: 100;
   color: #ffffff;
 }
-.inputdiv {
+.inputDiv {
   margin-top: 36px;
   display: flex;
   position: relative;
@@ -183,27 +183,27 @@ label:active:after {
 .searchPanel:focus {
   outline: none;
 }
-.inputdiv img {
+.inputDiv img {
   position: absolute;
   left: 80%;
   top: 24px;
   width: 25px;
 }
-.helpBloks{
+.helpBlocs{
 
   position: absolute;
   top:69px;
   width: 80%;
 }
-.helpBloks div{
+.helpBlocs div{
   padding: 5px 0;
   border-radius: 15px;
 
 }
-.helpBloks div p{
+.helpBlocs div p{
   width: 100%;
 }
-.helpBloks div p:hover{
+.helpBlocs div p:hover{
   opacity: 0.8;
 }
 .allClocks {

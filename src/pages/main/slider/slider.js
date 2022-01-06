@@ -1,5 +1,5 @@
 import icons from '../../../data/icons';
-import ErrorHandler from '../../../errorsHandler/errorHandeler';
+import ErrorHandler from '../../../errorsHandler/errorHandler';
 import LocalStorage, { storageConstants } from '../../../data/localStorage';
 
 export default class Slider {

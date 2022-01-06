@@ -26,9 +26,9 @@ class SettingsPage extends PageTemplate {
     const title = document.createElement('p');
     const location = document.createElement('p');
     title.className = 'title';
-    location.className = 'currentSitySett';
+    location.className = 'currentTownSett';
     title.textContent = 'Your current location';
-    location.textContent = await new LocalStorage().get(storageConstants.sity) || 'Minsk';
+    location.textContent = await new LocalStorage().get(storageConstants.town) || 'Minsk';
     content.append(title, location);
     return content;
   }
@@ -98,12 +98,12 @@ class SettingsPage extends PageTemplate {
         await new LocalStorage().get(storageConstants.dayPart)];
     }
     const container = document.createElement('div');
-    container.className = 'colorConteiner';
+    container.className = 'colorContainer';
     Object.keys(themes).forEach(async (theme) => {
-      const colorTempl = document.createElement('div');
-      colorTempl.className = 'colorTempl';
-      colorTempl.style.background = themes[theme][await new LocalStorage().get(storageConstants.dayPart)];
-      container.append(colorTempl);
+      const colorTemp = document.createElement('div');
+      colorTemp.className = 'colorTemp';
+      colorTemp.style.background = themes[theme][await new LocalStorage().get(storageConstants.dayPart)];
+      container.append(colorTemp);
     });
     demo.onclick = () => {
       container.style.display = 'flex';

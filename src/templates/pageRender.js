@@ -13,8 +13,8 @@ class PageRender {
       currentPage.remove();
     }
     let page = null;
-    const info = await new GetInfo().showAll(
-      await new LocalStorage().get(storageConstants.sity) || 'Minsk',
+    const info = await new GetInfo().showAllTownInfo(
+      await new LocalStorage().get(storageConstants.town) || 'Minsk',
     );
     await new ThemeManager().checkTheme(info);
 

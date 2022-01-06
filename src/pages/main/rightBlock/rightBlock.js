@@ -7,10 +7,10 @@ export default class RightBlock {
   async useChanges(value) {
     try {
       await new LocalStorage().store(
-        storageConstants.sityInput,
-        await new LocalStorage().get(storageConstants.sity) || 'Minsk',
+        storageConstants.townInput,
+        await new LocalStorage().get(storageConstants.town) || 'Minsk',
       );
-      await new LocalStorage().store(storageConstants.sity, value);
+      await new LocalStorage().store(storageConstants.town, value);
       const favorites = await new LocalStorage().get(storageConstants.favorites);
       if (!favorites
       || favorites.split(',').indexOf(value) === -1) {
@@ -52,12 +52,12 @@ export default class RightBlock {
 
   async renderInputBlock() {
     const container = document.createElement('div');
-    container.className = 'inputdiv';
+    container.className = 'inputDiv';
     const input = document.createElement('input');
     input.className = 'searchPanel';
     input.value = await new LocalStorage().get(storageConstants.inputValue) || '';
     const help = document.createElement('div');
-    help.className = 'helpBloks';
+    help.className = 'helpBlocs';
     input.addEventListener('keyup', async (e) => {
       if (e.code === 'Enter') {
         await this.useChanges(input.value);

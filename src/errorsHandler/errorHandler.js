@@ -4,7 +4,7 @@ import PageRender from '../templates/pageRender';
 
 export default class ErrorHandler {
   async pageError(town) {
-    await new LocalStorage().store(storageConstants.sity, await new LocalStorage().get(storageConstants.sityInput));
+    await new LocalStorage().store(storageConstants.town, await new LocalStorage().get(storageConstants.townInput));
     const list = await new LocalStorage().get(storageConstants.favorites);
     const favorites = list.split(',');
     favorites.splice(favorites.indexOf(town), 1);
