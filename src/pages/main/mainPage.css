@@ -253,9 +253,6 @@ label:active:after {
   flex-wrap: wrap;
 }
 @media screen and (max-width: 1024px) {
-  .content {
-    display: inline;
-  }
   .leftBlock {
     width: 90%;
     margin-bottom: 135px;
