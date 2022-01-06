@@ -9,56 +9,53 @@ export default class Menu extends MenuTemplate {
     super(tagName, className);
   }
 
-  async checkStyleByWidth(btns, array) {
-    if (document.documentElement.clientWidth <= 425) {
-      if (await new LocalStorage().get(storageConstants.theme)) {
-        this.container.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
-          await new LocalStorage().get(storageConstants.dayPart)];
-      } else {
-        this.container.style.background = themes.classic.day;
-      }
-    }
-    window.addEventListener('resize', async () => {
-      if (document.documentElement.clientWidth <= 425) {
-        this.container.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
-          await new LocalStorage().get(storageConstants.dayPart)
-        ];
-        for (let i = 0; i < btns.children.length; i++) {
-          btns.children[i].innerHTML = `<img src='./light/${array[i]}.png'>`;
-        }
-      } else {
-        for (let i = 0; i < btns.children.length; i++) {
-          btns.children[i].text = `${array[i]}`;
-        }
-        this.container.style.background = 'none';
-      }
+  async renderButtons(buttonsArray) {
+    const buttons = document.createElement('div');
+    buttonsArray.forEach((btn) => {
+      const btnHTML = document.createElement('a');
+      btnHTML.href = `#${btn}`;
+      btnHTML.innerHTML = `<img src='./light/${btn}.png'>`;
+      buttons.append(btnHTML);
     });
-    return this.container.style.background;
+    return buttons;
   }
 
-  async renderButtons() {
-    const buttons = document.createElement('div');
+  async renderTextButtons(buttonsArray) {
+    const list = document.createElement('div');
+    buttonsArray.forEach((btn) => {
+      const btnHTML = document.createElement('a');
+      btnHTML.href = `#${btn}`;
+      btnHTML.text = `${btn}`;
+      list.append(btnHTML);
+    });
+    return list;
+  }
+
+  async renderMenuBlock() {
     const buttonsArray = Object.keys(PagesIds).slice(
       0,
       Object.keys(PagesIds).length - 1,
     );
-    buttonsArray.forEach((btn) => {
-      const btnHTML = document.createElement('a');
-      btnHTML.href = `#${btn}`;
-      if (document.documentElement.clientWidth <= 425) {
-        btnHTML.innerHTML = `<img src='./light/${btn}.png'>`;
-      } else {
-        btnHTML.text = `${btn}`;
-      }
-      buttons.append(btnHTML);
-    });
-    await this.checkStyleByWidth(buttons, buttonsArray);
-    return buttons;
+    const block = document.createElement('div');
+    const images = await this.renderButtons(buttonsArray);
+    const list = await this.renderTextButtons(buttonsArray);
+    block.append(images, list);
+    return block;
+  }
+
+  async setStyle() {
+    if (await new LocalStorage().get(storageConstants.theme)) {
+      this.container.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
+        await new LocalStorage().get(storageConstants.dayPart)];
+    } else {
+      this.container.style.background = themes.classic.day;
+    }
   }
 
   async render() {
-    const buttons = await this.renderButtons();
+    const buttons = await this.renderMenuBlock();
     this.container.append(buttons);
+    await this.setStyle();
     return this.container;
   }
 }

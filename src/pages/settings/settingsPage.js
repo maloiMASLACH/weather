@@ -111,10 +111,8 @@ class SettingsPage extends PageTemplate {
       for (let i = 0; i < container.children.length; i++) {
         container.children[i].onclick = async () => {
           await new LocalStorage().store(storageConstants.theme, Object.keys(themes)[i]);
-          if (document.documentElement.clientWidth <= 425) {
-            document.body.children[0].style.background = themes[Object.keys(themes)[i]][
-              await new LocalStorage().get(storageConstants.dayPart)];
-          }
+          document.body.children[0].style.background = themes[Object.keys(themes)[i]][
+            await new LocalStorage().get(storageConstants.dayPart)];
           document.body.style.background = themes[Object.keys(themes)[i]][
             await new LocalStorage().get(storageConstants.dayPart)];
           demo.style.background = themes[Object.keys(themes)[i]][

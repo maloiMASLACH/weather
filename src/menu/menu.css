@@ -1,13 +1,12 @@
 header{
 }
-header div {
+header div div {
   display: flex;
   justify-content: space-around;
   align-items: center;
- 
   height: 7vh;
 }
-header div a {
+header div div a {
   font-size: 200%;
   text-decoration: none;
   font-family: Inter;
@@ -16,6 +15,15 @@ header div a {
   line-height: 43px;
   letter-spacing: 0em;
   color: rgba(255, 255, 255, 1);
+}
+@media screen and (min-width: 426px) {
+  header{
+    background: none !important;
+  }
+  header div div:first-child{
+    display: none;
+  }
+  
 }
 @media screen  and (max-width: 425px){
   header {
@@ -26,7 +34,9 @@ header div a {
     position: fixed;
     top: 94vh;
     left: 0px;
-
+  }
+  header div div:last-child{
+    display: none
   }
   header div {
     width: 100%;
