@@ -2,7 +2,7 @@ import GetInfo from '../../data/getInfo';
 import PageTemplate from '../../templates/pageTemplate';
 import './favoritesPage.css';
 import icons from '../../data/icons';
-import ErrorHandler from '../../errorsHandler/errorHandeler';
+import ErrorHandler from '../../errorsHandler/errorHandler';
 import LocalStorage, { storageConstants } from '../../data/localStorage';
 
 class FavoritesPage extends PageTemplate {
@@ -33,7 +33,7 @@ class FavoritesPage extends PageTemplate {
     container.className = 'favoriteLocation';
     const town = document.createElement('p');
     const country = document.createElement('p');
-    town.className = 'locationSity';
+    town.className = 'locationTown';
     country.className = 'locationCountry';
     town.textContent = info.location.name;
     country.textContent = info.location.country;
@@ -74,12 +74,31 @@ class FavoritesPage extends PageTemplate {
     return line;
   }
 
+  async blockRemove(block, close, town) {
+    block.addEventListener('click', async (e) => {
+      if (e.target === close) {
+        block.remove();
+        const favoriteList = await new LocalStorage().get(storageConstants.favorites);
+        await new LocalStorage().store(
+          storageConstants.favorites,
+          favoriteList.replace(`,${town}`, ''),
+        );
+      } else {
+        await new LocalStorage().store(
+          storageConstants.town,
+          block.children[0].children[0].children[1].children[0].textContent,
+        );
+        window.location.hash = '#Home';
+      }
+    });
+  }
+
   async singleBlock(town) {
     const block = document.createElement('div');
     const firstBlock = document.createElement('div');
     block.className = 'singleFavorite';
-    firstBlock.className = 'firstblock';
-    const info = await new GetInfo().showAll(town);
+    firstBlock.className = 'favoritesFirstBlock';
+    const info = await new GetInfo().showAllTownInfo(town);
     const commonBlock = await this.renderCommonInfoBlock(info);
     const infoLine = await this.renderShortInfoLine(info);
     const pic = document.createElement('img');
@@ -95,21 +114,7 @@ class FavoritesPage extends PageTemplate {
 
     firstBlock.append(commonBlock, pic, close);
     block.append(firstBlock, infoLine);
-    block.addEventListener('click', async (e) => {
-      if (e.target === close) {
-        block.remove();
-        await new LocalStorage().store(
-          storageConstants.favorites,
-          await new LocalStorage().get(storageConstants.favorites).replace(`,${sity}`, ''),
-        );
-      } else {
-        await new LocalStorage().store(
-          storageConstants.sity,
-          block.children[0].children[0].children[1].children[0].textContent,
-        );
-        window.location.hash = '#Home';
-      }
-    });
+    this.blockRemove(block, close, town);
     return block;
   }
 
