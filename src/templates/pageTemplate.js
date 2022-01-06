@@ -14,7 +14,8 @@ class PageTemplate {
     pageState.style.height = '91vh';
     if (await new LocalStorage().get(storageConstants.theme)
     && await new LocalStorage().get(storageConstants.dayPart)) {
-      document.body.style.background = themes[await new LocalStorage().get(storageConstants.theme)][await new LocalStorage().get(storageConstants.dayPart)];
+      document.body.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
+        await new LocalStorage().get(storageConstants.dayPart)];
     }
     this.container.style.height = '91vh';
 

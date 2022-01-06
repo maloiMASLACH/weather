@@ -92,8 +92,10 @@ class SettingsPage extends PageTemplate {
     text.textContent = 'Choose theme';
     const demo = document.createElement('div');
     demo.className = 'demo';
-    if (await new LocalStorage().get(storageConstants.theme) && await new LocalStorage().get(storageConstants.dayPart)) {
-      demo.style.background = themes[await new LocalStorage().get(storageConstants.theme)][await new LocalStorage().get(storageConstants.dayPart)];
+    if (await new LocalStorage().get(storageConstants.theme)
+    && await new LocalStorage().get(storageConstants.dayPart)) {
+      demo.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
+        await new LocalStorage().get(storageConstants.dayPart)];
     }
     const container = document.createElement('div');
     container.className = 'colorConteiner';
@@ -108,12 +110,15 @@ class SettingsPage extends PageTemplate {
       demo.style.display = 'none';
       for (let i = 0; i < container.children.length; i++) {
         container.children[i].onclick = async () => {
-          await new LocalStorage().get(storageConstants.theme, Object.keys(themes)[i]);
+          await new LocalStorage().store(storageConstants.theme, Object.keys(themes)[i]);
           if (document.documentElement.clientWidth <= 425) {
-            document.body.children[0].style.background = themes[Object.keys(themes)[i]][await new LocalStorage().get(storageConstants.dayPart)];
+            document.body.children[0].style.background = themes[Object.keys(themes)[i]][
+              await new LocalStorage().get(storageConstants.dayPart)];
           }
-          document.body.style.background = themes[Object.keys(themes)[i]][await new LocalStorage().get(storageConstants.dayPart)];
-          demo.style.background = themes[Object.keys(themes)[i]][await new LocalStorage().get(storageConstants.dayPart)];
+          document.body.style.background = themes[Object.keys(themes)[i]][
+            await new LocalStorage().get(storageConstants.dayPart)];
+          demo.style.background = themes[Object.keys(themes)[i]][
+            await new LocalStorage().get(storageConstants.dayPart)];
           container.style.display = 'none';
           demo.style.display = 'block';
         };

@@ -86,7 +86,9 @@ class FavoritesPage extends PageTemplate {
     if (icons[info.current.condition.text] === undefined) {
       new ErrorHandler().imgError();
     }
-    pic.src = `./light/${await new LocalStorage().get(storageConstants.dayPart)}/${icons[info.current.condition.text]}.png`;
+    pic.src = `./light/${await new LocalStorage().get(
+      storageConstants.dayPart,
+    )}/${icons[info.current.condition.text]}.png`;
     const close = document.createElement('img');
     close.className = 'close';
     close.src = './light/close.png';
@@ -96,9 +98,15 @@ class FavoritesPage extends PageTemplate {
     block.addEventListener('click', async (e) => {
       if (e.target === close) {
         block.remove();
-        await new LocalStorage().store(storageConstants.favorites, await new LocalStorage().get(storageConstants.favorites).replace(`,${sity}`, ''));
+        await new LocalStorage().store(
+          storageConstants.favorites,
+          await new LocalStorage().get(storageConstants.favorites).replace(`,${sity}`, ''),
+        );
       } else {
-        await new LocalStorage().store(storageConstants.sity, block.children[0].children[0].children[1].children[0].textContent);
+        await new LocalStorage().store(
+          storageConstants.sity,
+          block.children[0].children[0].children[1].children[0].textContent,
+        );
         window.location.hash = '#Home';
       }
     });

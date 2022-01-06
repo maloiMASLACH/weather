@@ -1,6 +1,6 @@
-import App from '../app';
 import './errorHandler.css';
 import LocalStorage, { storageConstants } from '../data/localStorage';
+import PageRender from '../templates/pageRender';
 
 export default class ErrorHandler {
   async pageError(town) {
@@ -10,7 +10,7 @@ export default class ErrorHandler {
     favorites.splice(favorites.indexOf(town), 1);
     favorites.join(',');
     await new LocalStorage().store(storageConstants.favorites, favorites);
-    new App().renderNewPAge('Home');
+    await new PageRender().renderNewPAge('Home');
     this.contentError('Bad request');
   }
 
@@ -22,6 +22,5 @@ export default class ErrorHandler {
     alertBlock.append(text);
     document.body.append(alertBlock);
     setTimeout(() => { alertBlock.remove(); }, 3000);
-    return true;
   }
 }

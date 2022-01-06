@@ -45,13 +45,11 @@ export default class Slider {
 
   slideByArrows(slider, left, right) {
     left.addEventListener('click', () => {
-      console.log(slider.scrollLeft);
       for (let i = 0; i < 50; i++) {
         setTimeout(() => { slider.scrollLeft -= slider.offsetWidth / 50; }, i * 5);
       }
     });
     right.addEventListener('click', () => {
-      console.log(slider.scrollLeft);
       for (let i = 0; i < 50; i++) {
         setTimeout(() => { slider.scrollLeft += slider.offsetWidth / 50; }, i * 5);
       }

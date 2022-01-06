@@ -3,7 +3,8 @@ import ErrorHandler from '../errorsHandler/errorHandeler';
 class GetInfo {
   getWhatINeed(town) {
     return fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=01960bba4b6a444a831133935212311&q=${town}&days=3&aqi=yes&alerts=yes`,
+      `https://api.weatherapi.com/v1/forecast.json?key=01960bba4b6a444a831133935212311&q=${
+        town}&days=3&aqi=yes&alerts=yes`,
     )
       .then(async (res) => {
         if (res.status === 400) {

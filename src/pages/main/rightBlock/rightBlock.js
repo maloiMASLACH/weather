@@ -1,4 +1,4 @@
-import App from '../../../app';
+import PageRender from '../../../templates/pageRender';
 import GetInfo from '../../../data/getInfo';
 import themes from '../../../data/themes';
 import LocalStorage, { storageConstants } from '../../../data/localStorage';
@@ -6,13 +6,18 @@ import LocalStorage, { storageConstants } from '../../../data/localStorage';
 export default class RightBlock {
   async useChanges(value) {
     try {
-      await new LocalStorage().store(storageConstants.sityInput, await new LocalStorage().get(storageConstants.sity) || 'Minsk');
+      await new LocalStorage().store(
+        storageConstants.sityInput,
+        await new LocalStorage().get(storageConstants.sity) || 'Minsk',
+      );
       await new LocalStorage().store(storageConstants.sity, value);
       const favorites = await new LocalStorage().get(storageConstants.favorites);
       if (!favorites
-      || favorites.split(',').indexOf(value) === -1) await new LocalStorage().store(storageConstants.favorites, [await new LocalStorage().get(storageConstants.favorites), value]);
-      const app = new App();
-      app.renderNewPAge('Home');
+      || favorites.split(',').indexOf(value) === -1) {
+        await new LocalStorage().store(storageConstants.favorites, [
+          await new LocalStorage().get(storageConstants.favorites), value]);
+      }
+      await new PageRender().renderNewPAge('Home');
     } catch (err) {
       window.location.hash = '#Err';
     }
@@ -21,7 +26,8 @@ export default class RightBlock {
   async renderHelpBlocks(text, container) {
     const info = await new GetInfo().townList(text);
     const help = document.createElement('div');
-    help.style.background = themes[await new LocalStorage().get(storageConstants.theme)][await new LocalStorage().get(storageConstants.dayPart)];
+    help.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
+      await new LocalStorage().get(storageConstants.dayPart)];
     if (info.length) {
       for (let i = 0; i < info.length; i++) {
         if (i < 5) {
@@ -207,7 +213,8 @@ export default class RightBlock {
     const clocks = this.renderClocksBlock(info);
     const indexes = this.indexesBlock(info);
     rightBlock.append(input, clocks, indexes);
-    rightBlock.style.background = themes[await new LocalStorage().get(storageConstants.theme)][await new LocalStorage().get(storageConstants.dayPart)];
+    rightBlock.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
+      await new LocalStorage().get(storageConstants.dayPart)];
     return rightBlock;
   }
 }

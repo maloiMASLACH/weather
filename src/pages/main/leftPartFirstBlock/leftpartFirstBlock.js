@@ -19,7 +19,9 @@ export default class LeftPartFirstBlock {
     const icon = document.createElement('img');
     icon.className = 'icon';
 
-    icon.src = `./light/${await new LocalStorage().get(storageConstants.dayPart)}/${icons[info.current.condition.text]}.png`;
+    icon.src = `./light/${await new LocalStorage().get(
+      storageConstants.dayPart,
+    )}/${icons[info.current.condition.text]}.png`;
 
     return icon;
   }
