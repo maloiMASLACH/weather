@@ -6,10 +6,13 @@ export default class ErrorHandler {
   async pageError(town) {
     await new LocalStorage().store(storageConstants.town, await new LocalStorage().get(storageConstants.townInput));
     const list = await new LocalStorage().get(storageConstants.favorites);
-    const favorites = list.split(',');
-    favorites.splice(favorites.indexOf(town), 1);
-    favorites.join(',');
-    await new LocalStorage().store(storageConstants.favorites, favorites);
+    if (list) {
+      const favorites = list.split(',');
+      favorites.splice(favorites.indexOf(town), 1);
+      favorites.join(',');
+      await new LocalStorage().store(storageConstants.favorites, favorites);
+    }
+
     await new PageRender().renderNewPAge('Home');
     this.contentError('Bad request');
   }
@@ -22,5 +25,6 @@ export default class ErrorHandler {
     alertBlock.append(text);
     document.body.append(alertBlock);
     setTimeout(() => { alertBlock.remove(); }, 3000);
+    return alertBlock;
   }
 }

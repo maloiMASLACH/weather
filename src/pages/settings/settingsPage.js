@@ -143,7 +143,7 @@ class SettingsPage extends PageTemplate {
     const location = await this.renderCurrentLocation();
     const icon = await this.renderDayPart();
     const settings = document.createElement('div');
-    settings.className = 'settingsoptions';
+    settings.className = 'settingsOptions';
     const options = await this.renderOptionsBlock();
     content.append(location, icon);
     settings.append(options);

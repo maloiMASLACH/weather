@@ -13,13 +13,13 @@ describe('Storage', () => {
         },
       });
     };
-    const expected = await new GetInfo().getWhatINeed('Minsk');
-    const expectedList = await new GetInfo().showAll('Minsk');
+    const expected = await new GetInfo().townInfo('Minsk');
+    const expectedList = await new GetInfo().showAllTownInfo('Minsk');
     expect(expected).toEqual({ location: {}, forecast: {}, current: {} });
     expect(expectedList).toEqual({ location: {}, forecast: {}, current: {} });
   });
 
-  test('Correct sityes list', async () => {
+  test('Correct towns list', async () => {
     global.fetch = () => {
       return Promise.resolve({
         json: () => {

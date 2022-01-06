@@ -10,9 +10,8 @@ class ErrorPage extends PageTemplate {
     this.errType = errType;
   }
 
-  render() {
-    const title = this.createPage(TextObject[this.errType]);
-    this.container.append(title);
+  async render() {
+    this.container.append(TextObject[404]);
     return this.container;
   }
 }

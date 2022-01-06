@@ -103,7 +103,7 @@ class FavoritesPage extends PageTemplate {
     const infoLine = await this.renderShortInfoLine(info);
     const pic = document.createElement('img');
     if (icons[info.current.condition.text] === undefined) {
-      new ErrorHandler().imgError();
+      await new ErrorHandler().contentError('Some images are lost');
     }
     pic.src = `./light/${await new LocalStorage().get(
       storageConstants.dayPart,

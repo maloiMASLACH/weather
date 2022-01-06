@@ -3,15 +3,13 @@ import PageTemplate from '../templates/pageTemplate';
 
 describe('Templates', () => {
   it('Menu template has no own properties', () => {
-    const expected = new MenuTemplate().render().getAttribute('class');
-    expect(expected).toBe('undefined');
+    const expected = new MenuTemplate().render();
+    expect(expected.getAttribute('class')).toBe('undefined');
+    expect(expected.tagName).toBe('UNDEFINED');
   });
-  it('Page template has no own properties', () => {
-    const expected = new PageTemplate().render().getAttribute('id');
-    expect(expected).toBe('undefined');
-  });
-  it('Page template has children', () => {
-    const expected = new PageTemplate().createPage().getAttribute('class');
-    expect(expected).toBe('content');
+  it('Page render', async () => {
+    const expected = await new PageTemplate().createPage();
+    expect(expected.className).toBe('content');
+    expect(expected.getAttribute('style')).toBe('width: 100%; height: 91vh;');
   });
 });

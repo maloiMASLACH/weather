@@ -1,8 +1,9 @@
 import ErrorPage from '../pages/errorPage/errorPage';
 
 describe('Error page', () => {
-  it('Render error page', () => {
-    const expected = new ErrorPage().render();
-    expect(expected.getAttribute('style')).toBe('height: 91vh;');
+  it('Render error page', async () => {
+    const expected = await new ErrorPage().render();
+    expect(expected.tagName).toBe('DIV');
+    expect(expected.textContent).toBe('Error. Bad URl');
   });
 });

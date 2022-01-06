@@ -14,8 +14,8 @@ describe('Main page', () => {
       ],
     },
   };
-  it('Render left first block', () => {
-    const expected = new LeftPartFirstBlock().renderLeftBlock(info);
+  it('Render left first block', async () => {
+    const expected = await new LeftPartFirstBlock().renderLeftBlock(info);
     expect(expected.getAttribute('class')).toBe('leftBlock');
     expect(expected.children[0].getAttribute('class')).toBe('leftBlockFirstLay');
     expect(expected.children[0].children[0].children[1].children[0].textContent).toBe('Minsk');
@@ -25,8 +25,8 @@ describe('Main page', () => {
     expect(expected.children[0].children[0].children[3].children[1].textContent.split('|')).toHaveLength(2);
   });
 
-  it('Render slider block', () => {
-    const expected = new Slider().render(info);
+  it('Render slider block', async () => {
+    const expected = await new Slider().render(info);
     expect(expected.getAttribute('class')).toBe('slider');
     expect(expected.children[0].getAttribute('class')).toBe('arrow');
     expect(expected.children[1].getAttribute('class')).toBe('forecast');
@@ -35,9 +35,9 @@ describe('Main page', () => {
     expect(expected.children[1].children[0].getAttribute('class')).toBe('clockForecast');
     expect(expected.children[1].children[0].children[0].className).toBe('');
   });
-  it('Render input panel', () => {
-    const expected = new RightBlock().renderInputBlock();
-    expect(expected.className).toBe('inputdiv');
+  it('Render input panel', async () => {
+    const expected = await new RightBlock().renderInputBlock();
+    expect(expected.className).toBe('inputDiv');
     expect(expected.children[0].className).toBe('searchPanel');
   });
 });

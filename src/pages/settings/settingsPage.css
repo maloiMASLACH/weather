@@ -39,7 +39,7 @@
     background: rgba(255, 255, 255, 0.26);
     border-radius: 100px;
 }
-.settingsoptions{
+.settingsOptions{
     width: 50%;
 }
 .commonOptions{
@@ -98,7 +98,7 @@ margin-top: 10vh;
     height: 50px;
 }
 @media screen and (max-width:1024px) {
-    .settingsoptions {
+    .settingsOptions {
         margin: 0 auto;
     }
     .tempDegSett {
@@ -106,7 +106,7 @@ margin-top: 10vh;
     }
 }
 @media screen and (max-width:425px) {
-    .settingsoptions {
+    .settingsOptions {
         width: 80%;
         padding-bottom: 200px;
     }
