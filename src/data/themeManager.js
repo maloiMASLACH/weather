@@ -1,10 +1,5 @@
 import LocalStorage, { storageConstants } from './localStorage';
 
-export const themeParameters = {
-  theme: 'classic',
-  dayPart: 'day',
-};
-
 export class ThemeManager {
   async checkTheme(info) {
     if (
