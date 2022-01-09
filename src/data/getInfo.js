@@ -7,10 +7,7 @@ class GetInfo {
         town}&days=3&aqi=yes&alerts=yes`,
     )
       .then(async (res) => {
-        if (res.status === 400) {
-          await new ErrorHandler().pageError(town);
-        } else return res.json();
-        return 0;
+        return res.json();
       })
       .catch((err) => {
         throw err;

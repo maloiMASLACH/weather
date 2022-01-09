@@ -12,10 +12,10 @@ class SettingsPage extends PageTemplate {
     const container = document.createElement('div');
     container.className = 'dayPartSett';
     const pic = document.createElement('img');
-    pic.src = `./light/${await new LocalStorage().get(storageConstants.dayPart)}/sunny.png`;
+    pic.src = `./light/${await new LocalStorage().get(storageConstants.dayPart) || 'day'}/sunny.png`;
     const dayPart = document.createElement('p');
     dayPart.className = 'dayPart';
-    dayPart.textContent = await new LocalStorage().get(storageConstants.dayPart);
+    dayPart.textContent = await new LocalStorage().get(storageConstants.dayPart) || 'day';
     container.append(pic, dayPart);
     return container;
   }
@@ -92,17 +92,14 @@ class SettingsPage extends PageTemplate {
     text.textContent = 'Choose theme';
     const demo = document.createElement('div');
     demo.className = 'demo';
-    if (await new LocalStorage().get(storageConstants.theme)
-    && await new LocalStorage().get(storageConstants.dayPart)) {
-      demo.style.background = themes[await new LocalStorage().get(storageConstants.theme)][
-        await new LocalStorage().get(storageConstants.dayPart)];
-    }
+    demo.style.background = themes[await new LocalStorage().get(storageConstants.theme) || 'classic'][
+      await new LocalStorage().get(storageConstants.dayPart) || 'day'];
     const container = document.createElement('div');
     container.className = 'colorContainer';
     Object.keys(themes).forEach(async (theme) => {
       const colorTemp = document.createElement('div');
       colorTemp.className = 'colorTemp';
-      colorTemp.style.background = themes[theme][await new LocalStorage().get(storageConstants.dayPart)];
+      colorTemp.style.background = themes[theme][await new LocalStorage().get(storageConstants.dayPart) || 'day'];
       container.append(colorTemp);
     });
     demo.onclick = () => {
@@ -112,11 +109,11 @@ class SettingsPage extends PageTemplate {
         container.children[i].onclick = async () => {
           await new LocalStorage().store(storageConstants.theme, Object.keys(themes)[i]);
           document.body.children[0].style.background = themes[Object.keys(themes)[i]][
-            await new LocalStorage().get(storageConstants.dayPart)];
+            await new LocalStorage().get(storageConstants.dayPart) || 'day'];
           document.body.style.background = themes[Object.keys(themes)[i]][
-            await new LocalStorage().get(storageConstants.dayPart)];
+            await new LocalStorage().get(storageConstants.dayPart) || 'day'];
           demo.style.background = themes[Object.keys(themes)[i]][
-            await new LocalStorage().get(storageConstants.dayPart)];
+            await new LocalStorage().get(storageConstants.dayPart) || 'day'];
           container.style.display = 'none';
           demo.style.display = 'block';
         };

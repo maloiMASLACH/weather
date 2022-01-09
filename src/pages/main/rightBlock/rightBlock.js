@@ -2,6 +2,7 @@ import PageRender from '../../../templates/pageRender';
 import GetInfo from '../../../data/getInfo';
 import themes from '../../../data/themes';
 import LocalStorage, { storageConstants } from '../../../data/localStorage';
+import ErrorHandler from '../../../errorsHandler/errorHandler';
 
 export default class RightBlock {
   async useChanges(value) {
@@ -11,15 +12,19 @@ export default class RightBlock {
         await new LocalStorage().get(storageConstants.town) || 'Minsk',
       );
       await new LocalStorage().store(storageConstants.town, value);
+
+      await new PageRender().renderNewPAge('Home');
+
       const favorites = await new LocalStorage().get(storageConstants.favorites);
       if (!favorites
       || favorites.split(',').indexOf(value) === -1) {
         await new LocalStorage().store(storageConstants.favorites, [
           await new LocalStorage().get(storageConstants.favorites), value]);
       }
-      await new PageRender().renderNewPAge('Home');
     } catch (err) {
-      window.location.hash = '#Err';
+      await new LocalStorage().store(storageConstants.town, await new LocalStorage().get(storageConstants.townInput));
+      await new PageRender().renderNewPAge('Home');
+      await new ErrorHandler().contentError('Bad request');
     }
   }
 

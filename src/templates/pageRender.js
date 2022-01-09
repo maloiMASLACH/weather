@@ -13,10 +13,13 @@ class PageRender {
       currentPage.remove();
     }
     let page = null;
-    const info = await new GetInfo().showAllTownInfo(
-      await new LocalStorage().get(storageConstants.town) || 'Minsk',
-    );
-    await new ThemeManager().checkTheme(info);
+    let info = null;
+    if (pageId === 'Home') {
+      info = await new GetInfo().showAllTownInfo(
+        await new LocalStorage().get(storageConstants.town) || 'Minsk',
+      );
+      await new ThemeManager().checkTheme(info);
+    }
 
     try {
       page = new PagesIds[pageId](info);
